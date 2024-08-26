@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export const HomePage = () => {
   const [restaurants, setRestaurants] = useState<any[]>([]);
