@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from "react-router-dom";
-import { Logo } from "../components/LogoLink";
+import { LogoLink } from "../components/LogoLink";
 import { RestaurantPill } from "../components/RestaurantPill";
 import { NotificationsButton } from "../components/NotificationsButton";
 import { InviteUserButton } from "../components/InviteUserButton";
@@ -15,7 +15,7 @@ export const AppLayout = () => {
     <>
       <header className="flex items-center justify-between mb-4 h-10">
         <div className="flex items-center gap-2 sm:gap-4">
-          <Logo />
+          <LogoLink />
           {restaurant && <RestaurantPill />}
         </div>
         <div className="flex items-center gap-2 sm:gap-3">

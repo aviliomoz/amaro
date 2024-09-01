@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import { Logo } from "../components/LogoLink";
+import { LogoLink } from "../components/LogoLink";
 
 export const LandingPage = () => {
   return (
     <>
       <header className="flex justify-between items-center mt-4">
-        <Logo />
+        <LogoLink />
         <ul className="flex items-center gap-10 text-sm font-medium">
           <Link to={"#"}>Producto</Link>
           <Link to={"#"}>Documentación</Link>
