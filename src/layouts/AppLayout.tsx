@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from "react-router-dom";
-import { Logo } from "../components/Logo";
+import { Logo } from "../components/LogoLink";
 import { RestaurantPill } from "../components/RestaurantPill";
 import { NotificationsButton } from "../components/NotificationsButton";
 import { InviteUserButton } from "../components/InviteUserButton";
