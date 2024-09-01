@@ -4,8 +4,4 @@ type User = {
   email: string;
 };
 
-type AuthResponseType = {
-  user?: User;
-  error?: string;
-  message?: string;
-};
+

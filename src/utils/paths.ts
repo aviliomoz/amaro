@@ -1,120 +1,132 @@
 import {
-  Blend,
-  Blocks,
+  ArrowLeftRight,
+  Beef,
   BookMarked,
-  Calculator,
-  Carrot,
-  CreditCard,
+  ChefHat,
+  CookingPot,
+  CopyCheck,
   Grid2X2,
+  Layers2,
+  Layers3,
+  LayoutList,
+  ListOrdered,
+  ListTodo,
   LucideIcon,
-  Salad,
   Settings,
-  Store,
   Users,
+  Warehouse,
 } from "lucide-react";
 
 type Path = {
-  url: string;
   name: string;
   icon: LucideIcon;
+  url: string;
 };
 
-export type PathGroup = {
+type PathGroup = {
   title: string;
   paths: Path[];
 };
 
-export const getPaths = (restaurant_id?: string): PathGroup[] => {
-  if (restaurant_id)
-    return [
+export const PATHS: PathGroup[] = [
+  {
+    title: "ITEMS",
+    paths: [
       {
-        title: "MENU",
-        paths: [
-          {
-            name: "Home",
-            url: `/restaurants/${restaurant_id}`,
-            icon: Store,
-          },
-          {
-            name: "Supplies",
-            url: `/restaurants/${restaurant_id}/supplies`,
-            icon: Carrot,
-          },
-          {
-            name: "Products",
-            url: `/restaurants/${restaurant_id}/products`,
-            icon: Salad,
-          },
-          {
-            name: "Subproducts",
-            url: `/restaurants/${restaurant_id}/subproducts`,
-            icon: Blocks,
-          },
-          {
-            name: "Combos",
-            url: `/restaurants/${restaurant_id}/combos`,
-            icon: Blend,
-          },
-        ],
+        name: "Insumos",
+        icon: Beef,
+        url: "/restaurant/items/supplies",
       },
       {
-        title: "TOOLS",
-        paths: [
-          {
-            name: "Matrix",
-            url: `/restaurants/${restaurant_id}/tools/matrix`,
-            icon: Grid2X2,
-          },
-          {
-            name: "Calculator",
-            url: `/restaurants/${restaurant_id}/tools/calculator`,
-            icon: Calculator,
-          },
-          {
-            name: "Recipe book",
-            url: `/restaurants/${restaurant_id}/tools/recipe-book`,
-            icon: BookMarked,
-          },
-        ],
+        name: "Subproductos",
+        icon: CookingPot,
+        url: "/restaurant/items/subproducts",
       },
       {
-        title: "OPTIONS",
-        paths: [
-          {
-            name: "Team",
-            url: `/restaurants/${restaurant_id}/team`,
-            icon: Users,
-          },
-          {
-            name: "Payments",
-            url: `/restaurants/${restaurant_id}/payments`,
-            icon: CreditCard,
-          },
-          {
-            name: "Settings",
-            url: `/restaurants/${restaurant_id}/settings/restaurant`,
-            icon: Settings,
-          },
-        ],
+        name: "Productos",
+        icon: Layers2,
+        url: "/restaurant/items/products",
       },
-    ];
-
-  return [
-    {
-      title: "MENU",
-      paths: [
-        { name: "Restaurants", url: "/home", icon: Store },
-      ],
-    },
-    {
-      title: "OPTIONS",
-      paths: [
-        {
-          name: "Settings",
-          url: `/settings/user`,
-          icon: Settings,
-        },
-      ],
-    },
-  ];
-};
+      {
+        name: "Combos",
+        icon: Layers3,
+        url: "/restaurant/items/combos",
+      },
+    ],
+  },
+  {
+    title: "CONTROLES",
+    paths: [
+      {
+        name: "Requerimientos",
+        icon: ListTodo,
+        url: "/restaurant/controls/requirements",
+      },
+      {
+        name: "Producciones",
+        icon: LayoutList,
+        url: "/restaurant/controls/productions",
+      },
+      {
+        name: "Conteos",
+        icon: ListOrdered,
+        url: "/restaurant/controls/counts",
+      },
+    ],
+  },
+  {
+    title: "HERRAMIENTAS",
+    paths: [
+      {
+        name: "Conversor",
+        icon: ArrowLeftRight,
+        url: "/restaurant/tools/converter",
+      },
+      {
+        name: "Libro recetario",
+        icon: BookMarked,
+        url: "/restaurant/tools/book",
+      },
+    ],
+  },
+  {
+    title: "ANÁLISIS",
+    paths: [
+      {
+        name: "Matriz BCG",
+        icon: Grid2X2,
+        url: "/restaurant/analytics/matrix",
+      },
+    ],
+  },
+  {
+    title: "AJUSTES",
+    paths: [
+      {
+        name: "General",
+        icon: Settings,
+        url: "/restaurant/settings/general",
+      },
+      {
+        name: "Equipo",
+        icon: Users,
+        url: "/restaurant/settings/team",
+      },
+      {
+        name: "Categorias",
+        icon: CopyCheck,
+        url: "/restaurant/settings/categories",
+      },
+      {
+        name: "Áreas",
+        icon: ChefHat,
+        url: "/restaurant/settings/areas",
+      },
+      {
+        name: "Almacenes",
+        icon: Warehouse,
+        url: "/restaurant/settings/warehouses",
+      },
+    ],
+  },
+];
