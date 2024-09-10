@@ -4,7 +4,7 @@ import { RestaurantPill } from "../components/RestaurantPill";
 import { NotificationsButton } from "../components/NotificationsButton";
 import { InviteUserButton } from "../components/InviteUserButton";
 import { UserPill } from "../components/UserPill";
-import { MobileMenuButton } from "../components/MobileMenuButton";
+import { MobileMenu } from "../components/MobileMenu";
 import { Navigation } from "../components/Navigation";
 
 export const AppLayout = () => {
@@ -13,23 +13,29 @@ export const AppLayout = () => {
 
   return (
     <>
-      <header className="flex items-center justify-between mb-4 h-10 fixed px-4 pt-6 left-0 top-0 w-full bg-slate-300 z-50">
+      <header className="flex items-center justify-between h-16 fixed px-4 left-0 top-0 w-full z-20">
         <div className="flex items-center gap-2 sm:gap-4">
-          <LogoLink />
+          {restaurant && <MobileMenu />}
+          <LogoLink showTitle={restaurant} />
           {restaurant && <RestaurantPill />}
         </div>
         <div className="flex items-center gap-2 sm:gap-3">
           {restaurant && <InviteUserButton />}
           <NotificationsButton />
           <UserPill />
-          <MobileMenuButton />
         </div>
       </header>
-      <div className="flex w-full gap-2 mb-4 relative">
-        {restaurant && <Navigation />}
+      <div className="flex w-full relative ">
+        {restaurant && (
+          <aside
+            className={`custom-scroll fixed top-16 left-0 w-56 p-4 h-[calc(100vh-64px)] overflow-y-scroll bg-white hidden sm:block`}
+          >
+            <Navigation />
+          </aside>
+        )}
         <main
-          className={`p-4 w-full min-h-[calc(100vh-88px)] h-[3000px] sm:ml-56 ${
-            restaurant ? "col-span-10" : "col-span-full"
+          className={`p-4 w-full min-h-[calc(100vh-64px)] mt-16 bg-yellow-100 ${
+            restaurant && "sm:ml-56"
           }`}
         >
           <Outlet />

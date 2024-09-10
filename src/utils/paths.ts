@@ -6,7 +6,6 @@ import {
   CookingPot,
   CopyCheck,
   Grid2X2,
-  Layers2,
   Layers3,
   LayoutList,
   ListOrdered,

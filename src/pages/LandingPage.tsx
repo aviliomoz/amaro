@@ -4,7 +4,7 @@ import { LogoLink } from "../components/LogoLink";
 export const LandingPage = () => {
   return (
     <>
-      <header className="flex justify-between items-center h-10 px-4">
+      <header className="flex justify-between items-center h-20 px-12">
         <LogoLink />
         <ul className="flex items-center gap-10 text-sm font-medium">
           <Link to={"#"}>Producto</Link>

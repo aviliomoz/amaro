@@ -11,7 +11,7 @@ import { InDevelopment } from "./components/InDevelopment";
 
 function App() {
   return (
-    <div className="p-4 max-w-screen-2xl mx-auto relative">
+    <div className="max-w-screen-2xl min-h-screen mx-auto relative">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
