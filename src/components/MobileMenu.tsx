@@ -12,10 +12,10 @@ export const MobileMenu = () => {
   }, [location.pathname]);
 
   return (
-    <div className="relative">
+    <div className="relative sm:hidden">
       <button
         onClick={() => setShow(!show)}
-        className="sm:hidden size-9 border flex justify-center items-center rounded-full hover:bg-stone-50"
+        className="size-9 border flex justify-center items-center rounded-full hover:bg-stone-100"
       >
         {show ? <X className="size-4" /> : <Menu className="size-4" />}
       </button>

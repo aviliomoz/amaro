@@ -1,3 +1,9 @@
+import { PageHeader } from "../components/ui/PageHeader";
+
 export const SettingsPage = () => {
-  return <>Página de ajustes</>;
+  return (
+    <>
+      <PageHeader title="Ajustes generales" />
+    </>
+  );
 };
