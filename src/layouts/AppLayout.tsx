@@ -13,7 +13,7 @@ export const AppLayout = () => {
 
   return (
     <>
-      <header className="flex items-center justify-between mb-4 h-10">
+      <header className="flex items-center justify-between mb-4 h-10 fixed px-4 pt-6 left-0 top-0 w-full bg-slate-300 z-50">
         <div className="flex items-center gap-2 sm:gap-4">
           <LogoLink />
           {restaurant && <RestaurantPill />}
@@ -25,10 +25,10 @@ export const AppLayout = () => {
           <MobileMenuButton />
         </div>
       </header>
-      <div className="flex w-full gap-3 mb-4">
+      <div className="flex w-full gap-2 mb-4 relative">
         {restaurant && <Navigation />}
         <main
-          className={`p-4 bg-stone-50 rounded-md w-full shadow-sm border h-fit min-h-[calc(100vh-88px)] ${
+          className={`p-4 w-full min-h-[calc(100vh-88px)] h-[3000px] sm:ml-56 ${
             restaurant ? "col-span-10" : "col-span-full"
           }`}
         >

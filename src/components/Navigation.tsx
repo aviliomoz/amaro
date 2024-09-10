@@ -3,7 +3,7 @@ import { PATHS } from "../utils/paths";
 
 export const Navigation = () => {
   return (
-    <nav className="h-fit border shadow-sm rounded-md p-4 bg-white w-56 hidden sm:block">
+    <nav className="max-h-[calc(100vh-88px)] h-fit bg-white w-56 hidden sm:block p-2 overflow-y-scroll fixed top-16">
       <ul className="flex flex-col gap-4">
         {PATHS.map((group) => (
           <li key={group.title}>

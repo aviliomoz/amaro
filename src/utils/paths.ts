@@ -12,6 +12,8 @@ import {
   ListOrdered,
   ListTodo,
   LucideIcon,
+  Salad,
+  // Printer,
   Settings,
   Users,
   Warehouse,
@@ -44,7 +46,7 @@ export const PATHS: PathGroup[] = [
       },
       {
         name: "Productos",
-        icon: Layers2,
+        icon: Salad,
         url: "/restaurant/items/products",
       },
       {
@@ -54,6 +56,46 @@ export const PATHS: PathGroup[] = [
       },
     ],
   },
+  // {
+  //   title: "OPERACIONES",
+  //   paths: [
+  //     {
+  //       name: "Caja",
+  //       icon: ListOrdered,
+  //       url: "/restaurant/controls/counts",
+  //     },
+  //     {
+  //       name: "Ventas",
+  //       icon: ListTodo,
+  //       url: "/restaurant/controls/requirements",
+  //     },
+  //     {
+  //       name: "Clientes",
+  //       icon: LayoutList,
+  //       url: "/restaurant/controls/productions",
+  //     },
+  //   ],
+  // },
+  // {
+  //   title: "LOGÍSTICA",
+  //   paths: [
+  //     {
+  //       name: "Compras",
+  //       icon: ListTodo,
+  //       url: "/restaurant/controls/requirements",
+  //     },
+  //     {
+  //       name: "Proveedores",
+  //       icon: LayoutList,
+  //       url: "/restaurant/controls/productions",
+  //     },
+  //     {
+  //       name: "Inventarios",
+  //       icon: ListOrdered,
+  //       url: "/restaurant/controls/counts",
+  //     },
+  //   ],
+  // },
   {
     title: "CONTROLES",
     paths: [
@@ -78,6 +120,11 @@ export const PATHS: PathGroup[] = [
     title: "HERRAMIENTAS",
     paths: [
       {
+        name: "Matriz IM",
+        icon: Grid2X2,
+        url: "/restaurant/tools/matrix",
+      },
+      {
         name: "Conversor",
         icon: ArrowLeftRight,
         url: "/restaurant/tools/converter",
@@ -86,16 +133,6 @@ export const PATHS: PathGroup[] = [
         name: "Libro recetario",
         icon: BookMarked,
         url: "/restaurant/tools/book",
-      },
-    ],
-  },
-  {
-    title: "ANÁLISIS",
-    paths: [
-      {
-        name: "Matriz BCG",
-        icon: Grid2X2,
-        url: "/restaurant/analytics/matrix",
       },
     ],
   },
@@ -127,6 +164,11 @@ export const PATHS: PathGroup[] = [
         icon: Warehouse,
         url: "/restaurant/settings/warehouses",
       },
+      // {
+      //   name: "Impresoras",
+      //   icon: Printer,
+      //   url: "/restaurant/settings/warehouses",
+      // },
     ],
   },
 ];

@@ -8,3 +8,29 @@
   color: #0c0a09;
   font-family: "Inter";
 }
+
+nav {
+  --sb-track-color: #f5f5f400;
+  --sb-thumb-color: #e7e5e4;
+  --sb-size: 6px;
+}
+
+nav::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+nav::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 3px;
+}
+
+nav::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 3px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  nav {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
+}

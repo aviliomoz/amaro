@@ -11,7 +11,7 @@ import { InDevelopment } from "./components/InDevelopment";
 
 function App() {
   return (
-    <div className="px-4 pt-4 max-w-screen-xl mx-auto">
+    <div className="p-4 max-w-screen-2xl mx-auto relative">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
@@ -35,11 +35,9 @@ function App() {
                 <Route path="counts" element={<InDevelopment />} />
               </Route>
               <Route path="tools" element={<Outlet />}>
+                <Route path="matrix" element={<InDevelopment />} />
                 <Route path="converter" element={<InDevelopment />} />
                 <Route path="book" element={<InDevelopment />} />
-              </Route>
-              <Route path="analytics" element={<Outlet />}>
-                <Route path="matrix" element={<InDevelopment />} />
               </Route>
               <Route path="settings" element={<Outlet />}>
                 <Route path="general" element={<InDevelopment />} />
