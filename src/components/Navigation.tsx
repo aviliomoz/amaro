@@ -15,9 +15,9 @@ export const Navigation = () => {
                 <Link
                   key={path.name}
                   to={path.url}
-                  className={`flex items-center gap-3 text-sm px-2 py-1 rounded-md hover:bg-stone-50 border ${
+                  className={`flex items-center gap-3 text-sm px-2 py-1 rounded-md hover:bg-stone-100 border ${
                     location.pathname.includes(path.url)
-                      ? "bg-stone-50 font-medium border-stone-200 shadow-sm"
+                      ? "bg-stone-100 font-medium border-stone-200 shadow-sm"
                       : "border-transparent"
                   }`}
                 >
