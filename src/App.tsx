@@ -43,7 +43,6 @@ function App() {
                 <Route path="counts" element={<InDevelopment />} />
               </Route>
               <Route path="tools" element={<Outlet />}>
-                <Route path="matrix" element={<InDevelopment />} />
                 <Route path="converter" element={<InDevelopment />} />
                 <Route path="book" element={<InDevelopment />} />
               </Route>

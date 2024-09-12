@@ -4,18 +4,16 @@ import {
   BookMarked,
   ChefHat,
   CookingPot,
-  CopyCheck,
-  Grid2X2,
   Layers3,
   LayoutList,
   ListOrdered,
   ListTodo,
   LucideIcon,
   Salad,
-  // Printer,
   Settings,
   Users,
   Warehouse,
+  Tags,
 } from "lucide-react";
 
 type Path = {
@@ -55,46 +53,6 @@ export const PATHS: PathGroup[] = [
       },
     ],
   },
-  // {
-  //   title: "OPERACIONES",
-  //   paths: [
-  //     {
-  //       name: "Caja",
-  //       icon: ListOrdered,
-  //       url: "/restaurant/controls/counts",
-  //     },
-  //     {
-  //       name: "Ventas",
-  //       icon: ListTodo,
-  //       url: "/restaurant/controls/requirements",
-  //     },
-  //     {
-  //       name: "Clientes",
-  //       icon: LayoutList,
-  //       url: "/restaurant/controls/productions",
-  //     },
-  //   ],
-  // },
-  // {
-  //   title: "LOGÍSTICA",
-  //   paths: [
-  //     {
-  //       name: "Compras",
-  //       icon: ListTodo,
-  //       url: "/restaurant/controls/requirements",
-  //     },
-  //     {
-  //       name: "Proveedores",
-  //       icon: LayoutList,
-  //       url: "/restaurant/controls/productions",
-  //     },
-  //     {
-  //       name: "Inventarios",
-  //       icon: ListOrdered,
-  //       url: "/restaurant/controls/counts",
-  //     },
-  //   ],
-  // },
   {
     title: "CONTROLES",
     paths: [
@@ -118,11 +76,6 @@ export const PATHS: PathGroup[] = [
   {
     title: "HERRAMIENTAS",
     paths: [
-      {
-        name: "Matriz IM",
-        icon: Grid2X2,
-        url: "/restaurant/tools/matrix",
-      },
       {
         name: "Conversor",
         icon: ArrowLeftRight,
@@ -150,7 +103,7 @@ export const PATHS: PathGroup[] = [
       },
       {
         name: "Categorias",
-        icon: CopyCheck,
+        icon: Tags,
         url: "/restaurant/settings/categories",
       },
       {
@@ -163,11 +116,6 @@ export const PATHS: PathGroup[] = [
         icon: Warehouse,
         url: "/restaurant/settings/warehouses",
       },
-      // {
-      //   name: "Impresoras",
-      //   icon: Printer,
-      //   url: "/restaurant/settings/warehouses",
-      // },
     ],
   },
 ];
