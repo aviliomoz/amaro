@@ -11,7 +11,7 @@ export const StatusFilter = () => {
       <select
         value={value || "active"}
         onChange={(e) => setValue(e.target.value)}
-        className={`outline-none cursor-pointer`}
+        className={`outline-none cursor-pointer border-none bg-transparent`}
       >
         <option value={"all"}>Todo</option>
         <option value={"active"}>Activo</option>

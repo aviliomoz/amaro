@@ -13,7 +13,7 @@ export const AppLayout = () => {
 
   return (
     <>
-      <header className="flex items-center justify-between h-16 fixed px-8 left-0 top-0 w-full z-20 bg-white">
+      <header className="flex items-center justify-between h-16 fixed sm:px-8 px-4 left-0 top-0 w-full z-20 bg-white">
         <div className="flex items-center gap-2 sm:gap-4">
           {restaurant && <MobileMenu />}
           <LogoLink showTitle={restaurant} />
@@ -34,7 +34,7 @@ export const AppLayout = () => {
           </aside>
         )}
         <main
-          className={`p-4 pr-8 w-full min-h-[calc(100vh-64px)] mt-16 bg-white ${
+          className={`p-4 sm:pr-8 w-full min-h-[calc(100vh-64px)] mt-16 bg-white ${
             restaurant && "sm:ml-56"
           }`}
         >

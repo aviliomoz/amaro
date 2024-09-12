@@ -12,7 +12,7 @@ export const useFilter = (name: string, initialValue?: string) => {
     params.delete("page");
 
     if (value) {
-      params.set(name, value);
+      params.set(name, value.toLowerCase());
     } else {
       params.delete(name);
     }

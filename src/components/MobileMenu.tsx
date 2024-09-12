@@ -20,7 +20,7 @@ export const MobileMenu = () => {
         {show ? <X className="size-4" /> : <Menu className="size-4" />}
       </button>
       {show && (
-        <div className="custom-scroll absolute top-full mt-7 border rounded-md overflow-y-scroll p-4 bg-white h-fit max-h-[calc(100vh-150px)]">
+        <div className="custom-scroll absolute top-full mt-4 border rounded-md overflow-y-scroll p-4 bg-white h-fit max-h-[calc(100vh-150px)]">
           <Navigation />
         </div>
       )}
