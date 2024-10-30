@@ -2,18 +2,25 @@ import {
   ArrowLeftRight,
   Beef,
   BookMarked,
-  ChefHat,
   CookingPot,
   Layers3,
   LayoutList,
-  ListOrdered,
-  ListTodo,
   LucideIcon,
   Salad,
   Settings,
   Users,
-  Warehouse,
-  Tags,
+  NotebookText,
+  Store,
+  ClipboardList,
+  Truck,
+  ShoppingBag,
+  BookUser,
+  HandPlatter,
+  Package,
+  Printer,
+  LayoutDashboard,
+  MonitorCheck,
+  MonitorSmartphone,
 } from "lucide-react";
 
 type Path = {
@@ -23,53 +30,68 @@ type Path = {
 };
 
 type PathGroup = {
-  title: string;
+  title?: string;
   paths: Path[];
 };
 
 export const PATHS: PathGroup[] = [
+  {
+    title: "MENU",
+    paths: [
+      {
+        name: "Dashboard",
+        icon: LayoutDashboard,
+        url: "/dashboard",
+      },
+      {
+        name: "Caja",
+        icon: MonitorSmartphone,
+        url: "/register",
+      },
+      {
+        name: "Ventas",
+        icon: HandPlatter,
+        url: "/sales",
+      },
+      {
+        name: "Monitor",
+        icon: MonitorCheck,
+        url: "/monitor",
+      },
+      {
+        name: "Clientes",
+        icon: BookUser,
+        url: "/customers",
+      },
+    ],
+  },
   {
     title: "ITEMS",
     paths: [
       {
         name: "Insumos",
         icon: Beef,
-        url: "/restaurant/items/supplies",
+        url: "/supplies",
       },
       {
         name: "Subproductos",
         icon: CookingPot,
-        url: "/restaurant/items/subproducts",
+        url: "/subproducts",
       },
       {
         name: "Productos",
         icon: Salad,
-        url: "/restaurant/items/products",
+        url: "/products",
       },
       {
         name: "Combos",
         icon: Layers3,
-        url: "/restaurant/items/combos",
-      },
-    ],
-  },
-  {
-    title: "CONTROLES",
-    paths: [
-      {
-        name: "Requerimientos",
-        icon: ListTodo,
-        url: "/restaurant/controls/requirements",
+        url: "/combos",
       },
       {
-        name: "Producciones",
-        icon: LayoutList,
-        url: "/restaurant/controls/productions",
-      },
-      {
-        name: "Conteos",
-        icon: ListOrdered,
-        url: "/restaurant/controls/counts",
+        name: "Paquetes",
+        icon: Package,
+        url: "/packs",
       },
     ],
   },
@@ -79,42 +101,68 @@ export const PATHS: PathGroup[] = [
       {
         name: "Conversor",
         icon: ArrowLeftRight,
-        url: "/restaurant/tools/converter",
+        url: "/converter",
       },
       {
         name: "Libro recetario",
         icon: BookMarked,
-        url: "/restaurant/tools/book",
+        url: "/book",
       },
     ],
   },
+  {
+    title: "LOGÍSTICA",
+    paths: [
+      {
+        name: "Compras",
+        icon: ShoppingBag,
+        url: "/purchases",
+      },
+      {
+        name: "Proveedores",
+        icon: Truck,
+        url: "/suppliers",
+      },
+      {
+        name: "Inventarios",
+        icon: ClipboardList,
+        url: "/inventories",
+      },
+      {
+        name: "Requerimientos",
+        icon: NotebookText,
+        url: "/requirements",
+      },
+      {
+        name: "Producciones",
+        icon: LayoutList,
+        url: "/productions",
+      },
+    ],
+  },
+
   {
     title: "AJUSTES",
     paths: [
       {
         name: "General",
         icon: Settings,
-        url: "/restaurant/settings/general",
+        url: "/settings",
       },
       {
-        name: "Equipo",
+        name: "Locales",
+        icon: Store,
+        url: "/branches",
+      },
+      {
+        name: "Usuarios",
         icon: Users,
-        url: "/restaurant/settings/team",
+        url: "/users",
       },
       {
-        name: "Categorias",
-        icon: Tags,
-        url: "/restaurant/settings/categories",
-      },
-      {
-        name: "Áreas",
-        icon: ChefHat,
-        url: "/restaurant/settings/areas",
-      },
-      {
-        name: "Almacenes",
-        icon: Warehouse,
-        url: "/restaurant/settings/warehouses",
+        name: "Impresoras",
+        icon: Printer,
+        url: "/printers",
       },
     ],
   },

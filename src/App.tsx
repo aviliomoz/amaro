@@ -1,4 +1,4 @@
-import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
 // Layouts
@@ -13,9 +13,6 @@ import { SubproductsPage } from "./pages/SubproductsPage";
 import { ProductsPage } from "./pages/ProductsPage";
 import { CombosPage } from "./pages/CombosPage";
 import { SettingsPage } from "./pages/SettingsPage";
-import { CategoriesPage } from "./pages/CategoriesPage";
-import { AreasPage } from "./pages/AreasPage";
-import { WarehousesPage } from "./pages/WarehousesPage";
 
 function App() {
   return (
@@ -28,33 +25,35 @@ function App() {
             <Route path="signup" element={<InDevelopment />} />
           </Route>
           <Route element={<AppLayout />}>
-            <Route path="/dashboard" element={<InDevelopment />} />
+            {/* Start */}
+            <Route path="/brands" element={<InDevelopment />} />
             <Route path="/user" element={<InDevelopment />} />
-            <Route path="/restaurant">
-              <Route path="items" element={<Outlet />}>
-                <Route path="supplies" element={<SuppliesPage />} />
-                <Route path="subproducts" element={<SubproductsPage />} />
-                <Route path="products" element={<ProductsPage />} />
-                <Route path="combos" element={<CombosPage />} />
-              </Route>
-              <Route path="controls" element={<Outlet />}>
-                <Route path="requirements" element={<InDevelopment />} />
-                <Route path="productions" element={<InDevelopment />} />
-                <Route path="counts" element={<InDevelopment />} />
-              </Route>
-              <Route path="tools" element={<Outlet />}>
-                <Route path="converter" element={<InDevelopment />} />
-                <Route path="book" element={<InDevelopment />} />
-              </Route>
-              <Route path="settings" element={<Outlet />}>
-                <Route path="general" element={<SettingsPage />} />
-                <Route path="team" element={<InDevelopment />} />
-                <Route path="categories" element={<CategoriesPage />} />
-                <Route path="areas" element={<AreasPage />} />
-                <Route path="warehouses" element={<WarehousesPage />} />
-              </Route>
-              <Route path="subscription" element={<InDevelopment />} />
-            </Route>
+            {/* Menu */}
+            <Route path="/dashboard" element={<InDevelopment />} />
+            <Route path="/register" element={<InDevelopment />} />
+            <Route path="/sales" element={<InDevelopment />} />
+            <Route path="/monitor" element={<InDevelopment />} />
+            <Route path="/customers" element={<InDevelopment />} />
+            {/* Items */}
+            <Route path="/supplies" element={<SuppliesPage />} />
+            <Route path="/subproducts" element={<SubproductsPage />} />
+            <Route path="/products" element={<ProductsPage />} />
+            <Route path="/combos" element={<CombosPage />} />
+            <Route path="/packs" element={<InDevelopment />} />
+            {/* Logistics */}
+            <Route path="/purchases" element={<InDevelopment />} />
+            <Route path="/suppliers" element={<InDevelopment />} />
+            <Route path="/inventories" element={<InDevelopment />} />
+            <Route path="/requirements" element={<InDevelopment />} />
+            <Route path="/productions" element={<InDevelopment />} />
+            {/* Tools */}
+            <Route path="/converter" element={<InDevelopment />} />
+            <Route path="/book" element={<InDevelopment />} />
+            {/* Settings */}
+            <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/users" element={<InDevelopment />} />
+            <Route path="/branches" element={<InDevelopment />} />
+            <Route path="/printers" element={<InDevelopment />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -7,7 +7,7 @@ import { FilterWidget } from "../components/filters/FilterWidget";
 export const AreasPage = () => {
   return (
     <>
-      <PageHeader title="Áreas de producción">
+      <PageHeader title="Áreas">
         <FilterWidget>
           <StatusFilter />
         </FilterWidget>
