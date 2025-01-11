@@ -1,26 +1,23 @@
 import {
   ArrowLeftRight,
-  Beef,
   BookMarked,
-  CookingPot,
   Layers3,
   LayoutList,
   LucideIcon,
-  Salad,
   Settings,
   Users,
   NotebookText,
-  Store,
   ClipboardList,
   Truck,
   ShoppingBag,
   BookUser,
   HandPlatter,
-  Package,
   Printer,
   LayoutDashboard,
-  MonitorCheck,
-  MonitorSmartphone,
+  Tags,
+  Bookmark,
+  ListOrdered,
+  MessageSquareText,
 } from "lucide-react";
 
 type Path = {
@@ -36,7 +33,6 @@ type PathGroup = {
 
 export const PATHS: PathGroup[] = [
   {
-    title: "MENU",
     paths: [
       {
         name: "Dashboard",
@@ -44,9 +40,9 @@ export const PATHS: PathGroup[] = [
         url: "/dashboard",
       },
       {
-        name: "Caja",
-        icon: MonitorSmartphone,
-        url: "/register",
+        name: "Ítems",
+        icon: Layers3,
+        url: "/items",
       },
       {
         name: "Ventas",
@@ -54,44 +50,9 @@ export const PATHS: PathGroup[] = [
         url: "/sales",
       },
       {
-        name: "Monitor",
-        icon: MonitorCheck,
-        url: "/monitor",
-      },
-      {
         name: "Clientes",
         icon: BookUser,
         url: "/customers",
-      },
-    ],
-  },
-  {
-    title: "ITEMS",
-    paths: [
-      {
-        name: "Insumos",
-        icon: Beef,
-        url: "/supplies",
-      },
-      {
-        name: "Subproductos",
-        icon: CookingPot,
-        url: "/subproducts",
-      },
-      {
-        name: "Productos",
-        icon: Salad,
-        url: "/products",
-      },
-      {
-        name: "Combos",
-        icon: Layers3,
-        url: "/combos",
-      },
-      {
-        name: "Paquetes",
-        icon: Package,
-        url: "/packs",
       },
     ],
   },
@@ -107,6 +68,11 @@ export const PATHS: PathGroup[] = [
         name: "Libro recetario",
         icon: BookMarked,
         url: "/book",
+      },
+      {
+        name: "Encuestas",
+        icon: MessageSquareText,
+        url: "/surveys",
       },
     ],
   },
@@ -138,9 +104,28 @@ export const PATHS: PathGroup[] = [
         icon: LayoutList,
         url: "/productions",
       },
+      {
+        name: "Conteos",
+        icon: ListOrdered,
+        url: "/counts",
+      },
     ],
   },
-
+  {
+    title: "FILTROS",
+    paths: [
+      {
+        name: "Categorias",
+        icon: Tags,
+        url: "/categories"
+      },
+      {
+        name: "Áreas",
+        icon: Bookmark,
+        url: "/areas"
+      }
+    ]
+  },
   {
     title: "AJUSTES",
     paths: [
@@ -148,11 +133,6 @@ export const PATHS: PathGroup[] = [
         name: "General",
         icon: Settings,
         url: "/settings",
-      },
-      {
-        name: "Locales",
-        icon: Store,
-        url: "/branches",
       },
       {
         name: "Usuarios",

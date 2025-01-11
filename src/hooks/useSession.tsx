@@ -10,7 +10,6 @@ const initialSettings: Session = {
   brand: {
     name: "Bonsai",
     id: "asdqwe1",
-    plan: "BASIC",
   },
   branch: {
     name: "Piura centro",

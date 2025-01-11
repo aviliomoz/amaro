@@ -5,24 +5,19 @@ import { Toaster } from "react-hot-toast";
 import { AppLayout } from "./layouts/AppLayout";
 import { AuthLayout } from "./layouts/AuthLayout";
 
-// Pages
-import { LandingPage } from "./pages/LandingPage";
+// Pages 
 import { InDevelopment } from "./components/InDevelopment";
-import { SuppliesPage } from "./pages/SuppliesPage";
-import { SubproductsPage } from "./pages/SubproductsPage";
-import { ProductsPage } from "./pages/ProductsPage";
-import { CombosPage } from "./pages/CombosPage";
-import { SettingsPage } from "./pages/SettingsPage";
+import { LoginForm } from "./components/auth/LoginForm";
 
 function App() {
   return (
     <div className="max-w-screen-2xl min-h-screen mx-auto relative">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/auth" element={<AuthLayout />}>
-            <Route path="login" element={<InDevelopment />} />
-            <Route path="signup" element={<InDevelopment />} />
+          <Route element={<AuthLayout />}>
+            <Route path="/" element={<LoginForm />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/signup" element={<InDevelopment />} />
           </Route>
           <Route element={<AppLayout />}>
             {/* Start */}
@@ -30,29 +25,27 @@ function App() {
             <Route path="/user" element={<InDevelopment />} />
             {/* Menu */}
             <Route path="/dashboard" element={<InDevelopment />} />
-            <Route path="/register" element={<InDevelopment />} />
+            <Route path="/items" element={<InDevelopment />} />
+            {/* Registry */}
             <Route path="/sales" element={<InDevelopment />} />
-            <Route path="/monitor" element={<InDevelopment />} />
-            <Route path="/customers" element={<InDevelopment />} />
-            {/* Items */}
-            <Route path="/supplies" element={<SuppliesPage />} />
-            <Route path="/subproducts" element={<SubproductsPage />} />
-            <Route path="/products" element={<ProductsPage />} />
-            <Route path="/combos" element={<CombosPage />} />
-            <Route path="/packs" element={<InDevelopment />} />
-            {/* Logistics */}
             <Route path="/purchases" element={<InDevelopment />} />
+            <Route path="/customers" element={<InDevelopment />} />
             <Route path="/suppliers" element={<InDevelopment />} />
+            {/* Tools */}
+            <Route path="/converter" element={<InDevelopment />} />
+            <Route path="/surveys" element={<InDevelopment />} />
+            <Route path="/book" element={<InDevelopment />} />
+            {/* Logistics */}
             <Route path="/inventories" element={<InDevelopment />} />
             <Route path="/requirements" element={<InDevelopment />} />
             <Route path="/productions" element={<InDevelopment />} />
-            {/* Tools */}
-            <Route path="/converter" element={<InDevelopment />} />
-            <Route path="/book" element={<InDevelopment />} />
+            <Route path="/counts" element={<InDevelopment />} />
+            {/* Filters */}
+            <Route path="/categories" element={<InDevelopment />} />
+            <Route path="/areas" element={<InDevelopment />} />
             {/* Settings */}
-            <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/settings" element={<InDevelopment />} />
             <Route path="/users" element={<InDevelopment />} />
-            <Route path="/branches" element={<InDevelopment />} />
             <Route path="/printers" element={<InDevelopment />} />
           </Route>
         </Routes>

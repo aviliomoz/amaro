@@ -10,7 +10,7 @@ export const Navigation = () => {
         {PATHS.map((group, index) => (
           <li key={index}>
             {group.title && (
-              <h3 className="text-[11px] font-medium tracking-widest text-stone-500 mb-1">
+              <h3 className="text-[11px] font-medium tracking-widest text-stone-500 mb-1 pl-2 mt-1">
                 {group.title}
               </h3>
             )}
