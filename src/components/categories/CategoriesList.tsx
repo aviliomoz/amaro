@@ -1,5 +1,5 @@
 import { Beef, CookingPot, Layers3, LucideIcon, Salad } from "lucide-react";
-import { Category, ItemType } from "../../types";
+import { Category, ItemType } from "../../utils/types";
 import { KanbanList } from "../ui/KanbanList";
 import { CategoryCard } from "./CategoryCard";
 
@@ -27,7 +27,7 @@ const TYPES: Record<ItemType, { title: string; icon: LucideIcon }> = {
 };
 
 const category: Category = {
-  _id: "asd",
+  id: "asd",
   name: "Prueba",
   status: "active",
 };

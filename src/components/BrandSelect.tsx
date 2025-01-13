@@ -38,7 +38,7 @@ export const BrandSelect = () => {
         <p className="truncate max-w-20 sm:max-w-96 flex items-center gap-2 text-sm">
           {session.brand?.name}
           <span className="text-[9px] font-bold bg-gray-100 rounded-md px-2 py-0.5 tracking-wider">
-            {session.brand?.plan}
+            PRO
           </span>
         </p>{" "}
         <ChevronsUpDown className="size-4" />

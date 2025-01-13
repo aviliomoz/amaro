@@ -61,7 +61,9 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
         }
     }
 
-    const signup = async (name: string, lastname: string, email: string, password: string) => { }
+    const signup = async (name: string, lastname: string, email: string, password: string) => {
+        console.log(name, lastname, email, password)
+    }
 
     return <AuthContext.Provider value={{ token, loading, checking, user, login, signup }}>
         {children}

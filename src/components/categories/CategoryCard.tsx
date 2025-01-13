@@ -1,5 +1,5 @@
 import { Ellipsis } from "lucide-react";
-import { Category, ItemStatus } from "../../types";
+import { Category, ItemStatus } from "../../utils/types";
 
 type Props = {
   category: Category;
