@@ -4,45 +4,41 @@ import { InviteUserButton } from "../components/InviteUserButton";
 import { UserPill } from "../components/UserPill";
 import { MobileMenu } from "../components/MobileMenu";
 import { Navigation } from "../components/Navigation";
-import { BrandSelect } from "../components/BrandSelect";
-import { BranchSelect } from "../components/BranchSelect";
 import { useAuth } from "../contexts/AuthContext";
 import { LoadingScreen } from "../components/ui/LoadingScreen";
-import { useRestaurant } from "../contexts/RestaurantContext";
+import { BranchSelect } from "../components/BranchSelect";
 
 export const AppLayout = () => {
   const location = useLocation()
   const { user, checking } = useAuth()
-  const { brand, branch } = useRestaurant()
 
   if (checking) return <LoadingScreen />
   if (!user && !checking) return <Navigate to="/login" />
-  if (location.pathname !== "/brands" && (!brand || !branch)) return <Navigate to={"/brands"} />
 
   return (
     <>
-      <header className="flex items-center justify-between h-20">
+      <header className="flex items-center justify-between h-20 pr-2">
         <div className="flex items-center gap-2 sm:gap-4">
-          {branch && <MobileMenu />}
-          <LogoLink showTitle={brand ? true : false} />
-          {brand && <BrandSelect />}
-          {branch && <BranchSelect />}
+          {location.pathname !== "/restaurants" && <MobileMenu />}
+          <LogoLink />
+          {location.pathname !== "/restaurants" && <BranchSelect />}
         </div>
         <div className="flex items-center gap-2 sm:gap-3">
-          {brand && <InviteUserButton />}
+          {location.pathname !== "/restaurants" && <InviteUserButton />}
           <UserPill />
         </div>
       </header>
-      <div className="flex justify-between">
-        {branch && user && (
-          <aside className={`w-52 bg-white pr-4 pb-6 h-screen max-h-[calc(100vh-80px)] overflow-y-scroll custom-scroll`}>
+      <div className="flex justify-between h-screen max-h-[calc(100vh-80px)] pb-6">
+        {location.pathname !== "/restaurants" && (
+          <aside className={`w-52 bg-white pr-4 overflow-y-scroll custom-scroll`}>
             <Navigation />
           </aside>
         )}
-        <main className={`w-full h-screen max-h-[calc(100vh-80px)] overflow-y-scroll p-6 custom-scroll`}>
+        <main className={`w-full overflow-y-scroll custom-scroll flex flex-col justify-between pr-2`}>
           <Outlet />
         </main>
       </div>
+
     </>
   );
 };

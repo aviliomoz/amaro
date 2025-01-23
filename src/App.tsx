@@ -8,6 +8,7 @@ import { AuthLayout } from "./layouts/AuthLayout";
 // Pages 
 import { InDevelopment } from "./components/InDevelopment";
 import { LoginForm } from "./components/auth/LoginForm";
+import { RestaurantsPage } from "./pages/RestaurantsPage";
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
           </Route>
           <Route element={<AppLayout />}>
             {/* Start */}
-            <Route path="/brands" element={<InDevelopment />} />
+            <Route path="/restaurants" element={<RestaurantsPage />} />
             <Route path="/user" element={<InDevelopment />} />
             {/* Menu */}
             <Route path="/dashboard" element={<InDevelopment />} />

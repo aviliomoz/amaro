@@ -29,7 +29,6 @@ body {
 .custom-scroll::-webkit-scrollbar-track {
   background: var(--sb-track-color);
   border-radius: 3px;
-  margin: 0 0 10px 0;
 }
 
 .custom-scroll::-webkit-scrollbar-thumb {

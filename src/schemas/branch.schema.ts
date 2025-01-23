@@ -12,3 +12,7 @@ export const BranchSchema = z.object({
 
 export type Branch = z.infer<typeof BranchSchema>
 export type NewBranch = Omit<Branch, "id">
+
+export type BranchWithBrandName = Branch & {
+    brand_name: string
+}

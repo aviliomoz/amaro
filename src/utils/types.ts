@@ -1,4 +1,4 @@
-import { ITEM_STATUSES, ITEM_TYPES } from "./constants";
+import { COMBO_SUBTYPES, ITEM_STATUSES, ITEM_TYPES, PRODUCT_SUBTYPES, SUBPRODUCT_SUBTYPES, SUPPLY_SUBTYPES } from "./constants";
 
 export type User = {
   id: string,
@@ -16,6 +16,11 @@ export type APIResponse<T> = {
 
 export type ItemType = typeof ITEM_TYPES[number]
 export type ItemStatus = typeof ITEM_STATUSES[number]
+
+export type SupplySubtype = typeof SUPPLY_SUBTYPES[number]
+export type SubproductSubtype = typeof SUBPRODUCT_SUBTYPES[number]
+export type ProductSubtype = typeof PRODUCT_SUBTYPES[number]
+export type ComboSubtype = typeof COMBO_SUBTYPES[number]
 
 export type Category = {
   id: string,

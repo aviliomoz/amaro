@@ -23,7 +23,7 @@ export const CategoryCard = ({ category }: Props) => {
           <span
             className={`text-xs font-medium text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-md min-w-max`}
           >
-            {STATUSES[category.status].name}
+            {/* {STATUSES[category.status].name} */}
           </span>
           <span
             className={`text-xs font-medium text-stone-700 bg-stone-100 px-2 py-0.5 rounded-md min-w-max`}
