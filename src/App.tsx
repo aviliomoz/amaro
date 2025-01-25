@@ -9,6 +9,7 @@ import { AuthLayout } from "./layouts/AuthLayout";
 import { InDevelopment } from "./components/InDevelopment";
 import { LoginForm } from "./components/auth/LoginForm";
 import { RestaurantsPage } from "./pages/RestaurantsPage";
+import { ItemsLayout } from "./layouts/ItemsLayout";
 
 function App() {
   return (
@@ -26,7 +27,12 @@ function App() {
             <Route path="/user" element={<InDevelopment />} />
             {/* Menu */}
             <Route path="/dashboard" element={<InDevelopment />} />
-            <Route path="/items" element={<InDevelopment />} />
+            <Route path="/items" element={<ItemsLayout />}>
+              <Route path="products" element={<InDevelopment />} />
+              <Route path="combos" element={<InDevelopment />} />
+              <Route path="supplies" element={<InDevelopment />} />
+              <Route path="subproducts" element={<InDevelopment />} />
+            </Route>
             {/* Registry */}
             <Route path="/sales" element={<InDevelopment />} />
             <Route path="/purchases" element={<InDevelopment />} />

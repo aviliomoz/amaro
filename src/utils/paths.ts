@@ -1,7 +1,6 @@
 import {
   ArrowLeftRight,
   BookMarked,
-  Layers3,
   LayoutList,
   LucideIcon,
   Settings,
@@ -18,6 +17,7 @@ import {
   Bookmark,
   ListOrdered,
   MessageSquareText,
+  Layers2,
 } from "lucide-react";
 
 type Path = {
@@ -41,7 +41,7 @@ export const PATHS: PathGroup[] = [
       },
       {
         name: "Ítems",
-        icon: Layers3,
+        icon: Layers2,
         url: "/items",
       },
       {

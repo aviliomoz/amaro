@@ -1,5 +1,9 @@
 import { Navigate } from "react-router-dom"
 
-export const RedirectPage = () => {
-    return <Navigate to="/login"></Navigate>
+type Props = {
+    path: string
+}
+
+export const RedirectPage = ({ path }: Props) => {
+    return <Navigate to={path}></Navigate>
 }

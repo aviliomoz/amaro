@@ -1,18 +1,18 @@
 import { Ellipsis } from "lucide-react";
-import { Category, ItemStatus } from "../../utils/types";
+import { Category } from "../../utils/types";
 
 type Props = {
   category: Category;
 };
 
-const STATUSES: Record<ItemStatus, { name: string }> = {
-  active: {
-    name: "Activa",
-  },
-  inactive: {
-    name: "Anulada",
-  },
-};
+// const STATUSES: Record<ItemStatus, { name: string }> = {
+//   active: {
+//     name: "Activa",
+//   },
+//   inactive: {
+//     name: "Anulada",
+//   },
+// };
 
 export const CategoryCard = ({ category }: Props) => {
   return (

@@ -1,36 +1,22 @@
-import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-export const useFilter = (name: string, initialValue?: string) => {
+export function useFilter(name: string, initialValue: string = "") {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [value, setValue] = useState<string>(
-    searchParams.get(name) || initialValue || ""
-  );
 
-  const updateSearchParams = () => {
-    const params = new URLSearchParams(searchParams);
-    params.delete("page");
+  const updateSearchParams = (value: string) => {
 
-    if (value) {
-      params.set(name, value.toLowerCase());
-    } else {
-      params.delete(name);
-    }
+    return setSearchParams((params) => {
 
-    setSearchParams(params);
+      if (!value) {
+        params.delete(name)
+      } else {
+        params.set(name, value)
+      }
+
+      return params
+    })
+
   };
 
-  useEffect(() => {
-    if (value) {
-      const timeout = setTimeout(
-        () => updateSearchParams(),
-        name === "search" ? 300 : 0
-      );
-      return () => clearTimeout(timeout);
-    } else {
-      updateSearchParams();
-    }
-  }, [value]);
-
-  return { value, setValue };
+  return [searchParams.get(name) || initialValue, updateSearchParams] as const;
 };

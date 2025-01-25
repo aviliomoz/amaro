@@ -8,7 +8,7 @@ export const AuthLayout = () => {
   const { user, checking } = useAuth()
 
   if (checking) return <LoadingScreen />
-  if (user && !checking) return <Navigate to="/dashboard" />
+  if (user && !checking) return <Navigate to="/restaurants" />
 
   return <section className="w-full h-screen pt-24 flex items-center flex-col gap-8">
     <LogoLink />
