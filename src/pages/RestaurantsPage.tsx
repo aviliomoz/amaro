@@ -1,24 +1,24 @@
+import toast from "react-hot-toast"
 import { useLayoutEffect, useState } from "react"
 import { LinkButton } from "../components/ui/LinkButton"
 import { Plus } from "lucide-react"
-import { BranchWithBrandName } from "../schemas/branch.schema"
+import { Restaurant } from "../schemas/restaurant.schema"
 import { useAuth } from "../contexts/AuthContext"
 import { axiosAPI } from "../libs/axios"
 import { APIResponse } from "../utils/types"
-import toast from "react-hot-toast"
 import { RestaurantCard } from "../components/RestaurantCard"
 
 export const RestaurantsPage = () => {
 
     const { user } = useAuth()
-    const [branches, setBranches] = useState<BranchWithBrandName[]>([])
+    const [restaurants, setRestaurants] = useState<Restaurant[]>([])
     const [loading, setLoading] = useState<boolean>(true)
 
     useLayoutEffect(() => {
-        const getBranches = async () => {
+        const getRestaurants = async () => {
             try {
-                const { data } = await axiosAPI<APIResponse<BranchWithBrandName[]>>(`/branches?userId=${user?.id}`)
-                setBranches(data.data)
+                const { data } = await axiosAPI<APIResponse<Restaurant[]>>(`/restaurants?userId=${user?.id}`)
+                setRestaurants(data.data)
             } catch (error) {
                 toast.error((error as Error).message)
             } finally {
@@ -26,7 +26,7 @@ export const RestaurantsPage = () => {
             }
         }
 
-        getBranches()
+        getRestaurants()
     }, [])
 
     return <section className="bg-stone-50 h-screen rounded-lg p-6">
@@ -37,7 +37,7 @@ export const RestaurantsPage = () => {
         {loading
             ? <p>Cargando restaurantes...</p>
             : <ul className="flex gap-3 mt-4">
-                {branches.sort((a, b) => a.brand_name.localeCompare(b.brand_name)).map(branch => <RestaurantCard key={branch.id} restaurant={branch} />)}
+                {restaurants.sort((a, b) => a.name.localeCompare(b.name)).map(restaurant => <RestaurantCard key={restaurant.id} restaurant={restaurant} />)}
             </ul>
         }
     </section>

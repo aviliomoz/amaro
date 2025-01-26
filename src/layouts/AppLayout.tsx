@@ -6,7 +6,7 @@ import { MobileMenu } from "../components/MobileMenu";
 import { Navigation } from "../components/Navigation";
 import { useAuth } from "../contexts/AuthContext";
 import { LoadingScreen } from "../components/ui/LoadingScreen";
-import { BranchSelect } from "../components/BranchSelect";
+import { RestaurantSelect } from "../components/RestaurantSelect";
 
 export const AppLayout = () => {
   const location = useLocation()
@@ -21,7 +21,7 @@ export const AppLayout = () => {
         <div className="flex items-center gap-2 sm:gap-4">
           {location.pathname !== "/restaurants" && <MobileMenu />}
           <LogoLink />
-          {location.pathname !== "/restaurants" && <BranchSelect />}
+          {location.pathname !== "/restaurants" && <RestaurantSelect />}
         </div>
         <div className="flex items-center gap-2 sm:gap-3">
           {location.pathname !== "/restaurants" && <InviteUserButton />}
