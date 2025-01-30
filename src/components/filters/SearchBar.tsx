@@ -12,7 +12,7 @@ export const SearchBar = ({ placeholder = "Buscar" }: Props) => {
   useEffect(() => {
     const debouncedSetSearch = setTimeout(() => {
       setSearch(localSearch)
-    }, 500)
+    }, 400)
 
     return () => {
       clearTimeout(debouncedSetSearch)

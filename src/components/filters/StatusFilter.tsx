@@ -2,7 +2,7 @@ import { CopyCheck } from "lucide-react";
 import { useFilter } from "../../hooks/useFilter";
 
 export const StatusFilter = () => {
-  const [status, setStatus] = useFilter("status", "active");
+  const [status, setStatus] = useFilter("status", "activo");
 
   return (
     <label className="flex items-center gap-2 text-sm  border shadow-sm rounded-md px-3 py-1">

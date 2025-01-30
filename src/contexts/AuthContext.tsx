@@ -11,6 +11,7 @@ type AuthContextType = {
 
     login: (email: string, password: string) => Promise<void>
     signup: (name: string, lastname: string, email: string, password: string) => Promise<void>
+    logout: () => Promise<void>
 }
 
 export const AuthContext = createContext<AuthContextType | null>(null)
@@ -65,7 +66,16 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
         console.log(name, lastname, email, password)
     }
 
-    return <AuthContext.Provider value={{ token, loading, checking, user, login, signup }}>
+    const logout = async () => {
+        try {
+            await axiosAPI.get("/auth/logout")
+            location.reload()
+        } catch (error) {
+            toast.error((error as Error).message)
+        }
+    }
+
+    return <AuthContext.Provider value={{ token, loading, checking, user, login, signup, logout }}>
         {children}
     </AuthContext.Provider>
 }

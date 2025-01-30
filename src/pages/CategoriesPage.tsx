@@ -18,7 +18,7 @@ export const CategoriesPage = () => {
       </PageHeader>
       <section className="grid grid-cols-1 lg:grid-cols-4 gap-4">
         <CategoriesList type="supply" />
-        <CategoriesList type="subproduct" />
+        <CategoriesList type="base-recipe" />
         <CategoriesList type="product" />
         <CategoriesList type="combo" />
       </section>

@@ -1,11 +1,10 @@
 import { useSearchParams } from "react-router-dom";
 
-export function useFilter(name: string, initialValue: string = "") {
+export function useFilter(name: string, initialState: string = "") {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const updateSearchParams = (value: string) => {
-
-    return setSearchParams((params) => {
+  const updateSearchParam = (value: string) => {
+    setSearchParams((params) => {
 
       if (!value) {
         params.delete(name)
@@ -15,8 +14,7 @@ export function useFilter(name: string, initialValue: string = "") {
 
       return params
     })
+  }
 
-  };
-
-  return [searchParams.get(name) || initialValue, updateSearchParams] as const;
+  return [searchParams.get(name) || initialState, updateSearchParam] as const;
 };

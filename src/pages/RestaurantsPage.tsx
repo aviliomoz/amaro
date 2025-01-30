@@ -2,10 +2,9 @@ import toast from "react-hot-toast"
 import { useLayoutEffect, useState } from "react"
 import { LinkButton } from "../components/ui/LinkButton"
 import { Plus } from "lucide-react"
-import { Restaurant } from "../schemas/restaurant.schema"
 import { useAuth } from "../contexts/AuthContext"
 import { axiosAPI } from "../libs/axios"
-import { APIResponse } from "../utils/types"
+import { APIResponse, Restaurant } from "../utils/types"
 import { RestaurantCard } from "../components/RestaurantCard"
 
 export const RestaurantsPage = () => {

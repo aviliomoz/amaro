@@ -1,17 +1,11 @@
 import { ChevronDown, LogOut } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { useState } from "react";
-import { axiosAPI } from "../libs/axios";
 
 export const UserPill = () => {
 
-  const { user } = useAuth()
+  const { user, logout } = useAuth()
   const [isOpen, setIsOpen] = useState<boolean>(false)
-
-  const handleLogout = async () => {
-    await axiosAPI.get("/auth/logout")
-    location.reload()
-  }
 
   return (
     <div className="relative">
@@ -23,7 +17,7 @@ export const UserPill = () => {
         <ChevronDown className="size-4 hidden sm:block" />
       </button>
       {isOpen && <ul className="absolute right-0 top-full mt-2 border rounded-md p-2 shadow-sm bg-white">
-        <button onClick={() => handleLogout()} className="px-3 py-1 rounded-md hover:bg-stone-100 text-sm flex items-center gap-2"><LogOut className="size-4" />Cerrar sesión</button>
+        <button onClick={() => logout()} className="px-3 py-1 rounded-md hover:bg-stone-100 text-sm flex items-center gap-2"><LogOut className="size-4" />Cerrar sesión</button>
       </ul>}
     </div>
   );

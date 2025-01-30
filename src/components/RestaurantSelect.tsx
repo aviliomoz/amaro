@@ -1,9 +1,8 @@
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { ChevronsUpDown, LoaderCircle } from "lucide-react";
-import { Restaurant } from "../schemas/restaurant.schema";
 import { axiosAPI } from "../libs/axios";
-import { APIResponse } from "../utils/types";
+import { APIResponse, Restaurant } from "../utils/types";
 import { useAuth } from "../contexts/AuthContext";
 import { RestaurantCard } from "./RestaurantCard";
 

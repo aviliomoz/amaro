@@ -1,6 +1,6 @@
 import toast from "react-hot-toast"
 import { Ellipsis } from "lucide-react"
-import { Restaurant } from "../schemas/restaurant.schema"
+import { Restaurant } from "../utils/types"
 import { axiosAPI } from "../libs/axios"
 
 type Props = {

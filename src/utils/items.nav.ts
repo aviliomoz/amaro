@@ -2,7 +2,7 @@ import { Beef, CookingPot, Layers3, LucideIcon, Salad } from "lucide-react"
 
 type ItemNav = {
     name: string,
-    url: string,
+    value: string,
     icon: LucideIcon,
     types: {
         name: string,
@@ -13,7 +13,7 @@ type ItemNav = {
 export const ITEMS_NAV: ItemNav[] = [
     {
         name: "Productos",
-        url: "/items/products",
+        value: "product",
         icon: Salad,
         types: [
             {
@@ -32,7 +32,7 @@ export const ITEMS_NAV: ItemNav[] = [
     },
     {
         name: "Combos",
-        url: "/items/combos",
+        value: "combo",
         icon: Layers3,
         types: [
             {
@@ -41,17 +41,21 @@ export const ITEMS_NAV: ItemNav[] = [
             },
             {
                 name: "Promociones",
-                value: "promotions"
+                value: "promotion"
             },
             {
                 name: "Menús",
-                value: "menus"
+                value: "menu"
+            },
+            {
+                name: "Buffets",
+                value: "buffet"
             },
         ]
     },
     {
         name: "Insumos",
-        url: "/items/supplies",
+        value: "supply",
         icon: Beef,
         types: [
             {
@@ -60,39 +64,35 @@ export const ITEMS_NAV: ItemNav[] = [
             },
             {
                 name: "Ingredientes",
-                value: "ingredients"
+                value: "ingredient"
             },
             {
                 name: "Descartables",
-                value: "disposables"
+                value: "disposable"
             },
             {
                 name: "Artículos",
-                value: "others"
+                value: "other"
             },
         ]
     },
     {
-        name: "Subproductos",
-        url: "/items/subproducts",
+        name: "Recetas base",
+        value: "base-recipe",
         icon: CookingPot,
         types: [
             {
-                name: "Todos",
+                name: "Todas",
                 value: "all"
             },
             {
-                name: "Derivados",
-                value: "derivatives"
+                name: "Pre elaboradas",
+                value: "pre-made"
             },
             {
-                name: "Recetas base",
-                value: "base-recipes"
+                name: "A la minuta",
+                value: "minute"
             },
-            {
-                name: "Porciones",
-                value: "portions"
-            }
         ]
     },
 ]

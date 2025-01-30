@@ -9,7 +9,8 @@ import { AuthLayout } from "./layouts/AuthLayout";
 import { InDevelopment } from "./components/InDevelopment";
 import { LoginForm } from "./components/auth/LoginForm";
 import { RestaurantsPage } from "./pages/RestaurantsPage";
-import { ItemsLayout } from "./layouts/ItemsLayout";
+import { ItemsPage } from "./pages/ItemsPage";
+import { ItemsFormPage } from "./pages/ItemsFormPage";
 
 function App() {
   return (
@@ -27,22 +28,17 @@ function App() {
             <Route path="/user" element={<InDevelopment />} />
             {/* Menu */}
             <Route path="/dashboard" element={<InDevelopment />} />
-            <Route path="/items" element={<ItemsLayout />}>
-              <Route path="products" element={<InDevelopment />} />
-              <Route path="combos" element={<InDevelopment />} />
-              <Route path="supplies" element={<InDevelopment />} />
-              <Route path="subproducts" element={<InDevelopment />} />
-            </Route>
-            {/* Registry */}
+            <Route path="/items" element={<ItemsPage />} />
+            <Route path="/items/new" element={<ItemsFormPage />} />
             <Route path="/sales" element={<InDevelopment />} />
-            <Route path="/purchases" element={<InDevelopment />} />
             <Route path="/customers" element={<InDevelopment />} />
-            <Route path="/suppliers" element={<InDevelopment />} />
             {/* Tools */}
             <Route path="/converter" element={<InDevelopment />} />
             <Route path="/surveys" element={<InDevelopment />} />
             <Route path="/book" element={<InDevelopment />} />
             {/* Logistics */}
+            <Route path="/purchases" element={<InDevelopment />} />
+            <Route path="/suppliers" element={<InDevelopment />} />
             <Route path="/inventories" element={<InDevelopment />} />
             <Route path="/requirements" element={<InDevelopment />} />
             <Route path="/productions" element={<InDevelopment />} />
