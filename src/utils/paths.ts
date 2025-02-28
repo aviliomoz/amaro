@@ -3,21 +3,18 @@ import {
   BookMarked,
   LayoutList,
   LucideIcon,
-  Settings,
   Users,
   NotebookText,
   ClipboardList,
   Truck,
   ShoppingBag,
   BookUser,
-  HandPlatter,
-  Printer,
   LayoutDashboard,
-  Tags,
-  Bookmark,
   ListOrdered,
   MessageSquareText,
   Layers2,
+  Settings,
+  Wallet,
 } from "lucide-react";
 
 type Path = {
@@ -46,7 +43,7 @@ export const PATHS: PathGroup[] = [
       },
       {
         name: "Ventas",
-        icon: HandPlatter,
+        icon: Wallet,
         url: "/sales",
       },
       {
@@ -112,37 +109,17 @@ export const PATHS: PathGroup[] = [
     ],
   },
   {
-    title: "FILTROS",
+    title: "OTROS",
     paths: [
-      {
-        name: "Categorias",
-        icon: Tags,
-        url: "/categories"
-      },
-      {
-        name: "Áreas",
-        icon: Bookmark,
-        url: "/areas"
-      }
-    ]
-  },
-  {
-    title: "AJUSTES",
-    paths: [
-      {
-        name: "General",
-        icon: Settings,
-        url: "/settings",
-      },
       {
         name: "Usuarios",
         icon: Users,
         url: "/users",
       },
       {
-        name: "Impresoras",
-        icon: Printer,
-        url: "/printers",
+        name: "Ajustes",
+        icon: Settings,
+        url: "/settings",
       },
     ],
   },

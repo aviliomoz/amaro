@@ -1,40 +1,28 @@
 import { Ellipsis } from "lucide-react";
 import { Category } from "../../utils/types";
+import { Link } from "react-router-dom";
 
 type Props = {
   category: Category;
 };
 
-// const STATUSES: Record<ItemStatus, { name: string }> = {
-//   active: {
-//     name: "Activa",
-//   },
-//   inactive: {
-//     name: "Anulada",
-//   },
-// };
-
 export const CategoryCard = ({ category }: Props) => {
   return (
-    <li className="flex text-sm border rounded-md p-4 items-center justify-between bg-white shadow-sm hover:bg-stone-100 relative">
-      <div className="flex justify-between w-full lg:flex-col gap-8 lg:gap-4">
+    <Link to={`/categories/${category.id}`} className="flex flex-col gap-3 text-sm border cursor-pointer w-full max-w-80 rounded-md p-4 bg-white shadow-sm hover:bg-gradient-to-br hover:from-white hover:to-stone-50 hover:shadow-md transition-all duration-100">
+      <div className="flex items-center justify-between w-full gap-3">
         <p className="font-medium">{category.name}</p>
-        <div className="flex items-center flex-wrap gap-2 mr-6">
-          <span
-            className={`text-xs font-medium text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-md min-w-max`}
-          >
-            {/* {STATUSES[category.status].name} */}
-          </span>
-          <span
-            className={`text-xs font-medium text-stone-700 bg-stone-100 px-2 py-0.5 rounded-md min-w-max`}
-          >
-            4 items
-          </span>
-        </div>
+        <button onClick={(e) => {
+          e.stopPropagation()
+          e.preventDefault()
+          console.log("hola")
+        }}>
+          <Ellipsis className="size-4 stroke-stone-400 hover:stroke-stone-800" />
+        </button>
       </div>
-      <button className="lg:absolute lg:top-4 lg:right-4">
-        <Ellipsis className="size-4 stroke-stone-400 hover:stroke-stone-800" />
-      </button>
-    </li>
+      <div className="flex gap-2 items-center">
+        <span className={`bg-gradient-to-br from-white to-stone-50 border text-xs font-medium ${category.status === "active" ? "text-green-500" : "text-red-500"} rounded-lg px-2 py-0.5`}>{category.status === "active" ? "Activa" : "Inactiva"}</span>
+        <span className={`bg-gradient-to-br from-white to-stone-50 border text-xs font-medium text-stone-500 rounded-lg px-2 py-0.5`}>4 Ítems</span>
+      </div>
+    </Link>
   );
 };

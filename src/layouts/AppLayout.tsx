@@ -6,7 +6,7 @@ import { MobileMenu } from "../components/MobileMenu";
 import { Navigation } from "../components/Navigation";
 import { useAuth } from "../contexts/AuthContext";
 import { LoadingScreen } from "../components/ui/LoadingScreen";
-import { RestaurantSelect } from "../components/RestaurantSelect";
+import { BranchSelect } from "../components/BranchSelect";
 
 export const AppLayout = () => {
   const location = useLocation()
@@ -19,22 +19,22 @@ export const AppLayout = () => {
     <>
       <header className="flex items-center justify-between h-20 pr-2">
         <div className="flex items-center gap-2 sm:gap-4">
-          {location.pathname !== "/restaurants" && <MobileMenu />}
-          <LogoLink />
-          {location.pathname !== "/restaurants" && <RestaurantSelect />}
+          {!location.pathname.includes("/brands") && <MobileMenu />}
+          <LogoLink width="xl"/>
+          {!location.pathname.includes("/brands") && <BranchSelect />}
         </div>
         <div className="flex items-center gap-2 sm:gap-3">
-          {location.pathname !== "/restaurants" && <InviteUserButton />}
+          {!location.pathname.includes("/brands") && <InviteUserButton />}
           <UserPill />
         </div>
       </header>
       <div className="flex justify-between h-screen max-h-[calc(100vh-80px)] pb-6">
-        {location.pathname !== "/restaurants" && (
+        {!location.pathname.includes("/brands") && (
           <aside className={`w-52 bg-white pr-4 overflow-y-scroll custom-scroll`}>
             <Navigation />
           </aside>
         )}
-        <main className={`w-full overflow-y-scroll custom-scroll flex flex-col justify-between pr-2`}>
+        <main className={`w-full overflow-y-scroll custom-scroll flex flex-col ${!location.pathname.includes("/brands") && "pl-6"} pr-3 py-2`}>
           <Outlet />
         </main>
       </div>

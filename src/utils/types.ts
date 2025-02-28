@@ -1,4 +1,7 @@
 import { COMBO_SUBTYPES, ITEM_STATUSES, ITEM_TYPES, PRODUCT_SUBTYPES, BASE_RECIPE_SUBTYPES, SUPPLY_SUBTYPES } from "./constants";
+import { UMS } from "./um";
+
+export type UM = keyof typeof UMS
 
 export type User = {
   id: string,
@@ -15,30 +18,50 @@ export type APIResponse<T> = {
 }
 
 export type ItemType = typeof ITEM_TYPES[number]
+export type ItemSubtype = ProductSubtype | ComboSubtype | SupplySubtype | BaseRecipeSubtype
 export type ItemStatus = typeof ITEM_STATUSES[number]
 
 export type SupplySubtype = typeof SUPPLY_SUBTYPES[number]
-export type SubproductSubtype = typeof BASE_RECIPE_SUBTYPES[number]
+export type BaseRecipeSubtype = typeof BASE_RECIPE_SUBTYPES[number]
 export type ProductSubtype = typeof PRODUCT_SUBTYPES[number]
 export type ComboSubtype = typeof COMBO_SUBTYPES[number]
 
 export type Category = {
   id: string,
   name: string,
-  status: string,
+  status: "active" | "inactive",
 }
 
-export type Currency = {
-  symbol: string;
-  name: string;
-  code: string;
-}
-
-export type Restaurant = {
+export type Brand = {
   id: string;
   name: string;
-  currency_code: string;
-  purchase_tax: number;
-  sales_tax: number;
   status: "active" | "inactive";
+}
+
+export type Branch = {
+  id: string;
+  name: string;
+  status: "active" | "inactive";
+  brand_id: string;
+  type: "sales" | "production";
+}
+
+export type Item = {
+  id: string,
+  name: string,
+  category_id: string,
+  type: ItemType,
+  subtype: ItemSubtype,
+  status: string,
+  um: UM,
+  taxable: boolean,
+  yield: number,
+  waste: number,
+  brand_id: string,
+  discharge_type: "recipe" | "unit",
+  stock_control: boolean,
+  weight_control: false
+  category_name: string,
+  price: number,
+  cost: number,
 }
