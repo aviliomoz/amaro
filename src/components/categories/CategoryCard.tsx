@@ -14,7 +14,6 @@ export const CategoryCard = ({ category }: Props) => {
         <button onClick={(e) => {
           e.stopPropagation()
           e.preventDefault()
-          console.log("hola")
         }}>
           <Ellipsis className="size-4 stroke-stone-400 hover:stroke-stone-800" />
         </button>

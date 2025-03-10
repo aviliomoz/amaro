@@ -39,7 +39,7 @@ export const BrandBranches = () => {
             </button>
         </div>
         <ul className="mt-4 grid gap-2 grid-cols-3">
-            {branches.map(branch => <Link to={`/b/${branch.id}/dashboard`} className="border rounded-md shadow-sm p-4 hover:bg-gradient-to-br hover:from-white hover:to-stone-50 hover:shadow-md transition-all duration-100">{branch.name}</Link>)}
+            {branches.map(branch => <Link to={`/brands/${brand_id}/branches/${branch.id}/dashboard`} className="border rounded-md shadow-sm p-4 hover:bg-gradient-to-br hover:from-white hover:to-stone-50 hover:shadow-md transition-all duration-100">{branch.name}</Link>)}
         </ul>
     </section>
 }

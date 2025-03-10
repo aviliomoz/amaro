@@ -7,7 +7,7 @@ import { axiosAPI } from "../libs/axios";
 
 export const BranchSelect = () => {
 
-  const { branch_id } = useParams()
+  const { branch_id, brand_id } = useParams()
   const [brand, setBrand] = useState<Brand>()
   const [branch, setBranch] = useState<Branch>()
   const [loading, setLoading] = useState<boolean>(true)
@@ -17,11 +17,8 @@ export const BranchSelect = () => {
       setLoading(true)
 
       try {
+        const { data: brand } = await axiosAPI.get<APIResponse<Brand>>(`/brands/${brand_id}`)
         const { data: branch } = await axiosAPI.get<APIResponse<Branch>>(`/branches/${branch_id}`)
-
-        console.log(branch)
-
-        const { data: brand } = await axiosAPI.get<APIResponse<Brand>>(`/brands/${branch.data.brand_id}`)
 
         setBrand(brand.data)
         setBranch(branch.data)

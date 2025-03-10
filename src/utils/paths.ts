@@ -37,11 +37,6 @@ export const PATHS: PathGroup[] = [
         url: "/dashboard",
       },
       {
-        name: "Ítems",
-        icon: Layers2,
-        url: "/items",
-      },
-      {
         name: "Ventas",
         icon: Wallet,
         url: "/sales",
@@ -50,6 +45,11 @@ export const PATHS: PathGroup[] = [
         name: "Clientes",
         icon: BookUser,
         url: "/customers",
+      },
+      {
+        name: "Ítems",
+        icon: Layers2,
+        url: "/items",
       },
     ],
   },

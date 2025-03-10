@@ -15,13 +15,13 @@ import { BranchLink } from "../components/BranchLink"
 export const ItemsPage = () => {
 
     const [type, setType] = useFilter("type", "product")
-    const [subtype, setSubtype] = useFilter("subtype", "all")
+    const [subtype, setSubtype] = useFilter("subtype")
 
     useLayoutEffect(() => {
         const currentType = ITEMS_NAV.find(itemNav => itemNav.value === type)!
 
         if (!currentType.types.some(st => st.value === subtype)) {
-            setSubtype("all")
+            setSubtype("")
         }
     }, [type])
 
@@ -44,7 +44,7 @@ export const ItemsPage = () => {
                 <div className="flex items-center gap-3">
                     <DownloadButton />
                     <BranchLink
-                        to={`/items/new?type=${type}&subtype=${subtype === "all" ? ITEMS_NAV.find(itemNav => itemNav.value === type)?.types[1].value : subtype}`}
+                        to={`/items/new?type=${type}&subtype=${subtype === "" ? ITEMS_NAV.find(itemNav => itemNav.value === type)?.types[1].value : subtype}`}
                         className={`bg-gradient-to-br from-orange-500 to-orange-600 border-orange-600 rounded-md px-2.5 sm:px-4 py-1.5 flex items-center gap-2 min-w-max shadow-sm text-sm text-white font-medium`}
                     ><Plus className="size-4 stroke-white stroke-[3px]" /> Nuevo ítem
                     </BranchLink>

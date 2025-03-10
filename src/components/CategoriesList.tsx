@@ -11,22 +11,22 @@ import { useParams } from "react-router-dom"
 export const CategoriesList = () => {
 
     const [type] = useFilter("type")
-    const [category, setCategory] = useFilter("category", "all")
-    const { branch_id } = useParams()
+    const [category, setCategory] = useFilter("category")
+    const { brand_id } = useParams()
     const [categories, setCategories] = useState<Category[]>([])
     const [loading, setLoading] = useState<boolean>(true)
     const [showModal, setShowModal] = useState<boolean>(false)
 
     useEffect(() => {
 
-        if (category !== "all") {
-            setCategory("all")
+        if (category !== "") {
+            setCategory("")
         }
 
         const getCategories = async () => {
             try {
                 setLoading(true)
-                const { data } = await axiosAPI<APIResponse<Category[]>>(`/categories/${branch_id}/${type || "product"}`)
+                const { data } = await axiosAPI<APIResponse<Category[]>>(`/categories/${brand_id}/${type || "product"}`)
                 setCategories(data.data)
             } catch (error) {
                 toast.error("Error al cargar las categorias")
@@ -46,8 +46,8 @@ export const CategoriesList = () => {
             </button>
         </div>
         {loading ? <LoaderCircle className='mt-4 size-4 animate-spin stroke-orange-500' /> : <ul className="flex flex-col gap-1 mt-4">
-            <button onClick={() => setCategory("all")} className={`text-sm ${category === "all" && "bg-stone-50 border"} px-2.5 py-1 rounded-md font-medium text-left`}>Todas</button>
-            {categories.map(cat => <button onClick={() => setCategory(cat.name)} key={cat.id} className={`text-sm px-2.5 py-1 truncate text-left ${category === cat.name && "bg-stone-50 border rounded-md"}`}>{cat.name}</button>)}
+            <button onClick={() => setCategory("")} className={`text-sm ${category === "" && "bg-stone-50 border"} px-2.5 py-1 rounded-md font-medium text-left`}>Todas</button>
+            {categories.map(cat => <button onClick={() => setCategory(cat.id)} key={cat.id} className={`text-sm px-2.5 py-1 truncate text-left ${category === cat.id && "bg-stone-50 border rounded-md"}`}>{cat.name}</button>)}
         </ul>}
         {showModal && <Modal close={() => setShowModal(false)}>
             <CategoriesForm close={() => setShowModal(false)} />

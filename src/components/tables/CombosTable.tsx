@@ -8,7 +8,7 @@ import { axiosAPI } from "../../libs/axios"
 export const CombosTable = () => {
 
     const navigate = useNavigate()
-    const { branch_id } = useParams()
+    const { branch_id, brand_id } = useParams()
     const [items, setItems] = useState<Item[]>([])
     const [loading, setLoading] = useState<boolean>(true)
 
@@ -17,7 +17,7 @@ export const CombosTable = () => {
             setLoading(true)
 
             try {
-                const { data } = await axiosAPI.get<APIResponse<Item[]>>(`/items/${branch_id}?type=combo`)
+                const { data } = await axiosAPI.get<APIResponse<Item[]>>(`/items/branch/${branch_id}?type=combo`)
                 setItems(data.data)
             } catch (error) {
                 toast.error((error as Error).message)
@@ -36,17 +36,15 @@ export const CombosTable = () => {
             <thead>
                 <tr className="text-sm bg-stone-50 border-b shadow-sm h-10">
                     <th className="px-4 text-left font-semibold min-w-32 truncate">Nombre</th>
-                    <th className="px-4 font-semibold">Categoría</th>
-                    <th className="px-4 font-semibold">Sub tipo</th>
+                    <th className="px-4 font-semibold">Tipo</th>
                     <th className="px-4 font-semibold w-20">Precio</th>
                     <th className="px-4 font-semibold">Estado</th>
                     <th className="px-4 font-semibold">Opciones</th>
                 </tr>
             </thead>
             <tbody>
-                {items.map(item => <tr onClick={() => navigate(`/b/${branch_id}/items/${item.id}`)} key={item.id} className="text-sm text-center hover:bg-stone-50 cursor-pointer">
+                {items.map(item => <tr onClick={() => navigate(`/brands/${brand_id}/branches/${branch_id}/items/${item.id}`)} key={item.id} className="text-sm text-center hover:bg-stone-50 cursor-pointer border-b last:border-b-0">
                     <td className="text-left h-12 px-4">{item.name}</td>
-                    <td>{item.category_name}</td>
                     <td>{item.subtype === "promotion" ? "Promoción" : item.subtype === "menu" ? "Menú" : item.subtype === "buffet" && "Buffet"}</td>
                     <td>{item.price.toLocaleString("es-PE", { minimumFractionDigits: 2, maximumFractionDigits: 2, style: "currency", currency: "PEN" })}</td>
                     <td>{item.status === "active" ? "Activo" : item.status === "inactive" && "Inactivo"}</td>

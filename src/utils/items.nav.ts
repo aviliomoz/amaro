@@ -18,7 +18,7 @@ export const ITEMS_NAV: ItemNav[] = [
         types: [
             {
                 name: "Todos",
-                value: "all"
+                value: ""
             },
             {
                 name: "Transformados",
@@ -37,7 +37,7 @@ export const ITEMS_NAV: ItemNav[] = [
         types: [
             {
                 name: "Todos",
-                value: "all"
+                value: ""
             },
             {
                 name: "Promociones",
@@ -60,7 +60,7 @@ export const ITEMS_NAV: ItemNav[] = [
         types: [
             {
                 name: "Todos",
-                value: "all"
+                value: ""
             },
             {
                 name: "Ingredientes",
@@ -83,7 +83,7 @@ export const ITEMS_NAV: ItemNav[] = [
         types: [
             {
                 name: "Todas",
-                value: "all"
+                value: ""
             },
             {
                 name: "Pre elaboradas",

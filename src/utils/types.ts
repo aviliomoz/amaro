@@ -48,6 +48,7 @@ export type Branch = {
 
 export type Item = {
   id: string,
+  code?: string,
   name: string,
   category_id: string,
   type: ItemType,
@@ -61,7 +62,6 @@ export type Item = {
   discharge_type: "recipe" | "unit",
   stock_control: boolean,
   weight_control: false
-  category_name: string,
   price: number,
   cost: number,
 }
