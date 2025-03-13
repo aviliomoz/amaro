@@ -1,38 +1,11 @@
 import { ChevronsUpDown, LoaderCircle } from "lucide-react";
-import { useEffect, useState } from "react";
-import { APIResponse, Branch, Brand } from "../utils/types";
-import { useParams } from "react-router-dom";
-import toast from "react-hot-toast";
-import { axiosAPI } from "../libs/axios";
+import { useRestaurant } from "../contexts/RestaurantContext";
 
 export const BranchSelect = () => {
 
-  const { branch_id, brand_id } = useParams()
-  const [brand, setBrand] = useState<Brand>()
-  const [branch, setBranch] = useState<Branch>()
-  const [loading, setLoading] = useState<boolean>(true)
+  const { brand, branch } = useRestaurant()
 
-  useEffect(() => {
-    const getBranch = async () => {
-      setLoading(true)
-
-      try {
-        const { data: brand } = await axiosAPI.get<APIResponse<Brand>>(`/brands/${brand_id}`)
-        const { data: branch } = await axiosAPI.get<APIResponse<Branch>>(`/branches/${branch_id}`)
-
-        setBrand(brand.data)
-        setBranch(branch.data)
-      } catch (error) {
-        toast.error((error as Error).message)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    getBranch()
-  }, [])
-
-  if (loading || !brand || !branch) return <LoaderCircle className='size-4 animate-spin stroke-orange-500' />
+  if (!brand || !branch) return <LoaderCircle className='size-4 animate-spin stroke-orange-500' />
 
   return (
     <div className="flex items-center relative">

@@ -2,8 +2,8 @@ import toast from "react-hot-toast"
 import { useEffect, useState } from "react"
 import { APIResponse, Category } from "../utils/types"
 import { axiosAPI } from "../libs/axios"
-import { useParams } from "react-router-dom"
 import { LoaderCircle } from "lucide-react"
+import { useRestaurant } from "../contexts/RestaurantContext"
 
 type Props = {
     onChange: (category_id: string) => void
@@ -16,7 +16,7 @@ export const CategorySelect = ({ initialCategory, onChange, type }: Props) => {
     const [categories, setCategories] = useState<Category[]>([])
     const [loading, setLoading] = useState<boolean>(true)
 
-    const { brand_id } = useParams()
+    const { brand } = useRestaurant()
 
     useEffect(() => {
 
@@ -24,7 +24,7 @@ export const CategorySelect = ({ initialCategory, onChange, type }: Props) => {
 
         const getCategories = async () => {
             try {
-                const { data } = await axiosAPI.get<APIResponse<Category[]>>(`/categories/${brand_id}/${type}`)
+                const { data } = await axiosAPI.get<APIResponse<Category[]>>(`/categories/${brand?.id}/${type}`)
                 setCategories(data.data)
             } catch (error) {
                 toast.error("Error al cargar las categorias")

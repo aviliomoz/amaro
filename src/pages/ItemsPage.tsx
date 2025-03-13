@@ -4,18 +4,19 @@ import { SearchBar } from "../components/filters/SearchBar"
 import { Plus } from "lucide-react"
 import { StatusFilter } from "../components/filters/StatusFilter"
 import { DownloadButton } from "../components/DownloadButton"
-import { useLayoutEffect } from "react"
+import { useLayoutEffect, useState } from "react"
 import { CategoriesList } from "../components/CategoriesList"
-import { ProductsTable } from "../components/tables/ProductsTable"
-import { CombosTable } from "../components/tables/CombosTable"
-import { SuppliesTable } from "../components/tables/SuppliesTable"
-import { BaseRecipesTable } from "../components/tables/BaseRecipesTable"
-import { BranchLink } from "../components/BranchLink"
+import { SideModal } from "../components/ui/SideModal"
+import { NewItem } from "../components/NewItem"
+import { getItemTypeName } from "../utils/items"
+import { ItemType } from "../utils/types"
+import { ItemsTable } from "../components/ItemsTable"
 
 export const ItemsPage = () => {
 
     const [type, setType] = useFilter("type", "product")
     const [subtype, setSubtype] = useFilter("subtype")
+    const [showModal, setShowModal] = useState<boolean>(false)
 
     useLayoutEffect(() => {
         const currentType = ITEMS_NAV.find(itemNav => itemNav.value === type)!
@@ -43,11 +44,8 @@ export const ItemsPage = () => {
                 </div>
                 <div className="flex items-center gap-3">
                     <DownloadButton />
-                    <BranchLink
-                        to={`/items/new?type=${type}&subtype=${subtype === "" ? ITEMS_NAV.find(itemNav => itemNav.value === type)?.types[1].value : subtype}`}
-                        className={`bg-gradient-to-br from-orange-500 to-orange-600 border-orange-600 rounded-md px-2.5 sm:px-4 py-1.5 flex items-center gap-2 min-w-max shadow-sm text-sm text-white font-medium`}
-                    ><Plus className="size-4 stroke-white stroke-[3px]" /> Nuevo ítem
-                    </BranchLink>
+                    <button onClick={() => setShowModal(true)} className={`bg-gradient-to-br from-orange-500 to-orange-600 border-orange-600 rounded-md px-2.5 sm:px-4 py-1.5 flex items-center gap-2 min-w-max shadow-sm text-sm text-white font-medium`}><Plus className="size-4 stroke-white stroke-[3px]" />{`Crear ${getItemTypeName(type as ItemType).toLowerCase()}`}</button>
+                    {showModal && <SideModal close={() => setShowModal(false)}><NewItem afterSave={() => setShowModal(false)} /></SideModal>}
                 </div>
             </div>
             <div className="flex items-center mt-4 justify-between border rounded-md p-4">
@@ -61,15 +59,12 @@ export const ItemsPage = () => {
                 </div>
                 <div className="flex items-center gap-3">
                     <StatusFilter />
-                    <SearchBar placeholder="Buscar ítem" />
+                    <SearchBar placeholder={`Buscar ${getItemTypeName(type as ItemType).toLowerCase()}`} />
                 </div>
             </div>
             <div className="flex mt-4 gap-4">
                 <CategoriesList />
-                {type === "product" && <ProductsTable />}
-                {type === "combo" && <CombosTable />}
-                {type === "supply" && <SuppliesTable />}
-                {type === "base-recipe" && <BaseRecipesTable />}
+                <ItemsTable />
             </div>
         </section>
     </>

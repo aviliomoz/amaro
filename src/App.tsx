@@ -12,6 +12,7 @@ import { BrandsPage } from "./pages/BrandsPage";
 import { ItemsPage } from "./pages/ItemsPage";
 import { ItemPage } from "./pages/ItemPage";
 import { BrandBranches } from "./components/BrandBranches";
+import { RestaurantLayout } from "./layouts/RestaurantLayout";
 
 function App() {
   return (
@@ -28,15 +29,16 @@ function App() {
             <Route path="/user" element={<InDevelopment />} />
             {/* Marca */}
             <Route path="/brands" element={<BrandsPage />}>
-              <Route path=":brand_id" element={<BrandBranches />} />
+              <Route path=":brandSlug" element={<BrandBranches />} />
             </Route>
             {/* Marca + Sucursal */}
-            <Route path="/brands/:brand_id/branches/:branch_id">
+            <Route path="/brands/:brandSlug/branches/:branchSlug" element={<RestaurantLayout />}>
               <Route path="dashboard" element={<InDevelopment />} />
-              <Route path="items" element={<ItemsPage />} />
-              <Route path="items/:id" element={<ItemPage />} />
+              <Route path="register" element={<InDevelopment />} />
               <Route path="sales" element={<InDevelopment />} />
               <Route path="customers" element={<InDevelopment />} />
+              <Route path="items" element={<ItemsPage />} />
+              <Route path="items/:id" element={<ItemPage />} />
               <Route path="converter" element={<InDevelopment />} />
               <Route path="surveys" element={<InDevelopment />} />
               <Route path="book" element={<InDevelopment />} />

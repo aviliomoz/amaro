@@ -15,6 +15,7 @@ import {
   Layers2,
   Settings,
   Wallet,
+  Computer,
 } from "lucide-react";
 
 type Path = {
@@ -30,11 +31,17 @@ type PathGroup = {
 
 export const PATHS: PathGroup[] = [
   {
+    title: "MENU",
     paths: [
       {
-        name: "Dashboard",
+        name: "Resumen",
         icon: LayoutDashboard,
         url: "/dashboard",
+      },
+      {
+        name: "Caja",
+        icon: Computer,
+        url: "/register",
       },
       {
         name: "Ventas",
@@ -51,7 +58,7 @@ export const PATHS: PathGroup[] = [
         icon: Layers2,
         url: "/items",
       },
-    ],
+    ]
   },
   {
     title: "HERRAMIENTAS",
@@ -74,7 +81,7 @@ export const PATHS: PathGroup[] = [
     ],
   },
   {
-    title: "LOGÍSTICA",
+    title: "LOGÍSTICA",	
     paths: [
       {
         name: "Compras",
@@ -109,7 +116,7 @@ export const PATHS: PathGroup[] = [
     ],
   },
   {
-    title: "OTROS",
+    title: "OPCIONES",
     paths: [
       {
         name: "Usuarios",

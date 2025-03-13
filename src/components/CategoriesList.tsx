@@ -6,13 +6,13 @@ import { CategoriesForm } from "./CategoriesForm"
 import { useFilter } from "../hooks/useFilter"
 import { APIResponse, Category } from "../utils/types"
 import { axiosAPI } from "../libs/axios"
-import { useParams } from "react-router-dom"
+import { useRestaurant } from "../contexts/RestaurantContext"
 
 export const CategoriesList = () => {
 
     const [type] = useFilter("type")
     const [category, setCategory] = useFilter("category")
-    const { brand_id } = useParams()
+    const { brand } = useRestaurant()
     const [categories, setCategories] = useState<Category[]>([])
     const [loading, setLoading] = useState<boolean>(true)
     const [showModal, setShowModal] = useState<boolean>(false)
@@ -26,7 +26,7 @@ export const CategoriesList = () => {
         const getCategories = async () => {
             try {
                 setLoading(true)
-                const { data } = await axiosAPI<APIResponse<Category[]>>(`/categories/${brand_id}/${type || "product"}`)
+                const { data } = await axiosAPI<APIResponse<Category[]>>(`/categories/${brand?.id}/${type || "product"}`)
                 setCategories(data.data)
             } catch (error) {
                 toast.error("Error al cargar las categorias")

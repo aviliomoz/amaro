@@ -1,10 +1,10 @@
 import { UM } from "./types"
 
 export const UMS = {
-    kilogram: "Kilo (kg)",
-    liter: "Litro (lt)",
-    ounce: "Onza (oz)",
-    unit: "Unidad (und)"
+    kilogram: "Kilogramo",
+    liter: "Litro",
+    ounce: "Onza",
+    unit: "Unidad"
 }
 
 export const getUm = (um: UM) => {

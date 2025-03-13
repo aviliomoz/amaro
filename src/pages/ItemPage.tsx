@@ -8,15 +8,17 @@ import { getItemTypeName } from "../utils/items"
 import { ItemForm } from "../components/ItemForm"
 import { ItemAreasForm } from "../components/ItemAreasForm"
 import { ItemProductionForm } from "../components/ItemProductionForm"
+import { useRestaurant } from "../contexts/RestaurantContext"
 
 export const ItemPage = () => {
 
     const navigate = useNavigate()
 
-    const { id, branch_id } = useParams()
+    const { id } = useParams()
+    const { branch } = useRestaurant()
     const [loading, setLoading] = useState<boolean>(true)
     const [updating, setUpdating] = useState<boolean>(false)
-    const [item, setItem] = useState<Item>()
+    const [item, setItem] = useState<Item | Omit<Item, "id">>()
 
     useLayoutEffect(() => {
 
@@ -41,7 +43,7 @@ export const ItemPage = () => {
         setUpdating(true)
 
         try {
-            await axiosAPI.put(`/items/branch/${branch_id}/${id}`, item)
+            await axiosAPI.put(`/items/branch/${branch?.id}/${id}`, item)
             toast.success('Ítem actualizado con éxito')
             navigate(-1)
         } catch (error) {

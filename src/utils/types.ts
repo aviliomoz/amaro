@@ -36,6 +36,7 @@ export type Brand = {
   id: string;
   name: string;
   status: "active" | "inactive";
+  slug: string;
 }
 
 export type Branch = {
@@ -43,7 +44,7 @@ export type Branch = {
   name: string;
   status: "active" | "inactive";
   brand_id: string;
-  type: "sales" | "production";
+  slug: string;
 }
 
 export type Item = {
@@ -60,8 +61,7 @@ export type Item = {
   waste: number,
   brand_id: string,
   discharge_type: "recipe" | "unit",
-  stock_control: boolean,
-  weight_control: false
+  weight_control: boolean
   price: number,
   cost: number,
 }

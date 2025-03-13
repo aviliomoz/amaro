@@ -10,7 +10,7 @@ import { Outlet, useParams } from "react-router-dom"
 
 export const BrandsPage = () => {
 
-    const { brand_id } = useParams()
+    const { brandSlug } = useParams()
     const { user } = useAuth()
     const [brands, setBrands] = useState<Brand[]>([])
     const [loading, setLoading] = useState<boolean>(true)
@@ -46,7 +46,7 @@ export const BrandsPage = () => {
                 }
             </div>
             <div className="bg-white rounded-md p-4 col-span-8 shadow-md">
-                {!brand_id ? <div className="border-dashed border-[2px] border-stone-100 rounded-lg flex h-full justify-center items-center flex-col gap-3">
+                {!brandSlug ? <div className="border-dashed border-[2px] border-stone-100 rounded-lg flex h-full justify-center items-center flex-col gap-3">
                     <SquareMousePointer className="stroke-stone-400 size-8" />
                     <p className="max-w-80 text-center text-stone-400 text-sm">Selecciona una marca para ver sus sucursales.</p>
                 </div>
