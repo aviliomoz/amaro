@@ -69,7 +69,9 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     const logout = async () => {
         try {
             await axiosAPI.get("/auth/logout")
-            location.reload()
+            setToken(undefined)
+            setUser(undefined)
+            location.assign("/login")
         } catch (error) {
             toast.error((error as Error).message)
         }
