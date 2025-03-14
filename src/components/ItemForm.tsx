@@ -46,10 +46,10 @@ export const ItemForm = ({ item, setItem }: Props) => {
             </fieldset>
             <fieldset className="grid grid-cols-1 gap-1 text-sm col-span-6">
                 <label className="font-semibold" htmlFor="category_id">Categoría</label>
-                <CategorySelect initialCategory={item.category_id} type={item.type} onChange={(e) => setItem({ ...item, category_id: e })} />
+                <CategorySelect category={item.category_id} setCategory={(c) => setItem({ ...item, category_id: c })} />
             </fieldset>
         </div>
-        {((item.type === "product" && item.subtype === "unprocessed" && item.um === "unit") || (item.type === "supply" && item.subtype === "ingredient" && item.um === "unit")) && <div className="flex flex-col gap-2 mb-2">
+        {((item.type === "products" && item.subtype === "unprocessed" && item.um === "unit") || (item.type === "supplies" && item.subtype === "ingredients" && item.um === "unit")) && <div className="flex flex-col gap-2 mb-2">
             <h5 className="font-semibold mb-1 text-sm flex items-center gap-2">Equivalencia <QuestionCircle /></h5>
             <button className="border border-dashed rounded-md py-2 px-3 text-sm text-stone-500 hover:bg-stone-50">
                 Agregar equivalencia

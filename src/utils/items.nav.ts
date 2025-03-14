@@ -13,7 +13,7 @@ type ItemNav = {
 export const ITEMS_NAV: ItemNav[] = [
     {
         name: "Productos",
-        value: "product",
+        value: "products",
         icon: Salad,
         types: [
             {
@@ -32,7 +32,7 @@ export const ITEMS_NAV: ItemNav[] = [
     },
     {
         name: "Combos",
-        value: "combo",
+        value: "combos",
         icon: Layers3,
         types: [
             {
@@ -41,21 +41,21 @@ export const ITEMS_NAV: ItemNav[] = [
             },
             {
                 name: "Promociones",
-                value: "promotion"
+                value: "promotions"
             },
             {
                 name: "Menús",
-                value: "menu"
+                value: "menus"
             },
             {
                 name: "Buffets",
-                value: "buffet"
+                value: "buffets"
             },
         ]
     },
     {
         name: "Insumos",
-        value: "supply",
+        value: "supplies",
         icon: Beef,
         types: [
             {
@@ -64,21 +64,17 @@ export const ITEMS_NAV: ItemNav[] = [
             },
             {
                 name: "Ingredientes",
-                value: "ingredient"
-            },
-            {
-                name: "Descartables",
-                value: "disposable"
+                value: "ingredients"
             },
             {
                 name: "Artículos",
-                value: "other"
+                value: "consumables"
             },
         ]
     },
     {
         name: "Recetas base",
-        value: "base-recipe",
+        value: "base-recipes",
         icon: CookingPot,
         types: [
             {

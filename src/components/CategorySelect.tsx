@@ -4,15 +4,16 @@ import { APIResponse, Category } from "../utils/types"
 import { axiosAPI } from "../libs/axios"
 import { LoaderCircle } from "lucide-react"
 import { useRestaurant } from "../contexts/RestaurantContext"
+import { useParams } from "react-router-dom"
 
 type Props = {
-    onChange: (category_id: string) => void
-    initialCategory: string
-    type: string
+    category: string,
+    setCategory: (category: string) => void
 }
 
-export const CategorySelect = ({ initialCategory, onChange, type }: Props) => {
+export const CategorySelect = ({ category, setCategory }: Props) => {
 
+    const { type } = useParams()
     const [categories, setCategories] = useState<Category[]>([])
     const [loading, setLoading] = useState<boolean>(true)
 
@@ -36,9 +37,18 @@ export const CategorySelect = ({ initialCategory, onChange, type }: Props) => {
         getCategories()
     }, [])
 
+    useEffect(() => {
+        if (categories.length > 0) {
+            if (category === "") {
+                setCategory(categories[0].id)
+            }
+        }
+
+    }, [categories])
+
     if (loading) return <LoaderCircle className='size-4 animate-spin stroke-orange-500' />
 
-    return <select value={initialCategory} onChange={e => onChange(e.target.value)} className="border rounded-md w-full px-2 py-1">
+    return <select value={category} onChange={e => setCategory(e.target.value)} className="border rounded-md w-full px-2 py-1">
         {categories.map(category => <option key={category.id} value={category.id}>{category.name}</option>)}
     </select>
 }

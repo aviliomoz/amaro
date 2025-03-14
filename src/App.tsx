@@ -37,8 +37,8 @@ function App() {
               <Route path="register" element={<InDevelopment />} />
               <Route path="sales" element={<InDevelopment />} />
               <Route path="customers" element={<InDevelopment />} />
-              <Route path="items" element={<ItemsPage />} />
-              <Route path="items/:id" element={<ItemPage />} />
+              <Route path="items/:type" element={<ItemsPage />} />
+              <Route path="items/:type/:id" element={<ItemPage />} />
               <Route path="converter" element={<InDevelopment />} />
               <Route path="surveys" element={<InDevelopment />} />
               <Route path="book" element={<InDevelopment />} />

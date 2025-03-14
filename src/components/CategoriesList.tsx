@@ -7,10 +7,11 @@ import { useFilter } from "../hooks/useFilter"
 import { APIResponse, Category } from "../utils/types"
 import { axiosAPI } from "../libs/axios"
 import { useRestaurant } from "../contexts/RestaurantContext"
+import { useParams } from "react-router-dom"
 
 export const CategoriesList = () => {
 
-    const [type] = useFilter("type")
+    const { type } = useParams()
     const [category, setCategory] = useFilter("category")
     const { brand } = useRestaurant()
     const [categories, setCategories] = useState<Category[]>([])
@@ -26,7 +27,7 @@ export const CategoriesList = () => {
         const getCategories = async () => {
             try {
                 setLoading(true)
-                const { data } = await axiosAPI<APIResponse<Category[]>>(`/categories/${brand?.id}/${type || "product"}`)
+                const { data } = await axiosAPI<APIResponse<Category[]>>(`/categories/${brand?.id}/${type || "products"}`)
                 setCategories(data.data)
             } catch (error) {
                 toast.error("Error al cargar las categorias")

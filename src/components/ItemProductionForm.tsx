@@ -21,7 +21,7 @@ export const ItemProductionForm = ({ item, setItem }: Props) => {
                 Agregar presentación
             </button>
         </div>
-        {((item.type === "product" && item.subtype === "unprocessed" && item.um === "unit") || (item.type === "supply" && item.subtype === "ingredient" && item.um === "unit")) && <div className="flex flex-col gap-2 border-t pt-6 mt-2 border-dashed">
+        {((item.type === "products" && item.subtype === "unprocessed" && item.um === "unit") || (item.type === "supplies" && item.subtype === "ingredients" && item.um === "unit")) && <div className="flex flex-col gap-2 border-t pt-6 mt-2 border-dashed">
             <h4 className="font-semibold mb-2 text-sm">Opciones de inventario:</h4>
             <fieldset className="flex gap-2 items-center text-sm">
                 <input className="cursor-pointer" id="weight_control" type="checkbox" checked={item.weight_control} onChange={(e) => setItem({ ...item, weight_control: e.target.checked })} />
