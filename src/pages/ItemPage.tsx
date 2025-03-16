@@ -2,30 +2,30 @@ import toast from "react-hot-toast"
 import { useNavigate, useParams } from "react-router-dom"
 import { ArrowLeft, LoaderCircle, Save } from "lucide-react"
 import { useLayoutEffect, useState } from "react"
-import { APIResponse, Item, ItemSubtype, ItemType } from "../utils/types"
+import { APIResponse, Item, ItemType } from "../utils/types"
 import { axiosAPI } from "../libs/axios"
 import { getItemTypeName, getSubtypesByType } from "../utils/items"
 import { ItemForm } from "../components/ItemForm"
 import { ItemAreasForm } from "../components/ItemAreasForm"
 import { ItemProductionForm } from "../components/ItemProductionForm"
 import { useRestaurant } from "../contexts/RestaurantContext"
+import { useFilter } from "../hooks/useFilter"
 
 export const ItemPage = () => {
 
     const navigate = useNavigate()
 
-    const { id, type } = useParams()
+    const { type, mode } = useParams<{ type: ItemType, mode: "new" | "edit" }>()
+    const [id] = useFilter("id")
     const { branch, brand } = useRestaurant()
     const [loading, setLoading] = useState<boolean>(true)
     const [saving, setSaving] = useState<boolean>(false)
 
-    const mode = id === "new" ? 'new' : 'edit'
-
     const [item, setItem] = useState<Item | Omit<Item, "id">>({
         code: '',
         name: '',
-        type: type as ItemType,
-        subtype: getSubtypesByType(type as ItemType)[0] as ItemSubtype,
+        type: type!,
+        subtype: getSubtypesByType(type!)[0],
         um: 'unit',
         cost: 0,
         price: 0,
@@ -38,7 +38,6 @@ export const ItemPage = () => {
         waste: 0,
         weight_control: false,
     })
-
 
     useLayoutEffect(() => {
 
@@ -67,8 +66,8 @@ export const ItemPage = () => {
         setSaving(true)
 
         try {
-            await axiosAPI.put(`/items/branch/${branch?.id}/${id}`, item)
-            toast.success('Ítem actualizado con éxito')
+            await axiosAPI.put(`/items/branch/${branch?.id}/${id}`, { ...item, name: item.name.trim() })
+            toast.success(`Ítem actualizado correctamente`)
             navigate(-1)
         } catch (error) {
             toast.error((error as Error).message)
@@ -80,8 +79,8 @@ export const ItemPage = () => {
     const saveItem = async () => {
         setSaving(true)
         try {
-            await axiosAPI.post(`/items/branch/${branch?.id}`, item)
-            toast.success('Ítem creado con éxito')
+            await axiosAPI.post(`/items/branch/${branch?.id}`, { ...item, name: item.name.trim() })
+            toast.success(`Ítem creado correctamente`)
             navigate(-1)
         } catch (error) {
             toast.error((error as Error).message)
@@ -95,7 +94,7 @@ export const ItemPage = () => {
         else saveItem()
     }
 
-    if (loading || !item || ( mode === "edit" && !item.category_id)) return <LoaderCircle className='size-4 animate-spin stroke-orange-500' />
+    if (loading || !item || (mode === "edit" && !item.category_id)) return <LoaderCircle className='size-4 animate-spin stroke-orange-500' />
 
     return <>
         <section>

@@ -24,7 +24,7 @@ export const getItemSubtypeName = (itemSubtype: ItemSubtype) => {
     }
 }
 
-export const getSubtypesByType = (type: ItemType) => {
+export const getSubtypesByType = (type: ItemType): ItemSubtype[] => {
     switch (type) {
         case "products": return ["unprocessed", "transformed"];
         case "combos": return ["promotions", "menus", "buffets"];

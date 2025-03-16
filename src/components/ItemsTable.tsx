@@ -2,7 +2,7 @@ import { Ellipsis, LoaderCircle } from "lucide-react"
 import { getUm } from "../utils/um"
 import { useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
-import { APIResponse, Item } from "../utils/types"
+import { APIResponse, Item, ItemType } from "../utils/types"
 import { axiosAPI } from "../libs/axios"
 import toast from "react-hot-toast"
 import { getItemSubtypeName } from "../utils/items"
@@ -11,7 +11,7 @@ import { useRestaurant } from "../contexts/RestaurantContext"
 export const ItemsTable = () => {
     const navigate = useNavigate()
     const { branch, brand } = useRestaurant()
-    const { type } = useParams()
+    const { type } = useParams<{type: ItemType}>()
     const [items, setItems] = useState<Item[]>([])
     const [loading, setLoading] = useState<boolean>(true)
 
@@ -39,21 +39,17 @@ export const ItemsTable = () => {
             <thead>
                 <tr className="text-sm bg-stone-50 border-b shadow-sm h-10">
                     <th className="px-4 text-left font-semibold min-w-32 truncate">Nombre</th>
-                    {(type === "supplies" || type === "base-recipes") && <th className="px-4 font-semibold w-20">U. M.</th>}
+                    {type !== "combos" && <th className="px-4 font-semibold">Unidad de medida</th>}
                     <th className="px-4 font-semibold">Tipo</th>
-                    {(type !== "base-recipes") && <th className="px-4 font-semibold w-20">Precio</th>}
-                    <th className="px-4 font-semibold w-20">Costo</th>
                     <th className="px-4 font-semibold">Estado</th>
                     <th className="px-4 font-semibold">Opciones</th>
                 </tr>
             </thead>
             <tbody>
-                {items.map(item => <tr onClick={() => navigate(`/brands/${brand?.slug}/branches/${branch?.slug}/items/${type}/${item.id}`)} key={item.id} className="text-sm text-center hover:bg-stone-50 cursor-pointer border-b last:border-b-0">
+                {items.map(item => <tr onClick={() => navigate(`/brands/${brand?.slug}/branches/${branch?.slug}/items/${type}/edit?id=${item.id}`)} key={item.id} className="text-sm text-center hover:bg-stone-50 cursor-pointer border-b last:border-b-0">
                     <td className="text-left h-12 px-4">{item.name}</td>
-                    {(type === "supplies" || type === "base-recipes") && <td>{getUm(item.um)}</td>}
+                    {type !== "combos" && <td>{getUm(item.um)}</td>}
                     <td>{getItemSubtypeName(item.subtype)}</td>
-                    {(type !== "base-recipes") && <td>{item.price.toLocaleString("es-PE", { minimumFractionDigits: 2, maximumFractionDigits: 2, style: "currency", currency: "PEN" })}</td>}
-                    <td>{item.cost.toLocaleString("es-PE", { minimumFractionDigits: 2, maximumFractionDigits: 2, style: "currency", currency: "PEN" })}</td>
                     <td>{item.status === "active" ? "Activo" : item.status === "inactive" && "Inactivo"}</td>
                     <td className="flex items-center justify-center pt-4"><Ellipsis onClick={(e) => {
                         e.preventDefault()

@@ -5,7 +5,7 @@ import { APIResponse, Branch, Brand } from "../utils/types"
 import { axiosAPI } from "../libs/axios"
 import { Plus } from "lucide-react"
 
-export const BrandBranches = () => {
+export const BranchesList = () => {
 
     const { brandSlug } = useParams()
     const [branches, setBranches] = useState<Branch[]>([])

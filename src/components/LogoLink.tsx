@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+// import { Zap } from "lucide-react";
 // import logo from "/logo3.svg";
 
 type Props = {
@@ -17,3 +18,5 @@ export function LogoLink({ showTitle = true, width = "md" }: Props) {
     </Link>
   );
 }
+
+//  <span className="flex items-center gap-2 text-sm ml-2 bg-stone-50 px-2 py-1 rounded-lg border"><Zap className="size-4 stroke-orange-500 fill-orange-500"/>Server</span>

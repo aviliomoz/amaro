@@ -1,6 +1,6 @@
 import toast from "react-hot-toast"
 import { useEffect, useState } from "react"
-import { APIResponse, Category } from "../utils/types"
+import { APIResponse, Category, ItemType } from "../utils/types"
 import { axiosAPI } from "../libs/axios"
 import { LoaderCircle } from "lucide-react"
 import { useRestaurant } from "../contexts/RestaurantContext"
@@ -13,7 +13,7 @@ type Props = {
 
 export const CategorySelect = ({ category, setCategory }: Props) => {
 
-    const { type } = useParams()
+    const { type } = useParams<{ type: ItemType }>()
     const [categories, setCategories] = useState<Category[]>([])
     const [loading, setLoading] = useState<boolean>(true)
 

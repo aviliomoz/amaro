@@ -1,13 +1,19 @@
 import { useEffect, useState } from "react";
 import { useFilter } from "../../hooks/useFilter";
+import { useLocation } from "react-router-dom";
 
 type Props = {
   placeholder?: string;
 };
 
 export const SearchBar = ({ placeholder = "Buscar" }: Props) => {
+  const { pathname } = useLocation()
   const [search, setSearch] = useFilter("search");
-  const [localSearch, setLocalSearch] = useState<string>(search)
+  const [localSearch, setLocalSearch] = useState<string>(search || "")
+
+  useEffect(() => {
+    setLocalSearch("")
+  }, [pathname])
 
   useEffect(() => {
     const debouncedSetSearch = setTimeout(() => {
