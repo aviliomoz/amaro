@@ -4,7 +4,7 @@ import { StatusFilter } from "../components/filters/StatusFilter"
 import { DownloadButton } from "../components/DownloadButton"
 import { CategoriesList } from "../components/CategoriesList"
 import { getItemSubtypeName, getItemTypeName, getSubtypesByType } from "../utils/items"
-import { ItemType } from "../utils/types"
+import { ItemTypeEnum } from "../utils/types"
 import { ItemsTable } from "../components/ItemsTable"
 import { BranchLink } from "../components/BranchLink"
 import { useParams } from "react-router-dom"
@@ -13,7 +13,7 @@ import { SubtypeFilter } from "../components/filters/SubtypeFilter"
 
 export const ItemsPage = () => {
 
-    const { type } = useParams<{ type: ItemType }>()
+    const { type } = useParams<{ type: ItemTypeEnum }>()
 
     return <>
         <title>Garlink - Gestión de ítems</title>

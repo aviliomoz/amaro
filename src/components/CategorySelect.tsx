@@ -1,6 +1,6 @@
 import toast from "react-hot-toast"
 import { useEffect, useState } from "react"
-import { APIResponse, Category, ItemType } from "../utils/types"
+import { APIResponse, Category, ItemTypeEnum } from "../utils/types"
 import { axiosAPI } from "../libs/axios"
 import { LoaderCircle } from "lucide-react"
 import { useRestaurant } from "../contexts/RestaurantContext"
@@ -13,7 +13,7 @@ type Props = {
 
 export const CategorySelect = ({ category, setCategory }: Props) => {
 
-    const { type } = useParams<{ type: ItemType }>()
+    const { type } = useParams<{ type: ItemTypeEnum }>()
     const [categories, setCategories] = useState<Category[]>([])
     const [loading, setLoading] = useState<boolean>(true)
 
@@ -40,7 +40,7 @@ export const CategorySelect = ({ category, setCategory }: Props) => {
     useEffect(() => {
         if (categories.length > 0) {
             if (category === "") {
-                setCategory(categories[0].id)
+                setCategory(categories[0].id!)
             }
         }
 

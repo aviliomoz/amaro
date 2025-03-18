@@ -1,6 +1,6 @@
-import { ItemSubtype, ItemType } from "./types";
+import { ItemSubtypeEnum, ItemTypeEnum } from "./types";
 
-export const getItemTypeName = (itemType: ItemType) => {
+export const getItemTypeName = (itemType: ItemTypeEnum) => {
     switch (itemType) {
         case "products": return "Producto";
         case "combos": return "Combo";
@@ -9,7 +9,7 @@ export const getItemTypeName = (itemType: ItemType) => {
     }
 }
 
-export const getItemSubtypeName = (itemSubtype: ItemSubtype) => {
+export const getItemSubtypeName = (itemSubtype: ItemSubtypeEnum) => {
     switch (itemSubtype) {
         case "unprocessed": return "No transformado";
         case "transformed": return "Transformado";
@@ -17,18 +17,18 @@ export const getItemSubtypeName = (itemSubtype: ItemSubtype) => {
         case "menus": return "Menú";
         case "buffets": return "Buffet";
         case "ingredients": return "Ingrediente";
-        case "derivatives": return "Derivado";
         case "consumables": return "Artículo";
-        case "pre-made": return "Pre elaborada";
-        case "minute": return "A la minuta";
+        case "preparations": return "Preparación";
+        case "derivatives": return "Derivado";
+        case "portions": return "Porción";
     }
 }
 
-export const getSubtypesByType = (type: ItemType): ItemSubtype[] => {
+export const getSubtypesByType = (type: ItemTypeEnum): ItemSubtypeEnum[] => {
     switch (type) {
         case "products": return ["unprocessed", "transformed"];
         case "combos": return ["promotions", "menus", "buffets"];
         case "supplies": return ["ingredients", "consumables"];
-        case "base-recipes": return ["pre-made", "minute"];
+        case "base-recipes": return ["preparations", "derivatives", "portions"];
     }
 }

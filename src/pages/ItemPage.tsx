@@ -2,12 +2,11 @@ import toast from "react-hot-toast"
 import { useNavigate, useParams } from "react-router-dom"
 import { ArrowLeft, LoaderCircle, Save } from "lucide-react"
 import { useLayoutEffect, useState } from "react"
-import { APIResponse, Item, ItemType } from "../utils/types"
+import { APIResponse, EquivalenceType, FullItemType, ItemTypeEnum } from "../utils/types"
 import { axiosAPI } from "../libs/axios"
 import { getItemTypeName, getSubtypesByType } from "../utils/items"
 import { ItemForm } from "../components/ItemForm"
-import { ItemAreasForm } from "../components/ItemAreasForm"
-import { ItemProductionForm } from "../components/ItemProductionForm"
+import { ItemControlForm } from "../components/ItemControlForm"
 import { useRestaurant } from "../contexts/RestaurantContext"
 import { useFilter } from "../hooks/useFilter"
 
@@ -15,13 +14,15 @@ export const ItemPage = () => {
 
     const navigate = useNavigate()
 
-    const { type, mode } = useParams<{ type: ItemType, mode: "new" | "edit" }>()
+    const { type, mode } = useParams<{ type: ItemTypeEnum, mode: "new" | "edit" }>()
     const [id] = useFilter("id")
     const { branch, brand } = useRestaurant()
+    const [equivalence, setEquivalence] = useState<EquivalenceType>()
+
     const [loading, setLoading] = useState<boolean>(true)
     const [saving, setSaving] = useState<boolean>(false)
 
-    const [item, setItem] = useState<Item | Omit<Item, "id">>({
+    const [item, setItem] = useState<FullItemType>({
         code: '',
         name: '',
         type: type!,
@@ -42,8 +43,13 @@ export const ItemPage = () => {
     useLayoutEffect(() => {
 
         const getItem = async () => {
-            const { data: item } = await axiosAPI.get<APIResponse<Item>>(`/items/${id}`)
+            const { data: item } = await axiosAPI.get<APIResponse<FullItemType>>(`/items/${id}`)
             setItem(item.data)
+        }
+
+        const getEquivalence = async () => {
+            const { data: equivalence } = await axiosAPI.get<APIResponse<EquivalenceType>>(`/items/equivalence/${id}`)
+            setEquivalence(equivalence.data)
         }
 
         if (mode === "edit") {
@@ -52,6 +58,7 @@ export const ItemPage = () => {
 
             try {
                 getItem()
+                getEquivalence()
             } catch (error) {
                 toast.error((error as Error).message)
             } finally {
@@ -114,10 +121,9 @@ export const ItemPage = () => {
             <div className="grid grid-cols-12 gap-4 mt-4">
                 <div className="col-span-5 flex flex-col gap-4">
                     <ItemForm item={item} setItem={setItem} />
-                    <ItemAreasForm />
                 </div>
                 <div className="col-span-7 flex flex-col gap-4">
-                    <ItemProductionForm item={item} setItem={setItem} />
+                    <ItemControlForm item={item} setItem={setItem} />
                 </div>
             </div>
         </section>

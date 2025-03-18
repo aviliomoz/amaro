@@ -1,14 +1,14 @@
 import { useEffect } from "react"
 import { getItemSubtypeName, getSubtypesByType } from "../utils/items"
-import { Item, ItemSubtype, UM } from "../utils/types"
+import { FullItemType, ItemSubtypeEnum, UMEnum } from "../utils/types"
 import { CategorySelect } from "./CategorySelect"
 import { CurrencySymbol } from "./CurrencySymbol"
 import { QuestionCircle } from "./QuestionCircle"
 import { useParams } from "react-router-dom"
 
 type Props = {
-    item: Item | Omit<Item, "id">
-    setItem: (item: Item | Omit<Item, "id">) => void
+    item: FullItemType
+    setItem: (item: FullItemType) => void
 }
 
 export const ItemForm = ({ item, setItem }: Props) => {
@@ -32,13 +32,13 @@ export const ItemForm = ({ item, setItem }: Props) => {
             </fieldset>
             <fieldset className="grid grid-cols-1 gap-1 text-sm col-span-6">
                 <label className="font-semibold" htmlFor="subtype">Tipo</label>
-                <select className="border rounded-md py-1.5 px-3 outline-none cursor-pointer" id="subtype" name="subtype" value={item.subtype} onChange={(e) => setItem({ ...item, subtype: e.target.value as ItemSubtype })}>
-                    {getSubtypesByType(item.type).map(subtype => <option key={subtype} value={subtype}>{getItemSubtypeName(subtype as ItemSubtype)}</option>)}
+                <select className="border rounded-md py-1.5 px-3 outline-none cursor-pointer" id="subtype" name="subtype" value={item.subtype} onChange={(e) => setItem({ ...item, subtype: e.target.value as ItemSubtypeEnum })}>
+                    {getSubtypesByType(item.type).map(subtype => <option key={subtype} value={subtype}>{getItemSubtypeName(subtype as ItemSubtypeEnum)}</option>)}
                 </select>
             </fieldset>
             <fieldset className="grid grid-cols-1 gap-1 text-sm col-span-6">
                 <label className="font-semibold truncate max-w-36" htmlFor="subtype">Unidad de medida</label>
-                <select disabled={mode === "edit"} className="border rounded-md py-1.5 px-3 outline-none cursor-pointer disabled:cursor-not-allowed" id="um" name="um" value={item.um} onChange={(e) => setItem({ ...item, um: e.target.value as UM })}>
+                <select disabled={mode === "edit"} className="border rounded-md py-1.5 px-3 outline-none cursor-pointer disabled:cursor-not-allowed" id="um" name="um" value={item.um} onChange={(e) => setItem({ ...item, um: e.target.value as UMEnum })}>
                     <option value="unit">Unidad</option>
                     <option value="kilogram">Kilogramo</option>
                     <option value="liter">Litro</option>
@@ -55,14 +55,6 @@ export const ItemForm = ({ item, setItem }: Props) => {
                     <option value="active">Activo</option>
                     <option value="inactive">Inactivo</option>
                 </select>
-            </fieldset>
-            <fieldset className="grid grid-cols-1 gap-1 text-sm col-span-6">
-                <label className="font-semibold flex items-center gap-2" htmlFor="code">Código interno<QuestionCircle /></label>
-                <input className="border rounded-md py-1.5 px-3 outline-none" id="code" maxLength={20} name="code" value={item.code} placeholder="Opcional" onChange={(e) => setItem({ ...item, code: e.target.value })} />
-            </fieldset>
-            <fieldset className="grid grid-cols-1 gap-1 text-sm col-span-6">
-                <label className="font-semibold flex items-center gap-2" htmlFor="code">Código contable <QuestionCircle /></label>
-                <input className="border rounded-md py-1.5 px-3 outline-none" id="code" maxLength={20} name="code" value={item.code} placeholder="Opcional" onChange={(e) => setItem({ ...item, code: e.target.value })} />
             </fieldset>
         </div>
         <div className="grid grid-cols-12 border-t pt-6 mt-2 border-dashed gap-6">

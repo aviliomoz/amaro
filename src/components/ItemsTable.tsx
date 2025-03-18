@@ -2,7 +2,7 @@ import { Ellipsis, LoaderCircle } from "lucide-react"
 import { getUm } from "../utils/um"
 import { useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
-import { APIResponse, Item, ItemType } from "../utils/types"
+import { APIResponse, Item, ItemTypeEnum } from "../utils/types"
 import { axiosAPI } from "../libs/axios"
 import toast from "react-hot-toast"
 import { getItemSubtypeName } from "../utils/items"
@@ -11,7 +11,7 @@ import { useRestaurant } from "../contexts/RestaurantContext"
 export const ItemsTable = () => {
     const navigate = useNavigate()
     const { branch, brand } = useRestaurant()
-    const { type } = useParams<{type: ItemType}>()
+    const { type } = useParams<{type: ItemTypeEnum}>()
     const [items, setItems] = useState<Item[]>([])
     const [loading, setLoading] = useState<boolean>(true)
 

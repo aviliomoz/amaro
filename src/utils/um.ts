@@ -1,12 +1,12 @@
-import { UM } from "./types"
+import { UMEnum } from "./types"
 
-export const UMS = {
+export const UMS: Record<UMEnum, string> = {
     kilogram: "Kilogramo",
     liter: "Litro",
     ounce: "Onza",
     unit: "Unidad"
 }
 
-export const getUm = (um: UM) => {
+export const getUm = (um: UMEnum) => {
     return UMS[um]
 }
