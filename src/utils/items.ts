@@ -9,6 +9,15 @@ export const getItemTypeName = (itemType: ItemTypeEnum) => {
     }
 }
 
+export const getItemTypeTag = (itemType: ItemTypeEnum) => {
+    switch (itemType) {
+        case "products": return "PR";
+        case "combos": return "CO";
+        case "supplies": return "IN";
+        case "base-recipes": return "RB";
+    }
+}
+
 export const getItemSubtypeName = (itemSubtype: ItemSubtypeEnum) => {
     switch (itemSubtype) {
         case "unprocessed": return "No transformado";

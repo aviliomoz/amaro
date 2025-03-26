@@ -1,7 +1,7 @@
 import { UMEnum } from "./types"
 
 export const UMS: Record<UMEnum, string> = {
-    kilogram: "Kilogramo",
+    kilogram: "Kilo",
     liter: "Litro",
     ounce: "Onza",
     unit: "Unidad"

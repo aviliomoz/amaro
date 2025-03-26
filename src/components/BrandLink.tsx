@@ -1,7 +1,7 @@
 import { Link, LinkProps } from "react-router-dom"
 import { useRestaurant } from "../contexts/RestaurantContext"
 
-export const BranchLink = ({ to, children, className, ...props }: LinkProps) => {
+export const BrandLink = ({ to, children, className, ...props }: LinkProps) => {
 
     const { brand, branch } = useRestaurant()
 

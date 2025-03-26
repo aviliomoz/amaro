@@ -20,7 +20,7 @@ export const ItemsTable = () => {
             setLoading(true)
 
             try {
-                const { data } = await axiosAPI.get<APIResponse<Item[]>>(`/items/branch/${branch?.id}?type=${type}`)
+                const { data } = await axiosAPI.get<APIResponse<Item[]>>(`/items?branch_id=${branch?.id}&type=${type}`)
                 setItems(data.data)
             } catch (error) {
                 toast.error((error as Error).message)

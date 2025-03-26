@@ -62,17 +62,33 @@ export type Item = {
   waste: number,
   brand_id: string,
   discharge_type: ItemDischargeEnum,
-  weight_control: boolean
 }
 
-export type FullItemType = Item & {
-  price: number,
-  cost: number,
+export type PricesType = {
+  sale_price: number;
+  purchase_price: number;
+  cost_price: number;
 }
 
 export type EquivalenceType = {
-  id?: string;
-  um: UMEnum;
-  item_id: string;
   amount: number;
+  um: UMEnum;
+}
+
+export type FullIngredientType = {
+  id: string;
+  type: ItemTypeEnum;
+  name: string;
+  amount: number;
+  ums: {
+    um: UMEnum;
+    cost: number;
+    used: boolean;
+  }[];
+}
+
+export type FullItemType = Item & {
+  prices: PricesType,
+  equivalence: EquivalenceType | null,
+  recipe: FullIngredientType[]
 }

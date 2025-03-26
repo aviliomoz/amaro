@@ -1,6 +1,5 @@
 import toast from "react-hot-toast"
 import { useLayoutEffect, useState } from "react"
-import { LinkButton } from "../components/ui/LinkButton"
 import { Plus, SquareMousePointer } from "lucide-react"
 import { useAuth } from "../contexts/AuthContext"
 import { axiosAPI } from "../libs/axios"
@@ -31,12 +30,12 @@ export const BrandsPage = () => {
     }, [])
 
     return <>
-        <title>Garlink - Marcas y sucursales</title>
+        <title>SISTEMA - Marcas y sucursales</title>
         <section className="bg-stone-100 shadow-sm h-screen rounded-lg p-4 grid grid-cols-12 gap-4">
             <div className="bg-white rounded-md p-4 col-span-4 shadow-md">
                 <div className="flex justify-between items-center mb-6">
                     <h2 className="font-bold">Tus marcas:</h2>
-                    <LinkButton icon={Plus} url="/brands/new">Nueva marca</LinkButton>
+                    <button className="flex items-center gap-2 text-sm font-medium"><Plus className="size-4"/>Nueva marca</button>
                 </div>
                 {loading
                     ? <p>Cargando marcas...</p>

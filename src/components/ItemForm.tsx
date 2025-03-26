@@ -17,14 +17,13 @@ export const ItemForm = ({ item, setItem }: Props) => {
 
     useEffect(() => {
         if (item.taxable) {
-            setItem({ ...item, cost: (item.price || 0) / 1.18 })
+            setItem({ ...item, prices: { ...item.prices, cost_price: (item.prices.purchase_price || 0) / 1.18 } })
         } else {
-            setItem({ ...item, cost: (item.price || 0) })
+            setItem({ ...item, prices: { ...item.prices, cost_price: (item.prices.purchase_price || 0) } })
         }
-    }, [item.price, item.taxable])
+    }, [item.prices.purchase_price, item.taxable])
 
-    return <form className="border rounded-md p-6 shadow-sm flex flex-col gap-5 h-fit">
-        <h4 className="font-semibold mb-1 text-sm">Información base:</h4>
+    return <form className="flex flex-col gap-5 h-fit">
         <div className="grid grid-cols-12 gap-6">
             <fieldset className="grid grid-cols-1 gap-1 text-sm col-span-12">
                 <label className="font-semibold" htmlFor="name">Nombre</label>
@@ -57,29 +56,27 @@ export const ItemForm = ({ item, setItem }: Props) => {
                 </select>
             </fieldset>
         </div>
-        <div className="grid grid-cols-12 border-t pt-6 mt-2 border-dashed gap-6">
+        {item.type !== "base-recipes" && <div className="grid grid-cols-12 border-t pt-6 mt-2 border-dashed gap-6">
             <fieldset className="grid grid-cols-1 gap-1 text-sm col-span-6">
                 <label className="font-semibold truncate line-clamp-1" htmlFor="price">Precio</label>
                 <div className="flex items-center gap-2">
                     <CurrencySymbol />
-                    <input className="border rounded-md py-1.5 px-3 outline-none w-full" type="number" min={0} step={1} id="price" name="price" value={item.price} onChange={(e) => setItem({ ...item, price: e.target.valueAsNumber })} />
+                    <input className="border rounded-md py-1.5 px-3 outline-none w-full" type="number" min={0} step={1} id="price" name="price" value={item.prices.purchase_price} onChange={(e) => setItem({ ...item, prices: { ...item.prices, purchase_price: e.target.valueAsNumber } })} />
                 </div>
             </fieldset>
             <fieldset className="grid grid-cols-1 gap-1 text-sm col-span-6">
                 <label className="font-semibold truncate line-clamp-1 flex items-center gap-2" htmlFor="cost">Costo <QuestionCircle /></label>
                 <div className="flex items-center gap-2">
                     <CurrencySymbol />
-                    <input className="border rounded-md py-1.5 px-3 outline-none w-full" type="number" id="cost" name="cost" value={item.cost.toFixed(2)} disabled />
+                    <input className="border rounded-md py-1.5 px-3 outline-none w-full" type="number" id="cost" name="cost" value={item.prices.cost_price.toFixed(2)} disabled />
                 </div>
             </fieldset>
-        </div>
-        <div className="grid grid-cols-12 gap-4">
             <fieldset className="flex items-center gap-2 text-sm col-span-7">
                 <input className="cursor-pointer" id="taxable" type="checkbox" checked={item.taxable} onChange={(e) => setItem({ ...item, taxable: e.target.checked })} />
                 <label className="font-semibold cursor-pointer" htmlFor="taxable">Afecto a impuestos</label>
             </fieldset>
-        </div>
-        <div className="grid grid-cols-12 border-t pt-6 mt-2 border-dashed gap-6">
+        </div>}
+        {(item.type === "supplies" && item.subtype === "ingredients") && <div className="grid grid-cols-12 border-t pt-6 mt-2 border-dashed gap-6">
             <fieldset className="grid grid-cols-1 col-span-6 gap-1 text-sm">
                 <label className="font-semibold flex items-center gap-2" htmlFor="waste">Merma <QuestionCircle /></label>
                 <div className="flex items-center gap-2">
@@ -91,8 +88,18 @@ export const ItemForm = ({ item, setItem }: Props) => {
                 <label className="font-semibold flex items-center gap-2" htmlFor="clean-cost">Costo sin merma <QuestionCircle /></label>
                 <div className="flex items-center gap-2">
                     <CurrencySymbol />
-                    <input className="border rounded-md py-1.5 px-3 outline-none w-full mr-2" type="number" disabled id="clean-cost" name="clean-cost" value={(item.cost / (1 - ((item.waste || 0) / 100))).toFixed(2)} />
+                    <input className="border rounded-md py-1.5 px-3 outline-none w-full mr-2" type="number" disabled id="clean-cost" name="clean-cost" value={(item.prices.cost_price / (1 - ((item.waste || 0) / 100))).toFixed(2)} />
                 </div>
+            </fieldset>
+        </div>}
+        <div className="grid grid-cols-12 border-t pt-6 mt-2 border-dashed gap-6 col-span-12">
+            <fieldset className="grid grid-cols-1 gap-1 text-sm col-span-6">
+                <label className="font-semibold flex items-center gap-2" htmlFor="code">Código<QuestionCircle /></label>
+                <input className="border rounded-md py-1.5 px-3 outline-none" id="code" maxLength={20} name="code" value={item.code} placeholder="Opcional" onChange={(e) => setItem({ ...item, code: e.target.value })} />
+            </fieldset>
+            <fieldset className="grid grid-cols-1 gap-1 text-sm col-span-6">
+                <label className="font-semibold flex items-center gap-2" htmlFor="code">Código contable<QuestionCircle /></label>
+                <input className="border rounded-md py-1.5 px-3 outline-none" id="code" maxLength={20} name="code" value={item.code} placeholder="Opcional" onChange={(e) => setItem({ ...item, code: e.target.value })} />
             </fieldset>
         </div>
     </form>

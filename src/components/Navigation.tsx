@@ -12,7 +12,7 @@ export const Navigation = () => {
         <NavLink icon={Tickets} url="/orders" >Pedidos</NavLink>
         <NavLink icon={Wallet} url="/sales" >Ventas</NavLink>
         <NavLink icon={BookUser} url="/customers" >Clientes</NavLink>
-        <NavLink icon={Layers2} base="/items" url="/items/products" >Ítems</NavLink>
+        <NavLink icon={Layers2} base="/items" url="/items/products?status=active" >Ítems</NavLink>
       </NavGroup>
       <NavGroup title="HERRAMIENTAS" >
         <NavLink icon={ArrowLeftRight} url="/converter" >Conversor</NavLink>
