@@ -1,106 +1,138 @@
-import { useEffect } from "react"
 import { getItemSubtypeName, getSubtypesByType } from "../utils/items"
-import { FullItemType, ItemSubtypeEnum, UMEnum } from "../utils/types"
+import { UMEnum, ItemStatusEnum, ItemSubtypeEnum } from "../utils/types"
+import { useItem } from "../contexts/ItemContext"
+import { Form } from "./ui/Form"
+import { Box } from "./ui/Box"
+import { ItemEquivalenceOption } from "./ItemEquivalenceOption"
+import { ItemPresentationsTable } from "./tables/ItemPresentationsTable"
+import { ItemAreasTable } from "./tables/ItemAreasTable"
+import { ItemRecipeTable } from "./tables/ItemRecipeTable"
+import { useRestaurant } from "../contexts/RestaurantContext"
+import { ItemDerivativesTable } from "./ItemDerivativesTable"
+import { Loading } from "./ui/Loading"
 import { CategorySelect } from "./CategorySelect"
-import { CurrencySymbol } from "./CurrencySymbol"
-import { QuestionCircle } from "./QuestionCircle"
-import { useParams } from "react-router-dom"
 
-type Props = {
-    item: FullItemType
-    setItem: (item: FullItemType) => void
-}
+export const ItemForm = () => {
 
-export const ItemForm = ({ item, setItem }: Props) => {
+    const { item, setItem, loading } = useItem()
+    const { restaurant } = useRestaurant()
 
-    const { mode } = useParams<{ mode: "new" | "edit" }>()
+    if (loading) return <Loading />
 
-    useEffect(() => {
-        if (item.taxable) {
-            setItem({ ...item, prices: { ...item.prices, cost_price: (item.prices.purchase_price || 0) / 1.18 } })
-        } else {
-            setItem({ ...item, prices: { ...item.prices, cost_price: (item.prices.purchase_price || 0) } })
-        }
-    }, [item.prices.purchase_price, item.taxable])
+    return <div className="flex gap-4 w-full">
+        <section className="w-2/5">
+            <Box title="Información básica:">
+                <Form>
+                    <Form.Field title="Nombre">
+                        <Form.TextInput value={item.name} onChange={(value) => setItem({ ...item, name: value })} />
+                    </Form.Field>
 
-    return <form className="flex flex-col gap-5 h-fit">
-        <div className="grid grid-cols-12 gap-6">
-            <fieldset className="grid grid-cols-1 gap-1 text-sm col-span-12">
-                <label className="font-semibold" htmlFor="name">Nombre</label>
-                <input className="border rounded-md py-1.5 px-3 outline-none" autoComplete="off" id="name" name="name" value={item.name} onChange={(e) => setItem({ ...item, name: e.target.value })} />
-            </fieldset>
-            <fieldset className="grid grid-cols-1 gap-1 text-sm col-span-6">
-                <label className="font-semibold" htmlFor="subtype">Tipo</label>
-                <select className="border rounded-md py-1.5 px-3 outline-none cursor-pointer" id="subtype" name="subtype" value={item.subtype} onChange={(e) => setItem({ ...item, subtype: e.target.value as ItemSubtypeEnum })}>
-                    {getSubtypesByType(item.type).map(subtype => <option key={subtype} value={subtype}>{getItemSubtypeName(subtype as ItemSubtypeEnum)}</option>)}
-                </select>
-            </fieldset>
-            <fieldset className="grid grid-cols-1 gap-1 text-sm col-span-6">
-                <label className="font-semibold truncate max-w-36" htmlFor="subtype">Unidad de medida</label>
-                <select disabled={mode === "edit"} className="border rounded-md py-1.5 px-3 outline-none cursor-pointer disabled:cursor-not-allowed" id="um" name="um" value={item.um} onChange={(e) => setItem({ ...item, um: e.target.value as UMEnum })}>
-                    <option value="unit">Unidad</option>
-                    <option value="kilogram">Kilogramo</option>
-                    <option value="liter">Litro</option>
-                    <option value="ounce">Onza</option>
-                </select>
-            </fieldset>
-            <fieldset className="grid grid-cols-1 gap-1 text-sm col-span-7">
-                <label className="font-semibold" htmlFor="category_id">Categoría</label>
-                <CategorySelect category={item.category_id} setCategory={(c) => setItem({ ...item, category_id: c })} />
-            </fieldset>
-            <fieldset className="grid grid-cols-1 gap-1 text-sm col-span-5">
-                <label className="font-semibold truncate line-clamp-1" htmlFor="status">Estado</label>
-                <select className="border rounded-md py-1.5 px-3 outline-none cursor-pointer" id="status" name="status" value={item.status} onChange={(e) => setItem({ ...item, status: e.target.value })}>
-                    <option value="active">Activo</option>
-                    <option value="inactive">Inactivo</option>
-                </select>
-            </fieldset>
-        </div>
-        {item.type !== "base-recipes" && <div className="grid grid-cols-12 border-t pt-6 mt-2 border-dashed gap-6">
-            <fieldset className="grid grid-cols-1 gap-1 text-sm col-span-6">
-                <label className="font-semibold truncate line-clamp-1" htmlFor="price">Precio</label>
-                <div className="flex items-center gap-2">
-                    <CurrencySymbol />
-                    <input className="border rounded-md py-1.5 px-3 outline-none w-full" type="number" min={0} step={1} id="price" name="price" value={item.prices.purchase_price} onChange={(e) => setItem({ ...item, prices: { ...item.prices, purchase_price: e.target.valueAsNumber } })} />
-                </div>
-            </fieldset>
-            <fieldset className="grid grid-cols-1 gap-1 text-sm col-span-6">
-                <label className="font-semibold truncate line-clamp-1 flex items-center gap-2" htmlFor="cost">Costo <QuestionCircle /></label>
-                <div className="flex items-center gap-2">
-                    <CurrencySymbol />
-                    <input className="border rounded-md py-1.5 px-3 outline-none w-full" type="number" id="cost" name="cost" value={item.prices.cost_price.toFixed(2)} disabled />
-                </div>
-            </fieldset>
-            <fieldset className="flex items-center gap-2 text-sm col-span-7">
-                <input className="cursor-pointer" id="taxable" type="checkbox" checked={item.taxable} onChange={(e) => setItem({ ...item, taxable: e.target.checked })} />
-                <label className="font-semibold cursor-pointer" htmlFor="taxable">Afecto a impuestos</label>
-            </fieldset>
-        </div>}
-        {(item.type === "supplies" && item.subtype === "ingredients") && <div className="grid grid-cols-12 border-t pt-6 mt-2 border-dashed gap-6">
-            <fieldset className="grid grid-cols-1 col-span-6 gap-1 text-sm">
-                <label className="font-semibold flex items-center gap-2" htmlFor="waste">Merma <QuestionCircle /></label>
-                <div className="flex items-center gap-2">
-                    <span>%</span>
-                    <input className="border rounded-md py-1.5 px-3 outline-none w-full mr-2" type="number" min={0} max={100} maxLength={3} step={1} id="waste" name="waste" value={item.waste} onChange={(e) => setItem({ ...item, waste: e.target.valueAsNumber > 100 ? item.waste : e.target.valueAsNumber })} />
-                </div>
-            </fieldset>
-            <fieldset className="grid grid-cols-1 col-span-6 gap-1 text-sm">
-                <label className="font-semibold flex items-center gap-2" htmlFor="clean-cost">Costo sin merma <QuestionCircle /></label>
-                <div className="flex items-center gap-2">
-                    <CurrencySymbol />
-                    <input className="border rounded-md py-1.5 px-3 outline-none w-full mr-2" type="number" disabled id="clean-cost" name="clean-cost" value={(item.prices.cost_price / (1 - ((item.waste || 0) / 100))).toFixed(2)} />
-                </div>
-            </fieldset>
-        </div>}
-        <div className="grid grid-cols-12 border-t pt-6 mt-2 border-dashed gap-6 col-span-12">
-            <fieldset className="grid grid-cols-1 gap-1 text-sm col-span-6">
-                <label className="font-semibold flex items-center gap-2" htmlFor="code">Código<QuestionCircle /></label>
-                <input className="border rounded-md py-1.5 px-3 outline-none" id="code" maxLength={20} name="code" value={item.code} placeholder="Opcional" onChange={(e) => setItem({ ...item, code: e.target.value })} />
-            </fieldset>
-            <fieldset className="grid grid-cols-1 gap-1 text-sm col-span-6">
-                <label className="font-semibold flex items-center gap-2" htmlFor="code">Código contable<QuestionCircle /></label>
-                <input className="border rounded-md py-1.5 px-3 outline-none" id="code" maxLength={20} name="code" value={item.code} placeholder="Opcional" onChange={(e) => setItem({ ...item, code: e.target.value })} />
-            </fieldset>
-        </div>
-    </form>
+                    <div className="flex gap-4">
+                        <Form.Field title="Tipo" description="El tipo de ítem que estás creando.">
+                            <Form.Select value={item.subtype} onChange={(value) => setItem({ ...item, subtype: value as ItemSubtypeEnum })} options={getSubtypesByType(item.type).map(subtype => ({ label: getItemSubtypeName(subtype), value: subtype }))} />
+                        </Form.Field>
+                        <Form.Field title="Unidad de medida" description="La unidad de medida del ítem.">
+                            <Form.Select value={item.um} onChange={(value) => setItem({ ...item, um: value as UMEnum })} options={[
+                                { label: "Unidad", value: "unit" },
+                                { label: "Kilogramo", value: "kilogram" },
+                                { label: "Litro", value: "liter" },
+                                { label: "Onza", value: "ounce" }
+                            ]} />
+                        </Form.Field>
+                    </div>
+
+                    <div className="flex gap-4">
+                        <CategorySelect />
+                        <Form.Field title="Estado" description="El estado del ítem.">
+                            <Form.Select value={item.status} onChange={(value) => setItem({ ...item, status: value as ItemStatusEnum })} options={[
+                                { label: "Activo", value: "active" },
+                                { label: "Inactivo", value: "inactive" }
+                            ]} />
+                        </Form.Field>
+                    </div>
+
+                    {item.type !== "base-recipes" && <Form.Separator />}
+
+                    {((item.type === "products") || (item.type === "combos")) &&
+                        <div className="flex gap-4">
+                            <Form.Field title="Precio de venta" description="">
+                                <Form.NumericInput value={item.sale_price} onChange={(value) => setItem({ ...item, sale_price: value as number })} symbol={"S/"} />
+                            </Form.Field>
+                            <Form.Field title="Valor venta" description="Precio de venta sin impuestos.">
+                                <Form.NumericInput disabled value={item.sale_price / (1 + (restaurant?.sales_tax! / 100))} onChange={(value) => setItem({ ...item, sale_price: value as number })} symbol={"S/"} />
+                            </Form.Field>
+                        </div>
+                    }
+
+                    {((item.type === "products" && item.subtype === "unprocessed") || item.type === "supplies") &&
+                        <>
+                            <div className="flex gap-4">
+                                <Form.Field title="Precio de compra" description="">
+                                    <Form.NumericInput value={item.purchase_price} onChange={(value) => setItem({ ...item, purchase_price: value as number })} symbol={"S/"} />
+                                </Form.Field>
+                                <Form.Field title="Costo" description="">
+                                    <Form.NumericInput disabled value={item.cost_price} onChange={(value) => setItem({ ...item, cost_price: value as number })} symbol={"S/"} />
+                                </Form.Field>
+                            </div>
+                            <Form.Checkbox label="Afecto a impuestos" value={item.taxable} onChange={(value) => setItem({ ...item, taxable: value })} />
+                        </>
+                    }
+
+
+                    {item.type === "supplies" &&
+                        <>
+                            <Form.Separator />
+                            <div className="flex gap-4">
+                                <Form.Field title="Merma" description="La merma del ítem.">
+                                    <Form.NumericInput value={item.waste} onChange={(value) => setItem({ ...item, waste: value as number })} symbol={"%"} />
+                                </Form.Field>
+                                <Form.Field title="Costo sin merma" description="El costo del ítem sin merma.">
+                                    <Form.NumericInput disabled value={item.clean_price} onChange={(value) => setItem({ ...item, clean_price: value as number })} symbol={"S/"} />
+                                </Form.Field>
+                            </div>
+                        </>
+                    }
+
+                    <Form.Separator />
+
+                    <div className="flex gap-4">
+                        <Form.Field title="Código interno" description="El código interno del ítem.">
+                            <Form.TextInput placeholder="Opcional" value={item.internal_code || ""} onChange={(value) => setItem({ ...item, internal_code: value })} />
+                        </Form.Field>
+                        <Form.Field title="Código externo" description="El código externo del ítem.">
+                            <Form.TextInput placeholder="Opcional" value={item.external_code || ""} onChange={(value) => setItem({ ...item, external_code: value })} />
+                        </Form.Field>
+                    </div>
+                </Form>
+            </Box>
+        </section>
+        <section className="w-3/5">
+            <Box title="Opciones de control:">
+                <Form>
+                    {((item.type === "products" && item.subtype === "unprocessed") || item.type === "supplies") && item.um === "unit" &&
+                        <Form.Field title="Equivalencia" description="La equivalencia del ítem.">
+                            <ItemEquivalenceOption />
+                        </Form.Field>}
+                    {((item.type === "products" && item.subtype === "unprocessed") || item.type === "supplies") &&
+                        <Form.Field title="Presentaciones de compra" description="">
+                            <ItemPresentationsTable />
+                        </Form.Field>}
+                    {item.type === "supplies" &&
+                        <Form.Field title="Derivados" description="">
+                            <ItemDerivativesTable />
+                        </Form.Field>}
+                    <Form.Field title="Áreas" description="">
+                        <ItemAreasTable />
+                    </Form.Field>
+                    {((item.type === "products" && item.subtype === "transformed") || item.type === "base-recipes") &&
+                        <>
+                            <Form.Separator />
+                            <Form.Field title="Receta" description="">
+                                <ItemRecipeTable />
+                            </Form.Field>
+                        </>}
+                </Form>
+            </Box>
+        </section>
+    </div>
 }

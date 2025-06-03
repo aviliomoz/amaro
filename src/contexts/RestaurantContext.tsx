@@ -1,20 +1,17 @@
 import { createContext, useContext, useState } from "react";
-import { Branch, Brand } from "../utils/types";
+import { RestaurantType } from "../utils/types";
 
 type RestaurantContextType = {
-    brand?: Brand;
-    branch?: Branch;
-    setBrand: (brand: Brand) => void;
-    setBranch: (branch: Branch) => void;
+    restaurant: RestaurantType | undefined;
+    setRestaurant: (restaurant: RestaurantType) => void;
 };
 
 export const RestaurantContext = createContext<RestaurantContextType | null>(null);
 
 export const RestaurantContextProvider = ({ children }: { children: React.ReactNode }) => {
-    const [brand, setBrand] = useState<Brand>();
-    const [branch, setBranch] = useState<Branch>();
+    const [restaurant, setRestaurant] = useState<RestaurantType>();
 
-    return <RestaurantContext.Provider value={{ brand, branch, setBrand, setBranch }}>{children}</RestaurantContext.Provider>;
+    return <RestaurantContext.Provider value={{ restaurant, setRestaurant }}>{children}</RestaurantContext.Provider>;
 };
 
 export const useRestaurant = () => {

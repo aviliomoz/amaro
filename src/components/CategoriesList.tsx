@@ -3,7 +3,7 @@ import { Ellipsis, LoaderCircle } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Modal } from "./ui/Modal"
 import { CategoriesForm } from "./CategoriesForm"
-import { APIResponse, Category } from "../utils/types"
+import { APIResponse, CategoryType, ItemTypeEnum } from "../utils/types"
 import { axiosAPI } from "../libs/axios"
 import { useRestaurant } from "../contexts/RestaurantContext"
 import { useParams } from "react-router-dom"
@@ -11,9 +11,9 @@ import { CategoriesListItem } from "./CategoriesListItem"
 
 export const CategoriesList = () => {
 
-    const { type } = useParams()
-    const { brand } = useRestaurant()
-    const [categories, setCategories] = useState<Category[]>([])
+    const { type } = useParams<{type: ItemTypeEnum}>()
+    const { restaurant } = useRestaurant()
+    const [categories, setCategories] = useState<CategoryType[]>([])
     const [loading, setLoading] = useState<boolean>(true)
     const [showModal, setShowModal] = useState<boolean>(false)
 
@@ -22,7 +22,7 @@ export const CategoriesList = () => {
         const getCategories = async () => {
             try {
                 setLoading(true)
-                const { data } = await axiosAPI<APIResponse<Category[]>>(`/categories/${brand?.id}/${type || "products"}`)
+                const { data } = await axiosAPI<APIResponse<CategoryType[]>>(`/categories/${restaurant?.id}/${type || "products"}`)
                 setCategories(data.data)
             } catch (error) {
                 toast.error("Error al cargar las categorias")

@@ -1,4 +1,4 @@
-export const ItemsAreasTable = () => {
+export const ItemAreasTable = () => {
     return <div className="border rounded-md w-full h-fit overflow-hidden">
         <table className="text-sm w-full text-center">
             <thead className="text-center">

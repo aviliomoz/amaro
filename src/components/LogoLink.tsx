@@ -1,6 +1,6 @@
+import logo from "/logo.svg";
 import { Link } from "react-router-dom";
-// import { Zap } from "lucide-react";
-// import logo from "/logo3.svg";
+import { useRestaurant } from "../contexts/RestaurantContext";
 
 type Props = {
   showTitle?: boolean;
@@ -8,13 +8,14 @@ type Props = {
 };
 
 export function LogoLink({ showTitle = true, width = "md" }: Props) {
+
+  const { restaurant } = useRestaurant()
+
   return (
-    <Link to={"/"} className={`flex items-center gap-2 ${width === "md" ? "text-xl" : "text-2xl"} font-bold`}>
-      {/* <img src={logo} width={24} height={24} /> */}
-      <span className="bg-gradient-to-br from-orange-500 to-orange-600 border-orange-600 rounded-lg size-5 relative">
-        <span className="absolute bg-stone-50 rounded-full size-2 top-2 right-1"></span>
-      </span>
-      <span className={`${showTitle && "hidden sm:flex tracking-wider font-furai items-center gap-2 pt-0.5"}`}>SISTEMA</span>
+    <Link to={restaurant ? `/restaurants/${restaurant.slug}/dashboard` : "/"} className={`flex items-center gap-2 ${width === "md" ? "text-xl" : "text-[22px]"}`}>
+      <img src={logo} width={30} height={30} />
+      {/* <span className={`${showTitle && "hidden sm:flex font-logo tracking-wide text-stone-900 items-center"}`}>Amaro <span className="font-medium text-lg text-stone-800 pt-[4px]">.software</span></span> */}
+      <span className={`${showTitle && "hidden sm:flex font-logo tracking-wide text-stone-900 items-center"}`}>Sistema</span>
     </Link>
   );
 }

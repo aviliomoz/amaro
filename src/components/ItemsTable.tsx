@@ -2,7 +2,7 @@ import { Ellipsis, LoaderCircle } from "lucide-react"
 import { getUm } from "../utils/um"
 import { useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
-import { APIResponse, Item, ItemTypeEnum } from "../utils/types"
+import { APIResponse, ItemType, ItemTypeEnum } from "../utils/types"
 import { axiosAPI } from "../libs/axios"
 import toast from "react-hot-toast"
 import { getItemSubtypeName } from "../utils/items"
@@ -10,9 +10,9 @@ import { useRestaurant } from "../contexts/RestaurantContext"
 
 export const ItemsTable = () => {
     const navigate = useNavigate()
-    const { branch, brand } = useRestaurant()
+    const { restaurant } = useRestaurant()
     const { type } = useParams<{type: ItemTypeEnum}>()
-    const [items, setItems] = useState<Item[]>([])
+    const [items, setItems] = useState<ItemType[]>([])
     const [loading, setLoading] = useState<boolean>(true)
 
     useEffect(() => {
@@ -20,7 +20,7 @@ export const ItemsTable = () => {
             setLoading(true)
 
             try {
-                const { data } = await axiosAPI.get<APIResponse<Item[]>>(`/items?branch_id=${branch?.id}&type=${type}`)
+                const { data } = await axiosAPI.get<APIResponse<ItemType[]>>(`/items?restaurant_id=${restaurant?.id}&type=${type}`)
                 setItems(data.data)
             } catch (error) {
                 toast.error((error as Error).message)
@@ -30,7 +30,7 @@ export const ItemsTable = () => {
         }
 
         getItems()
-    }, [type, branch])
+    }, [type, restaurant])
 
     if (loading) return <LoaderCircle className='size-4 animate-spin stroke-orange-500' />
 
@@ -46,7 +46,7 @@ export const ItemsTable = () => {
                 </tr>
             </thead>
             <tbody>
-                {items.map(item => <tr onClick={() => navigate(`/brands/${brand?.slug}/branches/${branch?.slug}/items/${type}/edit?id=${item.id}`)} key={item.id} className="text-sm text-center hover:bg-stone-50 cursor-pointer border-b last:border-b-0">
+                {items.map(item => <tr onClick={() => navigate(`/restaurants/${restaurant?.slug}/items/${type}/${item.id}`)} key={item.id} className="text-sm text-center hover:bg-stone-50 cursor-pointer border-b last:border-b-0">
                     <td className="text-left h-12 px-4">{item.name}</td>
                     {type !== "combos" && <td>{getUm(item.um)}</td>}
                     <td>{getItemSubtypeName(item.subtype)}</td>

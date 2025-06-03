@@ -9,7 +9,7 @@ export const StatusFilter = () => {
       <CopyCheck className="w-4" />
       <span className="font-medium">Estado:</span>
       <select
-        value={status || ""}
+        value={status as string}
         onChange={(e) => setStatus(e.target.value)}
         className={`outline-none cursor-pointer border-none bg-transparent`}
       >

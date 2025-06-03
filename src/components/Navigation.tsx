@@ -1,4 +1,4 @@
-import { ArrowLeftRight, BookMarked, BookUser, ClipboardList, Computer, Layers2, LayoutDashboard, LayoutList, ListOrdered, MessageSquareText, NotebookText, Settings, ShoppingBag, Tickets, Truck, Users, Wallet } from "lucide-react";
+import { ArrowLeftRight, BookUser, ClipboardList, Layers2, LayoutDashboard, LayoutList, ListOrdered, MessageSquareText, NotebookText, QrCode, Settings, ShoppingBag, Truck, Users, Wallet } from "lucide-react";
 import { NavGroup } from "./NavGroup";
 import { NavLink } from "./NavLink";
 
@@ -8,16 +8,14 @@ export const Navigation = () => {
     <nav className="flex flex-col gap-4">
       <NavGroup title="MENU" >
         <NavLink icon={LayoutDashboard} url="/dashboard" >Resumen</NavLink>
-        <NavLink icon={Computer} url="/register" >Caja</NavLink>
-        <NavLink icon={Tickets} url="/orders" >Pedidos</NavLink>
         <NavLink icon={Wallet} url="/sales" >Ventas</NavLink>
         <NavLink icon={BookUser} url="/customers" >Clientes</NavLink>
         <NavLink icon={Layers2} base="/items" url="/items/products?status=active" >Ítems</NavLink>
       </NavGroup>
       <NavGroup title="HERRAMIENTAS" >
         <NavLink icon={ArrowLeftRight} url="/converter" >Conversor</NavLink>
-        <NavLink icon={BookMarked} url="/book" >Libro recetario</NavLink>
         <NavLink icon={MessageSquareText} url="/surveys" >Encuentas</NavLink>
+        <NavLink icon={QrCode} url="/menu" >Cartas QR</NavLink>
       </NavGroup>
       <NavGroup title="LOGÍSTICA" >
         <NavLink icon={ShoppingBag} url="/purchases" >Compras</NavLink>

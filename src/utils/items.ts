@@ -26,9 +26,9 @@ export const getItemSubtypeName = (itemSubtype: ItemSubtypeEnum) => {
         case "menus": return "Menú";
         case "buffets": return "Buffet";
         case "ingredients": return "Ingrediente";
+        case "derivatives": return "Derivado";
         case "consumables": return "Artículo";
         case "preparations": return "Preparación";
-        case "derivatives": return "Derivado";
         case "portions": return "Porción";
     }
 }
@@ -38,6 +38,6 @@ export const getSubtypesByType = (type: ItemTypeEnum): ItemSubtypeEnum[] => {
         case "products": return ["unprocessed", "transformed"];
         case "combos": return ["promotions", "menus", "buffets"];
         case "supplies": return ["ingredients", "consumables"];
-        case "base-recipes": return ["preparations", "derivatives", "portions"];
+        case "base-recipes": return ["preparations", "portions"];
     }
 }
