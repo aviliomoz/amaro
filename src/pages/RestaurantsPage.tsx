@@ -29,7 +29,7 @@ export const RestaurantsPage = () => {
 
     return <Page title="Gestión de restaurantes">
         <Page.Content loading={loading}>
-            <section className="bg-stone-100 shadow-sm h-screen rounded-lg p-4 grid grid-cols-4 gap-4">
+            <section className="grid grid-cols-5 w-full gap-4 bg-stone-100 p-4 rounded-md shadow-sm items-start justify-start">
                 {restaurants.sort((a, b) => a.name.localeCompare(b.name)).map(restaurant => <RestaurantCard key={restaurant.id} restaurant={restaurant} />)}
             </section>
         </Page.Content>

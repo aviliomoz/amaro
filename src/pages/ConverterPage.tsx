@@ -5,8 +5,9 @@ import { APIResponse, ItemType, UMEnum } from "../utils/types"
 import { axiosAPI } from "../libs/axios"
 import { useRestaurant } from "../contexts/RestaurantContext"
 import { Table } from "../components/ui/Table"
-import { Trash } from "lucide-react"
-import { getUm } from "../utils/um"
+import { LoaderCircle, Trash } from "lucide-react"
+import { getUm, pluralizeUm } from "../utils/um"
+import { Loading } from "../components/ui/Loading"
 
 export const ConverterPage = () => {
 
@@ -15,6 +16,7 @@ export const ConverterPage = () => {
     const [ingredients, setIngredients] = useState<{ name: string, um: UMEnum, amount: number, products: { name: string, amount: number }[] }[]>([])
     const [search, setSearch] = useState<string>("")
     const [searchResult, setSearchResult] = useState<ItemType[]>([])
+    const [loading, setLoading] = useState<boolean>(false)
 
     const searchItems = async (search: string) => {
         if (search.length < 3) {
@@ -48,6 +50,8 @@ export const ConverterPage = () => {
             return
         }
 
+        setLoading(true)
+
         try {
 
             let cleanConsumption: { name: string, um: UMEnum, amount: number, products: { name: string, amount: number }[] }[] = []
@@ -67,8 +71,11 @@ export const ConverterPage = () => {
             })
 
             setIngredients(cleanConsumption)
+            toast.success("Conversión generada exitosamente")
         } catch (error) {
             toast.error("Error al generar la conversión")
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -79,7 +86,7 @@ export const ConverterPage = () => {
     return <Page title="Conversor de consumo">
         <Page.Header>
             <Page.Title>Conversor de consumo</Page.Title>
-            <button onClick={generateConversion}>Generar conversión</button>
+            <button className="text-sm font-medium bg-orange-500 text-white px-4 py-1.5 rounded-md flex items-center gap-2 transition-all ease-in-out" onClick={generateConversion}>{ loading && <LoaderCircle className={`size-4 stroke-white stroke-[3px] animate-spin`} />} Generar conversión</button>
         </Page.Header>
         <Page.Content>
             <div className="flex flex-col gap-4 w-5/12 text-sm">
@@ -92,7 +99,7 @@ export const ConverterPage = () => {
                             </div>
                         ))}</div>
                     }
-                    <Table >
+                    {products.length > 0 && <Table >
                         <Table.Header>
                             <Table.Row type="header">
                                 <Table.Title>Producto</Table.Title>
@@ -124,7 +131,7 @@ export const ConverterPage = () => {
                                 </Table.Row>
                             ))}
                         </Table.Body>
-                    </Table>
+                    </Table>}
                 </div>
             </div>
             <div className="flex flex-col gap-4 w-7/12 text-sm">
@@ -136,8 +143,8 @@ export const ConverterPage = () => {
                         <Table.Header>
                             <Table.Row type="header">
                                 <Table.Title>Ingrediente</Table.Title>
+                                <Table.Title>Cant.</Table.Title>
                                 <Table.Title>UM</Table.Title>
-                                <Table.Title>Cantidad</Table.Title>
                                 <Table.Title>Productos</Table.Title>
                             </Table.Row>
                         </Table.Header>
@@ -145,8 +152,8 @@ export const ConverterPage = () => {
                             {ingredients.map((ingredient, index) => (
                                 <Table.Row key={index}>
                                     <Table.Cell>{ingredient.name}</Table.Cell>
-                                    <Table.Cell>{getUm(ingredient.um)}</Table.Cell>
                                     <Table.Cell>{ingredient.amount.toFixed(2)}</Table.Cell>
+                                    <Table.Cell>{pluralizeUm(ingredient.um, ingredient.amount)}</Table.Cell>
                                     <Table.Cell>
                                         {ingredient.products.map((product, idx) => (
                                             <div key={idx}>{product.name} ({product.amount})</div>

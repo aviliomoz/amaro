@@ -8,7 +8,7 @@ type Props = {
 
 export const RestaurantCard = ({ restaurant }: Props) => {
 
-    return <Link to={`/restaurants/${restaurant.slug}/dashboard`} className="flex justify-between items-start group bg-white rounded-md border shadow-sm p-6 text-sm w-full cursor-pointer hover:bg-gradient-to-br hover:from-white hover:to-stone-50 hover:shadow-md transition-all duration-100 h-full">
+    return <Link to={`/restaurants/${restaurant.slug}/dashboard`} className="flex justify-between items-start group bg-white rounded-md border shadow-sm p-6 text-sm w-full max-w-60 cursor-pointer hover:bg-gradient-to-br hover:from-white hover:to-stone-50 hover:shadow-md transition-all duration-100 h-24">
         <p className="flex items-center gap-2 font-medium">
             <span className={`size-2 rounded-full bg-stone-300 group-hover:bg-orange-500`}></span>
             {restaurant.name}
