@@ -6,8 +6,7 @@ import { axiosAPI } from "../libs/axios"
 import { useRestaurant } from "../contexts/RestaurantContext"
 import { Table } from "../components/ui/Table"
 import { LoaderCircle, Trash } from "lucide-react"
-import { getUm, pluralizeUm } from "../utils/um"
-import { Loading } from "../components/ui/Loading"
+import { pluralizeUm } from "../utils/um"
 
 export const ConverterPage = () => {
 
