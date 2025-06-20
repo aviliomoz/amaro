@@ -1,26 +1,56 @@
+import toast from "react-hot-toast"
 import { Ellipsis, LoaderCircle } from "lucide-react"
 import { getUm } from "../utils/um"
-import { useNavigate, useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
-import { APIResponse, ItemType, ItemTypeEnum } from "../utils/types"
+import { APIResponse, ItemSubtypeEnum, ItemType, ItemTypeEnum } from "../utils/types"
 import { axiosAPI } from "../libs/axios"
-import toast from "react-hot-toast"
 import { getItemSubtypeName } from "../utils/items"
 import { useRestaurant } from "../contexts/RestaurantContext"
+import { useFilter } from "../hooks/useFilter"
+import { Pagination } from "./Pagination"
 
 export const ItemsTable = () => {
-    const navigate = useNavigate()
     const { restaurant } = useRestaurant()
-    const { type } = useParams<{type: ItemTypeEnum}>()
+    const { type } = useParams<{ type: ItemTypeEnum }>()
     const [items, setItems] = useState<ItemType[]>([])
+    const [itemsNumber, setItemsNumber] = useState<number>(0)
     const [loading, setLoading] = useState<boolean>(true)
+
+    const [search] = useFilter<string>("search")
+    const [subtype] = useFilter<ItemSubtypeEnum>("subtype")
+    const [category_id] = useFilter<string>("category_id")
+    const [page, setPage] = useFilter<string>("page")
 
     useEffect(() => {
         const getItems = async () => {
             setLoading(true)
 
             try {
-                const { data } = await axiosAPI.get<APIResponse<ItemType[]>>(`/items?restaurant_id=${restaurant?.id}&type=${type}`)
+
+                let url = `/items?restaurant_id=${restaurant?.id}&type=${type}`
+
+                if (subtype) {
+                    url += `&subtype=${subtype}`
+                }
+                if (search) {
+                    url += `&search=${search}`
+                }
+                if (category_id) {
+                    url += `&category_id=${category_id}`
+                }
+
+                const { data: itemsNumber } = await axiosAPI.get<APIResponse<ItemType[]>>(url)
+                const totalItems = itemsNumber.data.length
+                setItemsNumber(totalItems)
+
+                if (totalItems < 20) {
+                    setPage("1")
+                } else {
+                    url += `&page=${page || 1}`
+                }
+
+                const { data } = await axiosAPI.get<APIResponse<ItemType[]>>(url)
                 setItems(data.data)
             } catch (error) {
                 toast.error((error as Error).message)
@@ -30,9 +60,11 @@ export const ItemsTable = () => {
         }
 
         getItems()
-    }, [type, restaurant])
+    }, [type, restaurant, subtype, search, category_id, page])
 
     if (loading) return <LoaderCircle className='size-4 animate-spin stroke-orange-500' />
+
+    if (!items.length) return <div className="text-sm text-center p-4">No hay ítems para mostrar</div>
 
     return <div className="border rounded-md w-full h-fit overflow-hidden">
         <table className="w-full">
@@ -46,8 +78,8 @@ export const ItemsTable = () => {
                 </tr>
             </thead>
             <tbody>
-                {items.map(item => <tr onClick={() => navigate(`/restaurants/${restaurant?.slug}/items/${type}/${item.id}`)} key={item.id} className="text-sm text-center hover:bg-stone-50 cursor-pointer border-b last:border-b-0">
-                    <td className="text-left h-12 px-4">{item.name}</td>
+                {items.map(item => <tr key={item.id} className="text-sm text-center hover:bg-stone-50 border-b last:border-b-0">
+                    <td className="text-left h-12 px-4"><Link to={`/restaurants/${restaurant?.slug}/items/${type}/${item.id}`}>{item.name}</Link></td>
                     {type !== "combos" && <td>{getUm(item.um)}</td>}
                     <td>{getItemSubtypeName(item.subtype)}</td>
                     <td>{item.status === "active" ? "Activo" : item.status === "inactive" && "Inactivo"}</td>
@@ -58,5 +90,7 @@ export const ItemsTable = () => {
                 </tr>)}
             </tbody>
         </table>
+
+        {itemsNumber > 20 && <Pagination currentPage={parseInt(page || "1")} totalPages={Math.ceil(itemsNumber / 20)} onPageChange={(newPage) => { setPage(newPage.toString()) }} />}
     </div>
 }

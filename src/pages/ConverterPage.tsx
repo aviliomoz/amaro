@@ -7,6 +7,7 @@ import { useRestaurant } from "../contexts/RestaurantContext"
 import { Table } from "../components/ui/Table"
 import { LoaderCircle, Trash } from "lucide-react"
 import { pluralizeUm } from "../utils/um"
+import { Form } from "../components/ui/Form"
 
 export const ConverterPage = () => {
 
@@ -85,7 +86,7 @@ export const ConverterPage = () => {
     return <Page title="Conversor de consumo">
         <Page.Header>
             <Page.Title>Conversor de consumo</Page.Title>
-            <button className="text-sm font-medium bg-orange-500 text-white px-4 py-1.5 rounded-md flex items-center gap-2 transition-all ease-in-out" onClick={generateConversion}>{ loading && <LoaderCircle className={`size-4 stroke-white stroke-[3px] animate-spin`} />} Generar conversión</button>
+            <button className="text-sm font-medium bg-orange-500 text-white px-4 py-1.5 rounded-md flex items-center gap-2 transition-all ease-in-out" onClick={generateConversion}>{loading && <LoaderCircle className={`size-4 stroke-white stroke-[3px] animate-spin`} />} Generar conversión</button>
         </Page.Header>
         <Page.Content>
             <div className="flex flex-col gap-4 w-5/12 text-sm">
@@ -109,20 +110,13 @@ export const ConverterPage = () => {
                         <Table.Body>
                             {products.map((p, index) => (
                                 <Table.Row key={index}>
-                                    <Table.Cell>{p.item.name}</Table.Cell>
+                                    <Table.Cell><div className="w-44">{p.item.name}</div></Table.Cell>
                                     <Table.Cell>
-                                        <input
-                                            type="number"
-                                            value={p.amount}
-                                            onChange={(e) => {
-                                                const newAmount = parseInt(e.target.value)
-                                                if (newAmount >= 0) {
-                                                    const updatedProducts = products.map((prod, idx) => idx === index ? { ...prod, amount: newAmount } : prod)
-                                                    setProducts(updatedProducts)
-                                                }
-                                            }}
-                                            className="border rounded-md px-2 py-1 w-20 text-center"
-                                        />
+                                        <div className="w-20">
+                                            <Form.NumericInput value={p.amount} onChange={(n) => setProducts(products.map(pr =>
+                                                p.item.id === pr.item.id ? { ...p, amount: n } : pr
+                                            ))} />
+                                        </div>
                                     </Table.Cell>
                                     <Table.Cell>
                                         <Trash className="stroke-stone-300 size-4 hover:stroke-stone-500" onClick={() => removeProduct(p.item.id!)} />

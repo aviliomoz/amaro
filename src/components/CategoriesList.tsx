@@ -40,8 +40,8 @@ export const CategoriesList = () => {
             <Ellipsis onClick={() => setShowModal(true)} className="size-4 stroke-stone-400 hover:stroke-stone-600 cursor-pointer" />
         </div>
         {loading ? <LoaderCircle className='mt-4 size-4 animate-spin stroke-orange-500' /> : <ul className="flex flex-col gap-1 mt-4">
-            <CategoriesListItem value={null} >Todas</CategoriesListItem>
-            {categories.map(cat => <CategoriesListItem value={cat.name}>{cat.name}</CategoriesListItem>)}
+            <CategoriesListItem category={null} >Todas</CategoriesListItem>
+            {categories.map(cat => <CategoriesListItem category={cat}>{cat.name}</CategoriesListItem>)}
         </ul>}
         {showModal && <Modal close={() => setShowModal(false)}>
             <CategoriesForm close={() => setShowModal(false)} />

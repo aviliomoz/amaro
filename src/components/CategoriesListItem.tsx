@@ -1,17 +1,23 @@
 import { useFilter } from "../hooks/useFilter"
+import { CategoryType } from "../utils/types"
 
 type Props = {
-    value: string | null,
+    category: CategoryType | null,
     children: React.ReactNode
 }
 
-export const CategoriesListItem = ({ value, children }: Props) => {
+export const CategoriesListItem = ({ category, children }: Props) => {
 
-    const [category, setCategory] = useFilter("category")
+    const [categoryId, setCategoryId] = useFilter("category_id")
 
     return <button
-        onClick={() => setCategory(value)}
-        className={`text-sm border px-2.5 py-1 rounded-md text-left ${value === category ? "bg-stone-100 border-stone-200 font-medium" : "hover:bg-stone-100 border-transparent"}`}>
+        onClick={() => setCategoryId(category ? category.id! : null)}
+        className={`
+            text-sm border px-2.5 py-1 rounded-md text-left 
+            ${(!category && !categoryId) || (category && category.id === categoryId)
+                ? "bg-stone-100 border-stone-200 font-medium" 
+                : "hover:bg-stone-100 border-transparent"}`}
+        >
         {children}
     </button>
 }
