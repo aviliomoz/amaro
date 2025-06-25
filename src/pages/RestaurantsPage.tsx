@@ -27,7 +27,7 @@ export const RestaurantsPage = () => {
         getRestaurants()
     }, [])
 
-    return <Page title="Gestión de restaurantes">
+    return <Page title="Amaro - Gestión de restaurantes">
         <Page.Content loading={loading}>
             <section className="grid grid-cols-5 w-full gap-4 bg-stone-100 p-4 rounded-md shadow-sm items-start justify-start">
                 {restaurants.sort((a, b) => a.name.localeCompare(b.name)).map(restaurant => <RestaurantCard key={restaurant.id} restaurant={restaurant} />)}

@@ -13,7 +13,7 @@ export const ItemPage = () => {
     const title: string = `${id === "new" ? "Nuevo" : "Editar"} ${getItemTypeName(type!).toLowerCase()}`
 
     return <ItemContextProvider>
-        <Page title={`Sistema - ${title}`}>
+        <Page title={`Amaro - ${title}`}>
             <Page.Header>
                 <Page.Title>{`${title}:`}</Page.Title>
                 <div className="flex items-center gap-6">

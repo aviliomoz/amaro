@@ -83,80 +83,82 @@ export const ConverterPage = () => {
         searchItems(search)
     }, [search])
 
-    return <Page title="Conversor de consumo">
+    return <Page title="Amaro - Conversor de consumo">
         <Page.Header>
             <Page.Title>Conversor de consumo</Page.Title>
             <button className="text-sm font-medium bg-orange-500 text-white px-4 py-1.5 rounded-md flex items-center gap-2 transition-all ease-in-out" onClick={generateConversion}>{loading && <LoaderCircle className={`size-4 stroke-white stroke-[3px] animate-spin`} />} Generar conversión</button>
         </Page.Header>
         <Page.Content>
-            <div className="flex flex-col gap-4 w-5/12 text-sm">
-                <div className="flex flex-col gap-2 relative">
-                    <input className="border rounded-md px-3 py-1.5 focus:outline-double focus:outline-stone-200" type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Buscar producto" />
-                    {searchResult.length > 0 && <div className="absolute top-10 left-0 w-full bg-white border border-stone-200 rounded-md shadow-lg z-10">
-                        {searchResult.map(item => (
-                            <div key={item.id} className="px-3 py-2 hover:bg-stone-100 cursor-pointer" onClick={() => addProduct(item)}>
-                                {item.name}
-                            </div>
-                        ))}</div>
-                    }
-                    {products.length > 0 && <Table >
-                        <Table.Header>
-                            <Table.Row type="header">
-                                <Table.Title>Producto</Table.Title>
-                                <Table.Title>Cantidad</Table.Title>
-                                <Table.Title>Opc.</Table.Title>
-                            </Table.Row>
-                        </Table.Header>
-                        <Table.Body>
-                            {products.map((p, index) => (
-                                <Table.Row key={index}>
-                                    <Table.Cell><div className="w-44">{p.item.name}</div></Table.Cell>
-                                    <Table.Cell>
-                                        <div className="w-20">
-                                            <Form.NumericInput value={p.amount} onChange={(n) => setProducts(products.map(pr =>
-                                                p.item.id === pr.item.id ? { ...p, amount: n } : pr
-                                            ))} />
-                                        </div>
-                                    </Table.Cell>
-                                    <Table.Cell>
-                                        <Trash className="stroke-stone-300 size-4 hover:stroke-stone-500" onClick={() => removeProduct(p.item.id!)} />
-                                    </Table.Cell>
+            <div className="flex gap-4">
+                <div className="flex flex-col gap-4 w-5/12 text-sm">
+                    <div className="flex flex-col gap-2 relative">
+                        <input className="border rounded-md px-3 py-1.5 focus:outline-double focus:outline-stone-200" type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Buscar producto" />
+                        {searchResult.length > 0 && <div className="absolute top-10 left-0 w-full bg-white border border-stone-200 rounded-md shadow-lg z-10">
+                            {searchResult.map(item => (
+                                <div key={item.id} className="px-3 py-2 hover:bg-stone-100 cursor-pointer" onClick={() => addProduct(item)}>
+                                    {item.name}
+                                </div>
+                            ))}</div>
+                        }
+                        {products.length > 0 && <Table >
+                            <Table.Header>
+                                <Table.Row type="header">
+                                    <Table.Title>Producto</Table.Title>
+                                    <Table.Title>Cantidad</Table.Title>
+                                    <Table.Title>Opc.</Table.Title>
                                 </Table.Row>
-                            ))}
-                        </Table.Body>
-                    </Table>}
+                            </Table.Header>
+                            <Table.Body>
+                                {products.map((p, index) => (
+                                    <Table.Row key={index}>
+                                        <Table.Cell><div className="w-44">{p.item.name}</div></Table.Cell>
+                                        <Table.Cell>
+                                            <div className="w-20">
+                                                <Form.NumericInput value={p.amount} onChange={(n) => setProducts(products.map(pr =>
+                                                    p.item.id === pr.item.id ? { ...p, amount: n } : pr
+                                                ))} />
+                                            </div>
+                                        </Table.Cell>
+                                        <Table.Cell>
+                                            <Trash className="stroke-stone-300 size-4 hover:stroke-stone-500" onClick={() => removeProduct(p.item.id!)} />
+                                        </Table.Cell>
+                                    </Table.Row>
+                                ))}
+                            </Table.Body>
+                        </Table>}
+                    </div>
                 </div>
-            </div>
-            <div className="flex flex-col gap-4 w-7/12 text-sm">
-                {ingredients.length === 0 ? <div className="flex justify-center items-center h-80 border border-dashed border-stone-200 shadow-sm rounded-md">
-                    <p className="text-center w-80 text-stone-700">Ingresa productos a la lista para generar un reporte de consumo</p>
-                </div> : <div className="flex flex-col">
-                    <h3 className="font-semibold mb-3">Reporte de consumo:</h3>
-                    <Table>
-                        <Table.Header>
-                            <Table.Row type="header">
-                                <Table.Title>Ingrediente</Table.Title>
-                                <Table.Title>Cant.</Table.Title>
-                                <Table.Title>UM</Table.Title>
-                                <Table.Title>Productos</Table.Title>
-                            </Table.Row>
-                        </Table.Header>
-                        <Table.Body>
-                            {ingredients.map((ingredient, index) => (
-                                <Table.Row key={index}>
-                                    <Table.Cell>{ingredient.name}</Table.Cell>
-                                    <Table.Cell>{ingredient.amount.toFixed(2)}</Table.Cell>
-                                    <Table.Cell>{pluralizeUm(ingredient.um, ingredient.amount)}</Table.Cell>
-                                    <Table.Cell>
-                                        {ingredient.products.map((product, idx) => (
-                                            <div key={idx}>{product.name} ({product.amount})</div>
-                                        ))}
-                                    </Table.Cell>
+                <div className="flex flex-col gap-4 w-7/12 text-sm">
+                    {ingredients.length === 0 ? <div className="flex justify-center items-center h-80 border border-dashed border-stone-200 shadow-sm rounded-md">
+                        <p className="text-center w-80 text-stone-700">Ingresa productos a la lista para generar un reporte de consumo</p>
+                    </div> : <div className="flex flex-col">
+                        <h3 className="font-semibold mb-3">Reporte de consumo:</h3>
+                        <Table>
+                            <Table.Header>
+                                <Table.Row type="header">
+                                    <Table.Title>Ingrediente</Table.Title>
+                                    <Table.Title>Cant.</Table.Title>
+                                    <Table.Title>UM</Table.Title>
+                                    <Table.Title>Productos</Table.Title>
                                 </Table.Row>
-                            ))}
-                        </Table.Body>
-                    </Table>
-                </div>}
+                            </Table.Header>
+                            <Table.Body>
+                                {ingredients.map((ingredient, index) => (
+                                    <Table.Row key={index}>
+                                        <Table.Cell>{ingredient.name}</Table.Cell>
+                                        <Table.Cell>{ingredient.amount.toFixed(2)}</Table.Cell>
+                                        <Table.Cell>{pluralizeUm(ingredient.um, ingredient.amount)}</Table.Cell>
+                                        <Table.Cell>
+                                            {ingredient.products.map((product, idx) => (
+                                                <div key={idx}>{product.name} ({product.amount})</div>
+                                            ))}
+                                        </Table.Cell>
+                                    </Table.Row>
+                                ))}
+                            </Table.Body>
+                        </Table>
+                    </div>}
+                </div>
             </div>
         </Page.Content>
     </Page>

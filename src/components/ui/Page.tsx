@@ -5,6 +5,7 @@ export const Page = ({ children, title }: { children: React.ReactNode, title: st
         <title>{title}</title>
         {children}
     </>
+
 }
 
 Page.Header = ({ children }: { children: React.ReactNode }) => {
@@ -21,7 +22,5 @@ Page.Content = ({ children, loading = false }: { children: React.ReactNode, load
 
     if (loading) return <Loading />
 
-    return <div className="flex h-fit w-full gap-4">
-        {children}
-    </div>
+    return <>{children}</>
 }

@@ -15,7 +15,7 @@ export const StatusFilter = () => {
       >
         <option value={""}>Todo</option>
         <option value={"active"}>Activo</option>
-        <option value={"inactive"}>Anulado</option>
+        <option value={"inactive"}>Inactivo</option>
       </select>
     </label>
   );

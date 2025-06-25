@@ -21,6 +21,7 @@ export const ItemsTable = () => {
     const [subtype] = useFilter<ItemSubtypeEnum>("subtype")
     const [category_id] = useFilter<string>("category_id")
     const [page, setPage] = useFilter<string>("page")
+    const [status] = useFilter<"active" | "inactive">("status")
 
     useEffect(() => {
         const getItems = async () => {
@@ -38,6 +39,10 @@ export const ItemsTable = () => {
                 }
                 if (category_id) {
                     url += `&category_id=${category_id}`
+                }
+
+                if (status === "active" || status === "inactive") {
+                    url += `&status=${status}`
                 }
 
                 const { data: itemsNumber } = await axiosAPI.get<APIResponse<ItemType[]>>(url)
@@ -60,7 +65,7 @@ export const ItemsTable = () => {
         }
 
         getItems()
-    }, [type, restaurant, subtype, search, category_id, page])
+    }, [type, restaurant, subtype, search, category_id, page, status])
 
     if (loading) return <LoaderCircle className='size-4 animate-spin stroke-orange-500' />
 

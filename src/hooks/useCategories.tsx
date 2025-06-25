@@ -14,7 +14,7 @@ export const useCategories = () => {
         const fetchCategories = async () => {
             setLoading(true)
             try {
-                const {data: categories} = await axiosAPI.get<APIResponse<CategoryType[]>>(`/categories/${restaurant?.id}/${type}`)
+                const {data: categories} = await axiosAPI.get<APIResponse<CategoryType[]>>(`/categories?restaurant_id=${restaurant?.id}&type=${type}`)
                 setCategories(categories.data)
             } catch (error) {
                 console.error("Error fetching categories:", error)

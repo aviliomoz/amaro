@@ -14,8 +14,8 @@ export const Navigation = () => {
       </NavGroup>
       <NavGroup title="HERRAMIENTAS" >
         <NavLink icon={ArrowLeftRight} url="/converter" >Conversor</NavLink>
-        <NavLink icon={MessageSquareText} url="/surveys" >Encuentas</NavLink>
         <NavLink icon={QrCode} url="/menu" >Cartas QR</NavLink>
+        <NavLink icon={MessageSquareText} url="/surveys" >Encuentas</NavLink>
       </NavGroup>
       <NavGroup title="LOGÍSTICA" >
         <NavLink icon={ShoppingBag} url="/purchases" >Compras</NavLink>

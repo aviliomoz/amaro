@@ -11,26 +11,28 @@ import { CategoriesListItem } from "./CategoriesListItem"
 
 export const CategoriesList = () => {
 
-    const { type } = useParams<{type: ItemTypeEnum}>()
+    const { type } = useParams<{ type: ItemTypeEnum }>()
     const { restaurant } = useRestaurant()
     const [categories, setCategories] = useState<CategoryType[]>([])
     const [loading, setLoading] = useState<boolean>(true)
     const [showModal, setShowModal] = useState<boolean>(false)
 
-    useEffect(() => {
 
-        const getCategories = async () => {
-            try {
-                setLoading(true)
-                const { data } = await axiosAPI<APIResponse<CategoryType[]>>(`/categories/${restaurant?.id}/${type || "products"}`)
-                setCategories(data.data)
-            } catch (error) {
-                toast.error("Error al cargar las categorias")
-            } finally {
-                setLoading(false)
-            }
+    const getCategories = async () => {
+        try {
+            setLoading(true)
+
+            let url = `/categories?restaurant_id=${restaurant?.id}&type=${type}`
+            const { data } = await axiosAPI<APIResponse<CategoryType[]>>(url)
+            setCategories(data.data)
+        } catch (error) {
+            toast.error("Error al cargar las categorias")
+        } finally {
+            setLoading(false)
         }
+    }
 
+    useEffect(() => {
         getCategories()
     }, [type])
 
@@ -41,10 +43,10 @@ export const CategoriesList = () => {
         </div>
         {loading ? <LoaderCircle className='mt-4 size-4 animate-spin stroke-orange-500' /> : <ul className="flex flex-col gap-1 mt-4">
             <CategoriesListItem category={null} >Todas</CategoriesListItem>
-            {categories.map(cat => <CategoriesListItem category={cat}>{cat.name}</CategoriesListItem>)}
+            {categories.map(cat => <CategoriesListItem key={cat.id} category={cat}>{cat.name}</CategoriesListItem>)}
         </ul>}
         {showModal && <Modal close={() => setShowModal(false)}>
-            <CategoriesForm close={() => setShowModal(false)} />
+            <CategoriesForm />
         </Modal>}
     </div>
 }

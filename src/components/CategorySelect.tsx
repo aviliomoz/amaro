@@ -15,9 +15,9 @@ export const CategorySelect = () => {
         }
     }, [categories, item.category_id, setItem])
 
-    if (loading || loadingCategories || !item.category_id) return <Loading />
+
 
     return <Form.Field title="Categoría" description="La categoría a la que pertenece el ítem.">
-        <Form.Select value={item.category_id} onChange={(value) => setItem({ ...item, category_id: value })} options={categories.map(category => ({ label: category.name, value: category.id! }))} />
+        {(loading || loadingCategories || !item.category_id) ? <Loading /> : <Form.Select value={item.category_id} onChange={(value) => setItem({ ...item, category_id: value })} options={categories.map(category => ({ label: category.name, value: category.id! }))} />}
     </Form.Field>
 }

@@ -16,7 +16,7 @@ export const ItemsPage = () => {
 
     const { type } = useParams<{ type: ItemTypeEnum }>()
 
-    return <Page title="Sistema - Gestión de ítems">
+    return <Page title="Amaro - Gestión de ítems">
         <Page.Header>
             <div className="flex items-center gap-6">
                 <Page.Title>Ítems</Page.Title>
@@ -36,7 +36,7 @@ export const ItemsPage = () => {
             <div className="flex items-center gap-5">
                 <nav className="flex items-center gap-3 text-sm">
                     <SubtypeFilter value={null} >Todo</SubtypeFilter>
-                    {getSubtypesByType(type!).map(subtype => <SubtypeFilter value={subtype} >{getItemSubtypeName(subtype)}</SubtypeFilter>)}
+                    {getSubtypesByType(type!).map(subtype => <SubtypeFilter key={subtype} value={subtype} >{getItemSubtypeName(subtype)}</SubtypeFilter>)}
                 </nav>
             </div>
             <div className="flex items-center gap-3">

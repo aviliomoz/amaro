@@ -9,7 +9,7 @@ type Props = {
 export const SearchBar = ({ placeholder = "Buscar" }: Props) => {
   const { pathname } = useLocation()
   const [search, setSearch] = useFilter("search");
-  const [localSearch, setLocalSearch] = useState<string>(search as string);
+  const [localSearch, setLocalSearch] = useState<string>(search as string || "");
 
   useEffect(() => {
     setLocalSearch("")

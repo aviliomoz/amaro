@@ -13,6 +13,8 @@ import { ItemsPage } from "./pages/ItemsPage";
 import { ItemPage } from "./pages/ItemPage";
 import { RestaurantLayout } from "./layouts/RestaurantLayout";
 import { ConverterPage } from "./pages/ConverterPage";
+import { SettingsPage } from "./pages/SettingsPage";
+import { CategoriesPage } from "./pages/CategoriesPage";
 
 function App() {
   return (
@@ -42,7 +44,8 @@ function App() {
               <Route path="requirements" element={<InDevelopment />} />
               <Route path="productions" element={<InDevelopment />} />
               <Route path="counts" element={<InDevelopment />} />
-              <Route path="settings" element={<InDevelopment />} />
+              <Route path="settings" element={<SettingsPage />} />
+              <Route path="settings/categories" element={<CategoriesPage />} />
               <Route path="users" element={<InDevelopment />} />
             </Route>
           </Route>
