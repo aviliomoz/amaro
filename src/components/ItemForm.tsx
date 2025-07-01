@@ -121,9 +121,9 @@ export const ItemForm = () => {
                         <Form.Field title="Derivados" description="">
                             <ItemDerivativesTable />
                         </Form.Field>}
-                    <Form.Field title="Áreas" description="">
+                    {item.type !== "combos" && <Form.Field title="Áreas" description="">
                         <ItemAreasTable />
-                    </Form.Field>
+                    </Form.Field>}
                     {((item.type === "products" && item.subtype === "transformed") || item.type === "base-recipes") &&
                         <>
                             <Form.Separator />

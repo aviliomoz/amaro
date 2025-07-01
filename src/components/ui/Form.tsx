@@ -1,7 +1,7 @@
 import { QuestionCircle } from "../QuestionCircle"
 
 export const Form = ({ children }: { children: React.ReactNode }) => {
-    return <form className="flex flex-col gap-5 h-fit">
+    return <form noValidate className="flex flex-col gap-5 h-fit">
         {children}
     </form>
 }
@@ -19,7 +19,7 @@ Form.Field = ({ children, title, description }: { children: React.ReactNode, tit
 Form.NumericInput = ({ value, onChange, symbol, symbolPosition = "left", disabled = false }: { value: number, onChange?: (value: number) => void, symbol?: string, symbolPosition?: "left" | "right", disabled?: boolean }) => {
     return <div className="flex items-center gap-2 w-full">
         {symbol && symbolPosition === "left" && <span>{symbol}</span>}
-        <input min={0} disabled={disabled} type="number" value={disabled ? value.toLocaleString("es-PE", { maximumFractionDigits: 2 }) : value} onChange={onChange ? (e) => onChange(e.target.valueAsNumber) : () => { }} className="border rounded-md px-3 py-2 focus:outline-double focus:outline-stone-300 text-sm w-full" />
+        <input min={0} disabled={disabled} type="number" value={disabled ? value.toLocaleString("es-PE", { maximumFractionDigits: 2 }) : value} onChange={onChange ? (e) => onChange(e.target.valueAsNumber) : () => { }} className="border rounded-md px-3 py-1.5 focus:outline-double focus:outline-stone-300 text-sm w-full" />
         {symbol && symbolPosition === "right" && <span className="text-sm">{symbol}</span>}
     </div>
 }
@@ -36,7 +36,7 @@ Form.Checkbox = ({ value, onChange, label }: { value: boolean, onChange: (value:
 }
 
 Form.Select = ({ value, onChange, options }: { value: string, onChange: (value: string) => void, options: { label: string, value: string }[] }) => {
-    return <select value={value} onChange={(e) => onChange(e.target.value)} className="border rounded-md px-3 py-2 focus:outline-double focus:outline-stone-300 text-sm">
+    return <select value={value} onChange={(e) => onChange(e.target.value)} className="border rounded-md px-3 py-1.5 focus:outline-double focus:outline-stone-300 text-sm">
         {options.map((option) => (
             <option key={option.value} value={option.value}>
                 {option.label}

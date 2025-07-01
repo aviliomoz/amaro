@@ -62,6 +62,7 @@ export type ItemType = {
   purchase_price: number;
   cost_price: number;
   clean_price: number,
+  profitability: number,
 
   has_equivalence: boolean,
   equivalence_um: UMEnum | null,
