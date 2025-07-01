@@ -45,6 +45,7 @@ export const ItemContextProvider = ({ children }: { children: React.ReactNode })
         purchase_price: 0,
         cost_price: 0,
         clean_price: 0,
+        profitability: 20,
         has_equivalence: false,
         equivalence_um: null,
         equivalence_amount: null,
