@@ -24,6 +24,7 @@ export const DerivativeForm = ({ setShowEditor }: Props) => {
         purchase_price: 0,
         cost_price: item.clean_price,
         clean_price: 0,
+        profitability: 20,
         status: "active",
         internal_code: "",
         external_code: "",
