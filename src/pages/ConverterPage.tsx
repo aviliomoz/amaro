@@ -1,5 +1,5 @@
 import toast from "react-hot-toast"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Page } from "../components/ui/Page"
 import { APIResponse, ItemType, UMEnum } from "../utils/types"
 import { axiosAPI } from "../libs/axios"
@@ -8,23 +8,22 @@ import { Table } from "../components/ui/Table"
 import { LoaderCircle, Trash } from "lucide-react"
 import { pluralizeUm } from "../utils/um"
 import { Form } from "../components/ui/Form"
+import { DropdownSearch } from "../components/ui/DropdownSearch"
 
 export const ConverterPage = () => {
 
     const { restaurant } = useRestaurant()
     const [products, setProducts] = useState<{ item: ItemType, amount: number }[]>([])
     const [ingredients, setIngredients] = useState<{ name: string, um: UMEnum, amount: number, products: { name: string, amount: number }[] }[]>([])
-    const [search, setSearch] = useState<string>("")
-    const [searchResult, setSearchResult] = useState<ItemType[]>([])
     const [loading, setLoading] = useState<boolean>(false)
 
     const searchItems = async (search: string) => {
-        if (search.length < 3) {
-            setSearchResult([])
-            return
-        } else {
+        try {
             const { data: products } = await axiosAPI.get<APIResponse<ItemType[]>>(`/items/search?search=${search}&restaurant_id=${restaurant?.id!}&type=products`)
-            setSearchResult(products.data)
+            return products.data
+        } catch (error) {
+            toast.error("Error al buscar productos")
+            return []
         }
     }
 
@@ -32,11 +31,8 @@ export const ConverterPage = () => {
         const existingItem = products.find(p => p.item.id === item.id)
         if (existingItem) {
             toast.error("El producto ya está en la lista")
-            setSearchResult([])
         } else {
             setProducts([...products, { item, amount: 1 }])
-            setSearchResult([])
-            setSearch("")
         }
     }
 
@@ -79,10 +75,6 @@ export const ConverterPage = () => {
         }
     }
 
-    useEffect(() => {
-        searchItems(search)
-    }, [search])
-
     return <Page title="Amaro - Conversor de consumo">
         <Page.Header>
             <Page.Title>Conversor de consumo</Page.Title>
@@ -92,14 +84,7 @@ export const ConverterPage = () => {
             <div className="flex gap-4">
                 <div className="flex flex-col gap-4 w-5/12 text-sm">
                     <div className="flex flex-col gap-2 relative">
-                        <input className="border rounded-md px-3 py-1.5 focus:outline-double focus:outline-stone-200" type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Buscar producto" />
-                        {searchResult.length > 0 && <div className="absolute top-10 left-0 w-full bg-white border border-stone-200 rounded-md shadow-lg z-10">
-                            {searchResult.map(item => (
-                                <div key={item.id} className="px-3 py-2 hover:bg-stone-100 cursor-pointer" onClick={() => addProduct(item)}>
-                                    {item.name}
-                                </div>
-                            ))}</div>
-                        }
+                        <DropdownSearch searchFunction={searchItems} onSelect={addProduct} />
                         {products.length > 0 && <Table >
                             <Table.Header>
                                 <Table.Row type="header">
@@ -111,7 +96,7 @@ export const ConverterPage = () => {
                             <Table.Body>
                                 {products.map((p, index) => (
                                     <Table.Row key={index}>
-                                        <Table.Cell><div className="w-44">{p.item.name}</div></Table.Cell>
+                                        <Table.Cell><div className="w-full">{p.item.name}</div></Table.Cell>
                                         <Table.Cell>
                                             <div className="w-20">
                                                 <Form.NumericInput value={p.amount} onChange={(n) => setProducts(products.map(pr =>
@@ -143,7 +128,7 @@ export const ConverterPage = () => {
                                 </Table.Row>
                             </Table.Header>
                             <Table.Body>
-                                {ingredients.map((ingredient, index) => (
+                                {ingredients.sort((a, b) => a.name.localeCompare(b.name)).map((ingredient, index) => (
                                     <Table.Row key={index}>
                                         <Table.Cell>{ingredient.name}</Table.Cell>
                                         <Table.Cell>{ingredient.amount.toFixed(2)}</Table.Cell>
