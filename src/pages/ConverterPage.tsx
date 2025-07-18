@@ -33,6 +33,7 @@ export const ConverterPage = () => {
             toast.error("El producto ya está en la lista")
         } else {
             setProducts([...products, { item, amount: 1 }])
+
         }
     }
 
@@ -85,7 +86,7 @@ export const ConverterPage = () => {
                 <div className="flex flex-col gap-4 w-5/12 text-sm">
                     <div className="flex flex-col gap-2 relative">
                         <DropdownSearch searchFunction={searchItems} onSelect={addProduct} />
-                        {products.length > 0 && <Table >
+                        {products.length > 0 && <Table>
                             <Table.Header>
                                 <Table.Row type="header">
                                     <Table.Title>Producto</Table.Title>
