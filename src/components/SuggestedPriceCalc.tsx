@@ -10,7 +10,7 @@ export const SuggestedPriceCalc = () => {
     const [show, setShow] = useState<boolean>(false)
 
     const totalCost = (0.80 * item.cost_price) / 0.35
-    const profit = (item.profitability / 100) * item.cost_price / 0.35
+    const profit = ((item.profitability || 0) / 100) * item.cost_price / 0.35
     const priceBeforeTax = totalCost + profit
     const taxes = priceBeforeTax * (restaurant?.sales_tax! / 100) || 0
     const priceAfterTax = priceBeforeTax + taxes
@@ -32,7 +32,6 @@ export const SuggestedPriceCalc = () => {
                         onChange={(value) => setItem({ ...item, profitability: value })}
                         symbol="%"
                         symbolPosition="right"
-                        max={100}
                     />
                 </div>
             </div>
@@ -66,7 +65,7 @@ export const SuggestedPriceCalc = () => {
             </div>
             <div className="flex items-center justify-end gap-2">
                 <p className="flex items-center gap-2 font-semibold">Food cost con precio sugerido:</p>
-                <p className="w-28 text-right font-bold">{(item.cost_price / priceBeforeTax).toLocaleString("es-PE", { style: "percent", maximumFractionDigits: 2 })}</p>
+                <p className="w-28 text-right font-bold">{(item.cost_price / (finalPrice / (1 + 0.028) / (1 + (restaurant?.sales_tax! / 100)))).toLocaleString("es-PE", { style: "percent", maximumFractionDigits: 2 })}</p>
             </div>
         </>}
     </div>

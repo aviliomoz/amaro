@@ -59,8 +59,8 @@ export const ItemForm = () => {
                             <Form.Field title="Precio de venta" description="">
                                 <Form.NumericInput value={item.sale_price} onChange={(value) => setItem({ ...item, sale_price: value as number })} symbol={"S/"} />
                             </Form.Field>
-                            <Form.Field title="Valor venta" description="Precio de venta sin impuestos.">
-                                <Form.NumericInput disabled value={item.sale_price / (1 + (restaurant?.sales_tax! / 100))} onChange={(value) => setItem({ ...item, sale_price: value as number })} symbol={"S/"} />
+                            <Form.Field title="Valor venta" description="Valor del producto sin impuestos ni comisiones.">
+                                <Form.NumericInput disabled value={item.sale_price / (1 + 0.028) / (1 + (restaurant?.sales_tax! / 100))} onChange={(value) => setItem({ ...item, sale_price: value as number })} symbol={"S/"} />
                             </Form.Field>
                         </div>
                     }
