@@ -37,13 +37,15 @@ function App() {
               <Route path="items/:type/:id" element={<ItemPage />} />
               <Route path="converter" element={<ConverterPage />} />
               <Route path="surveys" element={<InDevelopment />} />
-              <Route path="menu" element={<InDevelopment />} />
+              <Route path="menus" element={<InDevelopment />} />
+              <Route path="shop" element={<InDevelopment />} />
+              <Route path="charts" element={<InDevelopment />} />
+              <Route path="reports" element={<InDevelopment />} />
               <Route path="purchases" element={<InDevelopment />} />
               <Route path="suppliers" element={<InDevelopment />} />
               <Route path="inventories" element={<InDevelopment />} />
               <Route path="requirements" element={<InDevelopment />} />
               <Route path="productions" element={<InDevelopment />} />
-              <Route path="counts" element={<InDevelopment />} />
               <Route path="settings" element={<SettingsPage />} />
               <Route path="settings/categories" element={<CategoriesPage />} />
               <Route path="users" element={<InDevelopment />} />

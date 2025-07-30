@@ -16,10 +16,10 @@ Form.Field = ({ children, title, description }: { children: React.ReactNode, tit
     </div>
 }
 
-Form.NumericInput = ({ value, onChange, symbol, symbolPosition = "left", disabled = false }: { value: number, onChange?: (value: number) => void, symbol?: string, symbolPosition?: "left" | "right", disabled?: boolean }) => {
+Form.NumericInput = ({ value, onChange, symbol, symbolPosition = "left", disabled = false, max = undefined }: { value: number, onChange?: (value: number) => void, symbol?: string, symbolPosition?: "left" | "right", disabled?: boolean, max?: number }) => {
     return <div className="flex items-center gap-2 w-full">
         {symbol && symbolPosition === "left" && <span>{symbol}</span>}
-        <input min={0} disabled={disabled} type="number" value={disabled ? value.toLocaleString("es-PE", { maximumFractionDigits: 2 }) : value} onChange={onChange ? (e) => onChange(e.target.valueAsNumber) : () => { }} className="border rounded-md px-3 py-1.5 focus:outline-double focus:outline-stone-300 text-sm w-full" />
+        <input min={0} max={max} disabled={disabled} type="number" value={disabled ? value.toLocaleString("es-PE", { maximumFractionDigits: 2 }) : value} onChange={onChange ? (e) => onChange(e.target.valueAsNumber) : () => { }} className="border rounded-md px-3 py-1.5 focus:outline-double focus:outline-stone-300 text-sm w-full" />
         {symbol && symbolPosition === "right" && <span className="text-sm">{symbol}</span>}
     </div>
 }

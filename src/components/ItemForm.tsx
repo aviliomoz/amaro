@@ -11,6 +11,7 @@ import { useRestaurant } from "../contexts/RestaurantContext"
 import { ItemDerivativesTable } from "./ItemDerivativesTable"
 import { Loading } from "./ui/Loading"
 import { CategorySelect } from "./CategorySelect"
+import { SuggestedPriceCalc } from "./SuggestedPriceCalc"
 
 export const ItemForm = () => {
 
@@ -84,7 +85,7 @@ export const ItemForm = () => {
                             <Form.Separator />
                             <div className="flex gap-4">
                                 <Form.Field title="Merma" description="La merma del ítem.">
-                                    <Form.NumericInput value={item.waste} onChange={(value) => setItem({ ...item, waste: value as number })} symbol={"%"} />
+                                    <Form.NumericInput max={99.99} value={item.waste} onChange={(value) => setItem({ ...item, waste: value as number })} symbol={"%"} />
                                 </Form.Field>
                                 <Form.Field title="Costo sin merma" description="El costo del ítem sin merma.">
                                     <Form.NumericInput disabled value={item.clean_price} onChange={(value) => setItem({ ...item, clean_price: value as number })} symbol={"S/"} />
@@ -130,6 +131,7 @@ export const ItemForm = () => {
                             <Form.Field title="Receta" description="">
                                 <ItemRecipeTable />
                             </Form.Field>
+                            {item.cost_price > 0 && item.type === "products" && <SuggestedPriceCalc />}
                         </>}
                 </Form>
             </Box>

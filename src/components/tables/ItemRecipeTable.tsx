@@ -138,51 +138,6 @@ export const ItemRecipeTable = () => {
                                 </div>}
                             </div>
                         </div>
-                        {item.type === "products" && <>
-                            <div className="flex items-start justify-between mt-6 gap-4">
-                                <div className="flex gap-4 w-1/2">
-                                    <Form.Field title="Costo Total" description="El costo total (variables + fijos + administrativos).">
-                                        <div className="flex items-center gap-2">
-                                            <span className="font-semibold mt-1">{(0.8).toLocaleString("es-PE", { maximumFractionDigits: 0, minimumFractionDigits: 0, style: "percent" })}</span>
-                                            <span className="font-semibold mt-1">{"="}</span>
-                                            <span className="font-semibold mt-1">{(0.8 * item.cost_price / 0.35).toLocaleString("es-PE", { maximumFractionDigits: 2, currency: "PEN", style: "currency" })}</span>
-                                        </div>
-                                    </Form.Field>
-                                    <div className="flex gap-4 w-6/12">
-                                        <Form.Field title="Rentabilidad" description="El porcentaje de rentabilidad deseada para el producto.">
-                                            <Form.NumericInput value={item.profitability} onChange={(value) => setItem({ ...item, profitability: value })} symbol={"%"} />
-                                        </Form.Field>
-                                    </div>
-                                </div>
-                                <div className="flex gap-4 w-1/2 justify-end">
-                                    <div className="w-5/12">
-                                        <Form.Field title="Utilidad" description="La utilidad que se espera obtener del producto.">
-                                            <span className="font-semibold mt-1">{((item.profitability / 100) * item.cost_price / 0.35).toLocaleString("es-PE", { maximumFractionDigits: 2, minimumFractionDigits: 2, style: "currency", currency: "PEN" })}</span>
-                                        </Form.Field>
-                                    </div>
-                                    <div className="w-5/12">
-                                        <Form.Field title="Valor venta" description="La utilidad que se espera obtener del producto.">
-                                            <span className="font-semibold mt-1">{(item.cost_price / 0.35).toLocaleString("es-PE", { maximumFractionDigits: 2, minimumFractionDigits: 2, style: "currency", currency: "PEN" })}</span>
-                                        </Form.Field>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="flex items-start justify-between mt-6 gap-4">
-                                <Form.Field title="Impuestos" description="Los impuestos que se aplican al producto.">
-                                    <span className="font-semibold mt-1">{((item.cost_price / 0.35) * 0.10).toLocaleString("es-PE", { maximumFractionDigits: 2, minimumFractionDigits: 2, style: "currency", currency: "PEN" })}</span>
-                                </Form.Field>
-                                <Form.Field title="Precio venta" description="Las comisiones que se aplican al producto.">
-                                    <span className="font-semibold mt-1">{((item.cost_price / 0.35) * 1.10).toLocaleString("es-PE", { maximumFractionDigits: 2, minimumFractionDigits: 2, style: "currency", currency: "PEN" })}</span>
-                                </Form.Field>
-                                <Form.Field title="Comisiones" description="Las comisiones que se aplican al producto.">
-                                    <span className="font-semibold mt-1">{(((item.cost_price / 0.35) * 1.10) * 0.03).toLocaleString("es-PE", { maximumFractionDigits: 2, minimumFractionDigits: 2, style: "currency", currency: "PEN" })}</span>
-                                </Form.Field>
-                                <Form.Field title="Precio sugerido" description="El precio sugerido para el producto.">
-                                    <span className="font-semibold mt-1">{(((item.cost_price / 0.35) * 1.10) * 1.03).toLocaleString("es-PE", { maximumFractionDigits: 2, minimumFractionDigits: 2, style: "currency", currency: "PEN" })}</span>
-                                </Form.Field>
-                            </div>
-                        </>
-                        }
                     </>
                 }
             </div>}
