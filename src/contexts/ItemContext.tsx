@@ -34,7 +34,7 @@ export const ItemContextProvider = ({ children }: { children: React.ReactNode })
         name: "",
         type: type!,
         subtype: getSubtypesByType(type!)[0],
-        category_id: categories[0]?.id!,    
+        category_id: categories[0]?.id!,
         um: "unit",
         taxable: true,
         yield: 1,
@@ -45,7 +45,8 @@ export const ItemContextProvider = ({ children }: { children: React.ReactNode })
         purchase_price: 0,
         cost_price: 0,
         clean_price: 0,
-        profitability: 20,
+        profit_percentage: 23,
+        cost_percentage: 32,
         has_equivalence: false,
         equivalence_um: null,
         equivalence_amount: null,
@@ -56,6 +57,18 @@ export const ItemContextProvider = ({ children }: { children: React.ReactNode })
     const [derivatives, setDerivatives] = useState<ItemType[]>([])
     const [loading, setLoading] = useState(false)
     const [saving, setSaving] = useState(false)
+
+    console.log("item", item)
+    console.log("derivatives", derivatives)
+
+    useEffect(() => {
+        setDerivatives(derivatives.map(derivative => (
+            {
+                ...derivative,
+                um: item.um,
+            }
+        )))
+    }, [item.um])
 
     useEffect(() => {
         const getItem = async () => {

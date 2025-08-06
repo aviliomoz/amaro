@@ -10,13 +10,21 @@ import { ItemRecipeTable } from "./tables/ItemRecipeTable"
 import { useRestaurant } from "../contexts/RestaurantContext"
 import { ItemDerivativesTable } from "./ItemDerivativesTable"
 import { Loading } from "./ui/Loading"
-import { CategorySelect } from "./CategorySelect"
 import { SuggestedPriceCalc } from "./SuggestedPriceCalc"
+import { useCategories } from "../hooks/useCategories"
+import { useEffect } from "react"
 
 export const ItemForm = () => {
 
     const { item, setItem, loading } = useItem()
     const { restaurant } = useRestaurant()
+    const { categories, loading: loadingCategories } = useCategories()
+
+    useEffect(() => {
+        if (categories.length > 0 && !item.category_id) {
+            setItem({ ...item, category_id: categories[0].id! })
+        }
+    }, [categories, item.category_id, setItem])
 
     if (loading) return <Loading />
 
@@ -43,7 +51,9 @@ export const ItemForm = () => {
                     </div>
 
                     <div className="flex gap-4">
-                        <CategorySelect />
+                        <Form.Field title="Categoría" description="La categoría a la que pertenece el ítem.">
+                            {(loading || loadingCategories || !item.category_id) ? <Loading /> : <Form.Select value={item.category_id} onChange={(value) => setItem({ ...item, category_id: value })} options={categories.map(category => ({ label: category.name, value: category.id! }))} />}
+                        </Form.Field>
                         <Form.Field title="Estado" description="El estado del ítem.">
                             <Form.Select value={item.status} onChange={(value) => setItem({ ...item, status: value as ItemStatusEnum })} options={[
                                 { label: "Activo", value: "active" },
@@ -125,14 +135,12 @@ export const ItemForm = () => {
                     {item.type !== "combos" && <Form.Field title="Áreas" description="">
                         <ItemAreasTable />
                     </Form.Field>}
+                    {(item.type === "products" || item.type === "base-recipes") && <Form.Separator />}
                     {((item.type === "products" && item.subtype === "transformed") || item.type === "base-recipes") &&
-                        <>
-                            <Form.Separator />
-                            <Form.Field title="Receta" description="">
-                                <ItemRecipeTable />
-                            </Form.Field>
-                            {item.cost_price > 0 && item.type === "products" && <SuggestedPriceCalc />}
-                        </>}
+                        <Form.Field title="Receta" description="">
+                            <ItemRecipeTable />
+                        </Form.Field>}
+                    {item.cost_price > 0 && item.type === "products" && <SuggestedPriceCalc />}
                 </Form>
             </Box>
         </section>

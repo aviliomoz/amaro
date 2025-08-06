@@ -42,6 +42,14 @@ export type RestaurantType = {
   currency_code: string;
   sales_tax: number;
   purchase_tax: number;
+  commissions: number
+
+  base_cost: number,
+  rental_cost: number,
+  labor_cost: number,
+  service_cost: number,
+  marketing_cost: number,
+  other_cost: number,
 }
 
 export type ItemType = {
@@ -62,7 +70,8 @@ export type ItemType = {
   purchase_price: number;
   cost_price: number;
   clean_price: number,
-  profitability: number,
+  profit_percentage: number,
+  cost_percentage: number,
 
   has_equivalence: boolean,
   equivalence_um: UMEnum | null,
