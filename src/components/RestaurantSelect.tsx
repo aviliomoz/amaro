@@ -1,4 +1,4 @@
-import { ChevronsUpDown, LoaderCircle } from "lucide-react";
+import { ChevronDown, LoaderCircle } from "lucide-react";
 import { useRestaurant } from "../contexts/RestaurantContext";
 
 export const RestaurantSelect = () => {
@@ -15,7 +15,7 @@ export const RestaurantSelect = () => {
       >
         <p className="truncate max-w-20 sm:max-w-96 flex items-center gap-2 text-sm">{restaurant.name}</p>
         {/* <span className="text-[10px] font-bold tracking-wider text-orange-500">PRO</span> */}
-        <ChevronsUpDown className="size-4 ml-1" />
+        <ChevronDown className="size-4 ml-1" />
       </button>
     </div>
   );

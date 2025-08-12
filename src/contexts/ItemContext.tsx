@@ -45,7 +45,6 @@ export const ItemContextProvider = ({ children }: { children: React.ReactNode })
         purchase_price: 0,
         cost_price: 0,
         clean_price: 0,
-        profit_percentage: 23,
         cost_percentage: 32,
         has_equivalence: false,
         equivalence_um: null,
@@ -57,9 +56,6 @@ export const ItemContextProvider = ({ children }: { children: React.ReactNode })
     const [derivatives, setDerivatives] = useState<ItemType[]>([])
     const [loading, setLoading] = useState(false)
     const [saving, setSaving] = useState(false)
-
-    console.log("item", item)
-    console.log("derivatives", derivatives)
 
     useEffect(() => {
         setDerivatives(derivatives.map(derivative => (
@@ -122,9 +118,9 @@ export const ItemContextProvider = ({ children }: { children: React.ReactNode })
 
     useEffect(() => {
         if (item.taxable) {
-            const cost_price = item.purchase_price / 1.18
+            const cost_price = item.purchase_price / (1 + (restaurant?.purchase_tax! / 100))
             const clean_price = cost_price / (1 - (item.waste / 100))
-            setItem({ ...item, cost_price: (item.purchase_price || 0) / 1.18, clean_price })
+            setItem({ ...item, cost_price: (item.purchase_price || 0) / (1 + (restaurant?.purchase_tax! / 100)), clean_price })
             setDerivatives(derivatives.map(derivative => ({ ...derivative, cost_price: clean_price })))
         } else {
             const cost_price = item.purchase_price

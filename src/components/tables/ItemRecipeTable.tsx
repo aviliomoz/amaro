@@ -130,10 +130,10 @@ export const ItemRecipeTable = () => {
                                         <span className="font-semibold mt-1">{item.cost_price.toLocaleString("es-PE", { maximumFractionDigits: 2, minimumFractionDigits: 2, style: "currency", currency: "PEN" })}</span>
                                     </Form.Field>
                                 </div>}
-                                {item.type === "products" && item.sale_price > 0 && <div className="w-2/12">
-                                    <Form.Field title="FC%" description="Porcentaje de Food Cost.">
+                                {item.type === "products" && item.sale_price > 0 && <div className="w-3/12">
+                                    <Form.Field title="% Costo" description="Porcentaje costo">
                                         {/* <Form.NumericInput value={(item.cost_price / (item.sale_price / 1.10))} disabled /> */}
-                                        <span className="font-semibold mt-1">{(item.cost_price / (item.sale_price / (1 + 0.028) / (1 + (restaurant?.sales_tax! / 100)))).toLocaleString("es-PE", { maximumFractionDigits: 2, minimumFractionDigits: 2, style: "percent" })}</span>
+                                        <span className="font-semibold mt-1">{(item.cost_price / (item.sale_price / (1 + (restaurant?.commissions! / 100)) / (1 + (restaurant?.sales_tax! / 100)))).toLocaleString("es-PE", { maximumFractionDigits: 2, minimumFractionDigits: 2, style: "percent" })}</span>
                                     </Form.Field>
                                 </div>}
                             </div>

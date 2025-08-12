@@ -70,7 +70,7 @@ export const ItemForm = () => {
                                 <Form.NumericInput value={item.sale_price} onChange={(value) => setItem({ ...item, sale_price: value as number })} symbol={"S/"} />
                             </Form.Field>
                             <Form.Field title="Valor venta" description="Valor del producto sin impuestos ni comisiones.">
-                                <Form.NumericInput disabled value={item.sale_price / (1 + 0.028) / (1 + (restaurant?.sales_tax! / 100))} onChange={(value) => setItem({ ...item, sale_price: value as number })} symbol={"S/"} />
+                                <Form.NumericInput disabled value={item.sale_price / (1 + (restaurant?.commissions! / 100)) / (1 + (restaurant?.sales_tax! / 100))} onChange={(value) => setItem({ ...item, sale_price: value as number })} symbol={"S/"} />
                             </Form.Field>
                         </div>
                     }
@@ -82,7 +82,10 @@ export const ItemForm = () => {
                                     <Form.NumericInput value={item.purchase_price} onChange={(value) => setItem({ ...item, purchase_price: value as number })} symbol={"S/"} />
                                 </Form.Field>
                                 <Form.Field title="Costo" description="">
-                                    <Form.NumericInput disabled value={item.cost_price} onChange={(value) => setItem({ ...item, cost_price: value as number })} symbol={"S/"} />
+                                    <div className="flex items-center gap-2">
+                                        <Form.NumericInput disabled value={item.cost_price} onChange={(value) => setItem({ ...item, cost_price: value as number })} symbol={"S/"} />
+                                        {item.subtype === "unprocessed" && item.sale_price > 0 && <span className="text-sm font-medium">{(item.cost_price / (item.sale_price / (1 + (restaurant?.commissions! / 100)) / (1 + (restaurant?.sales_tax! / 100)))).toLocaleString("es-PE", { style: "percent", maximumFractionDigits: 1 })}</span>}
+                                    </div>
                                 </Form.Field>
                             </div>
                             <Form.Checkbox label="Afecto a impuestos" value={item.taxable} onChange={(value) => setItem({ ...item, taxable: value })} />
