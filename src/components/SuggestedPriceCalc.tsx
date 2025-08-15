@@ -34,9 +34,9 @@ export const SuggestedPriceCalc = () => {
                     />
                 </div>
             </div>
-        
+
             <div className="flex items-center justify-end gap-2">
-                <p className="flex items-center gap-2 font-semibold">{`Utilidad bruta (${(grossProfitPercentage / 100).toLocaleString("es-PE", { style: "percent" })}):`}</p>
+                <p className="flex items-center gap-2 font-semibold">{`Margen de contribución (${(grossProfitPercentage / 100).toLocaleString("es-PE", { style: "percent" })}):`}</p>
                 <p className="w-28 text-right font-bold">{grossProfit.toLocaleString("es-PE", { style: "currency", currency: "PEN" })}</p>
             </div>
             <div className="flex items-center justify-end gap-2">
@@ -51,14 +51,14 @@ export const SuggestedPriceCalc = () => {
                 <p className="flex items-center gap-2 font-semibold">Precio despues de impuestos:</p>
                 <p className="w-28 text-right font-bold">{priceAfterTax.toLocaleString("es-PE", { style: "currency", currency: "PEN" })}</p>
             </div>
-            <div className="flex items-center justify-end gap-2 mt-2">
+            {commissions > 0 && <><div className="flex items-center justify-end gap-2 mt-2">
                 <p className="flex items-center gap-2 font-semibold">{`Comisiones (${(commissionsPercentage).toLocaleString("es-PE", { style: "percent", maximumFractionDigits: 2 })}):`}</p>
                 <p className="w-28 text-right font-medium">{commissions.toLocaleString("es-PE", { style: "currency", currency: "PEN" })}</p>
             </div>
-            <div className="flex items-center justify-end gap-2">
-                <p className="flex items-center gap-2 font-semibold">Precio despues de comisiones:</p>
-                <p className="w-28 text-right font-bold">{priceAfterCommissions.toLocaleString("es-PE", { style: "currency", currency: "PEN" })}</p>
-            </div>
+                <div className="flex items-center justify-end gap-2">
+                    <p className="flex items-center gap-2 font-semibold">Precio despues de comisiones:</p>
+                    <p className="w-28 text-right font-bold">{priceAfterCommissions.toLocaleString("es-PE", { style: "currency", currency: "PEN" })}</p>
+                </div></>}
             <div className="flex items-center justify-end gap-2 mt-2">
                 <p className="flex items-center gap-2 font-semibold">Precio sugerido redondeado:</p>
                 <p className="w-28 text-right font-bold text-lg">{finalPrice.toLocaleString("es-PE", { style: "currency", currency: "PEN" })}</p>

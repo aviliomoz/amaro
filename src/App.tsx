@@ -31,6 +31,8 @@ function App() {
             <Route path="/restaurants" element={<RestaurantsPage />} />
             <Route path="/restaurants/:slug" element={<RestaurantLayout />}>
               <Route path="dashboard" element={<InDevelopment />} />
+              <Route path="registers" element={<InDevelopment />} />
+              <Route path="orders" element={<InDevelopment />} />
               <Route path="sales" element={<InDevelopment />} />
               <Route path="customers" element={<InDevelopment />} />
               <Route path="items/:type" element={<ItemsPage />} />
@@ -38,7 +40,6 @@ function App() {
               <Route path="converter" element={<ConverterPage />} />
               <Route path="surveys" element={<InDevelopment />} />
               <Route path="menus" element={<InDevelopment />} />
-              <Route path="shop" element={<InDevelopment />} />
               <Route path="charts" element={<InDevelopment />} />
               <Route path="reports" element={<InDevelopment />} />
               <Route path="purchases" element={<InDevelopment />} />
