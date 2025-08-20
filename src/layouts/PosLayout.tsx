@@ -23,8 +23,11 @@ export const PosLayout = () => {
         }
 
         if (!deviceCode) {
-            setDeviceCode(generateNewDeviceCode());
-            localStorage.setItem("deviceCode", generateNewDeviceCode());
+
+            const newCode = generateNewDeviceCode();
+
+            setDeviceCode(newCode);
+            localStorage.setItem("deviceCode", newCode);
         }
 
     }, [])
