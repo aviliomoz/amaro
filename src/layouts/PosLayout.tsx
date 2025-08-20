@@ -24,6 +24,7 @@ export const PosLayout = () => {
 
         if (!deviceCode) {
             setDeviceCode(generateNewDeviceCode());
+            localStorage.setItem("deviceCode", generateNewDeviceCode());
         }
 
     }, [])
