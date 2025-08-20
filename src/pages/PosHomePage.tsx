@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { LogoLink } from "../components/LogoLink"
-import { Computer, LayoutGrid, Monitor, MonitorCheck } from "lucide-react"
+import { Computer, LayoutGrid, MonitorCheck } from "lucide-react"
 
 
 export const PosHomePage = () => {
@@ -30,7 +30,7 @@ export const PosHomePage = () => {
                         <LayoutGrid className="size-6" />
                         <span className="block mt-2 font-semibold">Salones y mesas</span>
                     </div>
-                    <p className="text-stone-600 font-light text-sm text-start mt-3">Gestiona tus cajas, movimientos de efectivo y cuentas por cobrar.</p>
+                    <p className="text-stone-600 font-light text-sm text-start mt-3">.</p>
                 </Link>
                 <Link to="/pos/orders" className="border rounded-md shadow-md p-6 bg-stone-50 hover:bg-stone-100 transition-all ease-in-out hover:shadow-lg w-72 flex flex-col items-start">
                     <div className="flex items-center gap-3">
