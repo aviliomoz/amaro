@@ -4,17 +4,20 @@ import { Toaster } from "react-hot-toast";
 // Layouts
 import { AppLayout } from "./layouts/AppLayout";
 import { AuthLayout } from "./layouts/AuthLayout";
+import { PosLayout } from "./layouts/PosLayout";
+import { RestaurantLayout } from "./layouts/RestaurantLayout";
 
 // Pages 
 import { InDevelopment } from "./components/InDevelopment";
-import { LoginForm } from "./components/auth/LoginForm";
 import { RestaurantsPage } from "./pages/RestaurantsPage";
 import { ItemsPage } from "./pages/ItemsPage";
 import { ItemPage } from "./pages/ItemPage";
-import { RestaurantLayout } from "./layouts/RestaurantLayout";
 import { ConverterPage } from "./pages/ConverterPage";
 import { SettingsPage } from "./pages/SettingsPage";
 import { CategoriesPage } from "./pages/CategoriesPage";
+import { LocalSalesPage } from "./pages/LocalSalesPage";
+import { AuthPage } from "./pages/AuthPage";
+import { PosHomePage } from "./pages/PosHomePage";
 
 function App() {
   return (
@@ -22,8 +25,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<AuthLayout />}>
-            <Route path="/" element={<LoginForm />} />
-            <Route path="/login" element={<LoginForm />} />
+            <Route path="/" element={<AuthPage />} />
+            <Route path="/login" element={<AuthPage />} />
           </Route>
 
           <Route element={<AppLayout />}>
@@ -31,8 +34,6 @@ function App() {
             <Route path="/restaurants" element={<RestaurantsPage />} />
             <Route path="/restaurants/:slug" element={<RestaurantLayout />}>
               <Route path="dashboard" element={<InDevelopment />} />
-              <Route path="registers" element={<InDevelopment />} />
-              <Route path="orders" element={<InDevelopment />} />
               <Route path="sales" element={<InDevelopment />} />
               <Route path="customers" element={<InDevelopment />} />
               <Route path="items/:type" element={<ItemsPage />} />
@@ -52,6 +53,12 @@ function App() {
               <Route path="users" element={<InDevelopment />} />
             </Route>
           </Route>
+
+          <Route path="/pos" element={<PosLayout />} >
+            <Route path="" element={<PosHomePage />} />
+            <Route path="halls" element={<LocalSalesPage />} />
+          </Route>
+
         </Routes>
       </BrowserRouter>
       <Toaster position="bottom-right" />

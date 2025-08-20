@@ -9,11 +9,11 @@ type Props = {
     icon: LucideIcon
 }
 
-export const ItemTypeLink = ({ url, base = url, children, icon: Icon }: Props) => {
+export const NavSubLink = ({ url, base = url, children, icon: Icon }: Props) => {
 
     const { pathname } = useLocation()
 
-    return <RestaurantLink to={`${url}?status=active`} className={`px-4 py-1.5 rounded-md bg-stone-100 flex items-center gap-3 ${pathname.includes(base)
+    return <RestaurantLink to={url} className={`px-4 py-1.5 rounded-md bg-stone-100 flex items-center gap-3 ${pathname.includes(base)
         ? "bg-stone-900 text-white"
         : "hover:bg-stone-200"
         }`} key={url}>

@@ -6,7 +6,7 @@ import { CategoriesList } from "../components/CategoriesList"
 import { getItemSubtypeName, getItemTypeName, getSubtypesByType } from "../utils/items"
 import { ItemsTable } from "../components/ItemsTable"
 import { RestaurantLink } from "../components/RestaurantLink"
-import { ItemTypeLink } from "../components/ItemTypeLink"
+import { NavSubLink } from "../components/NavSubLink"
 import { SubtypeFilter } from "../components/filters/SubtypeFilter"
 import { ItemTypeEnum } from "../utils/types"
 import { useParams } from "react-router-dom"
@@ -21,10 +21,10 @@ export const ItemsPage = () => {
             <div className="flex items-center gap-6">
                 <Page.Title>Ítems</Page.Title>
                 <nav className="flex items-center gap-3 text-sm">
-                    <ItemTypeLink url="/items/products" icon={Salad} >Productos</ItemTypeLink>
-                    <ItemTypeLink url="/items/combos" icon={Layers3} >Combos</ItemTypeLink>
-                    <ItemTypeLink url="/items/supplies" icon={Beef} >Insumos</ItemTypeLink>
-                    <ItemTypeLink url="/items/base-recipes" icon={CookingPot} >Recetas base</ItemTypeLink>
+                    <NavSubLink base="/items/products" url="/items/products?status=active" icon={Salad} >Productos</NavSubLink>
+                    <NavSubLink base="/items/combos" url="/items/combos?status=active" icon={Layers3} >Combos</NavSubLink>
+                    <NavSubLink base="/items/supplies" url="/items/supplies?status=active" icon={Beef} >Insumos</NavSubLink>
+                    <NavSubLink base="/items/base-recipes" url="/items/base-recipes?status=active" icon={CookingPot} >Recetas base</NavSubLink>
                 </nav>
             </div>
             <div className="flex items-center gap-3">
