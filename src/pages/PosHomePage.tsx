@@ -23,14 +23,14 @@ export const PosHomePage = () => {
                         <Computer className="size-6" />
                         <span className="block mt-2 font-semibold">Cajas</span>
                     </div>
-                    <p className="text-stone-600 font-light text-sm text-start mt-3">Gestiona tus cajas, movimientos de efectivo y cuentas por cobrar.</p>
+                    <p className="text-stone-600 font-light text-sm text-start mt-3">Administra tus cajas, movimientos de efectivo y cuentas por cobrar.</p>
                 </Link>
                 <Link to="/pos/halls" className="border rounded-md shadow-md p-6 bg-stone-50 hover:bg-stone-100 transition-all ease-in-out hover:shadow-lg w-72 flex flex-col items-start">
                     <div className="flex items-center gap-3">
                         <LayoutGrid className="size-6" />
                         <span className="block mt-2 font-semibold">Salones y mesas</span>
                     </div>
-                    <p className="text-stone-600 font-light text-sm text-start mt-3">.</p>
+                    <p className="text-stone-600 font-light text-sm text-start mt-3">Gestiona los pedidos de tus clientes en las áreas de tu restaurante.</p>
                 </Link>
                 <Link to="/pos/orders" className="border rounded-md shadow-md p-6 bg-stone-50 hover:bg-stone-100 transition-all ease-in-out hover:shadow-lg w-72 flex flex-col items-start">
                     <div className="flex items-center gap-3">
