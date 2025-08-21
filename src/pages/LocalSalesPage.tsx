@@ -17,22 +17,22 @@ export const LocalSalesPage = () => {
             </div>
         </Page.Header>
         <Page.Content>
-            <div className="grid grid-cols-10 gap-3">
-                <Link to={"/"}><div className="h-20 border rounded-md bg-stone-50 font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S01</div></Link>
-                <Link to={"/"}><div className="h-20 border rounded-md bg-stone-50 font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S02</div></Link>
-                <Link to={"/"}><div className="h-20 border rounded-md bg-stone-50 font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S03</div></Link>
-                <Link to={"/"}><div className="h-20 border rounded-md bg-stone-50 font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S04</div></Link>
-                <Link to={"/"}><div className="h-20 border rounded-md bg-stone-50 font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S05</div></Link>
-                <Link to={"/"}><div className="h-20 border rounded-md bg-stone-50 font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S06</div></Link>
-                <Link to={"/"}><div className="h-20 border rounded-md bg-stone-50 font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S07</div></Link>
-                <Link to={"/"}><div className="h-20 border rounded-md bg-stone-50 font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S08</div></Link>
-                <Link to={"/"}><div className="h-20 border rounded-md bg-stone-50 font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S09</div></Link>
-                <Link to={"/"}><div className="h-20 border rounded-md bg-stone-50 font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S10</div></Link>
-                <Link to={"/"}><div className="h-20 border rounded-md bg-stone-50 font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S11</div></Link>
-                <Link to={"/"}><div className="h-20 border rounded-md bg-stone-50 font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S12</div></Link>
-                <Link to={"/"}><div className="h-20 border rounded-md bg-stone-50 font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S13</div></Link>
-                <Link to={"/"}><div className="h-20 border rounded-md bg-stone-50 font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S14</div></Link>
-                <Link to={"/"}><div className="h-20 border rounded-md bg-stone-50 font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S15</div></Link>
+            <div className="grid grid-cols-10 gap-3 bg-stone-50 p-4 rounded-md">
+                <Link to={"/"}><div className="h-20 border rounded-md bg-white font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S01</div></Link>
+                <Link to={"/"}><div className="h-20 border rounded-md bg-white font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S02</div></Link>
+                <Link to={"/"}><div className="h-20 border rounded-md bg-white font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S03</div></Link>
+                <Link to={"/"}><div className="h-20 border rounded-md bg-white font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S04</div></Link>
+                <Link to={"/"}><div className="h-20 border rounded-md bg-white font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S05</div></Link>
+                <Link to={"/"}><div className="h-20 border rounded-md bg-white font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S06</div></Link>
+                <Link to={"/"}><div className="h-20 border rounded-md bg-white font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S07</div></Link>
+                <Link to={"/"}><div className="h-20 border rounded-md bg-white font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S08</div></Link>
+                <Link to={"/"}><div className="h-20 border rounded-md bg-white font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S09</div></Link>
+                <Link to={"/"}><div className="h-20 border rounded-md bg-white font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S10</div></Link>
+                <Link to={"/"}><div className="h-20 border rounded-md bg-white font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S11</div></Link>
+                <Link to={"/"}><div className="h-20 border rounded-md bg-white font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S12</div></Link>
+                <Link to={"/"}><div className="h-20 border rounded-md bg-white font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S13</div></Link>
+                <Link to={"/"}><div className="h-20 border rounded-md bg-white font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S14</div></Link>
+                <Link to={"/"}><div className="h-20 border rounded-md bg-white font-medium flex justify-center items-center hover:bg-stone-100 hover:shadow-sm">S15</div></Link>
             </div>
         </Page.Content>
     </Page>

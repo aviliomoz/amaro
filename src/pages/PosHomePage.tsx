@@ -1,19 +1,11 @@
 import { Link } from "react-router-dom"
-import { LogoLink } from "../components/LogoLink"
 import { Computer, LayoutGrid, MonitorCheck } from "lucide-react"
 
 
 export const PosHomePage = () => {
+
     return <main className="py-6">
-        <div>
-            <div className="flex items-center gap-4">
-                <LogoLink width="xl" />
-                <span className="font-extralight text-2xl text-stone-300">/</span>
-                <span className="font-medium">Punto de Venta</span>
-                <span className="font-extralight text-2xl text-stone-300">/</span>
-                <span className="font-medium">Festa</span>
-            </div>
-        </div>
+        
         <div className="mt-20 text-center flex items-center flex-col gap-1">
             <h1 className="text-2xl font-bold">Bienvenido al Punto de Venta</h1>
             <p className="mt-2 text-gray-600">Aquí podrás gestionar tus ventas y pedidos de manera eficiente.</p>

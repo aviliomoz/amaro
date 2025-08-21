@@ -84,3 +84,10 @@ export type IngredientType = {
   equivalence_um: UMEnum | null;
   equivalence_amount: number | null;
 }
+
+export type DeviceType = {
+  id: string;
+  device_code: string;
+  restaurant_id: string;
+  role: "cashier" | "waiter" | "production";
+}

@@ -21,7 +21,7 @@ import { PosHomePage } from "./pages/PosHomePage";
 
 function App() {
   return (
-    <div className="max-w-screen-2xl min-h-screen mx-auto relative">
+    <div className="max-w-screen-2xl min-h-screen mx-auto relative px-4">
       <BrowserRouter>
         <Routes>
           <Route element={<AuthLayout />}>
@@ -55,8 +55,9 @@ function App() {
           </Route>
 
           <Route path="/pos" element={<PosLayout />} >
-            <Route path="" element={<PosHomePage />} />
+            <Route path="registers" element={<PosHomePage />} />
             <Route path="halls" element={<LocalSalesPage />} />
+            <Route path="orders" element={<PosHomePage />} />
           </Route>
 
         </Routes>
