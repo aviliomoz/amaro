@@ -19,13 +19,16 @@ export const SearchBar = ({ placeholder = "Buscar" }: Props) => {
   useEffect(() => {
     const debouncedSetSearch = setTimeout(() => {
       setSearch(localSearch)
-      page !== "1" && setPage("1")
     }, 400)
 
     return () => {
       clearTimeout(debouncedSetSearch)
     }
   }, [localSearch])
+
+  useEffect(() => {
+    page !== "1" && setPage("1")
+  }, [search])
 
   return (
     <>
