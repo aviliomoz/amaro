@@ -6,11 +6,11 @@ import { CategoriesList } from "../components/CategoriesList"
 import { getItemSubtypeName, getItemTypeName, getSubtypesByType } from "../utils/items"
 import { ItemsTable } from "../components/ItemsTable"
 import { RestaurantLink } from "../components/RestaurantLink"
-import { NavSubLink } from "../components/NavSubLink"
-import { SubtypeFilter } from "../components/filters/SubtypeFilter"
 import { ItemTypeEnum } from "../utils/types"
 import { useParams } from "react-router-dom"
 import { Page } from "../components/ui/Page"
+import { ItemTypeLink } from "../components/filters/ItemTypeLink"
+import { ItemSubtypeFilter } from "../components/filters/ItemSubtypeFilter"
 
 export const ItemsPage = () => {
 
@@ -21,10 +21,10 @@ export const ItemsPage = () => {
             <div className="flex items-center gap-6">
                 <Page.Title>Ítems</Page.Title>
                 <nav className="flex items-center gap-3 text-sm">
-                    <NavSubLink base="/items/products" url="/items/products?status=active" icon={Salad} >Productos</NavSubLink>
-                    <NavSubLink base="/items/combos" url="/items/combos?status=active" icon={Layers3} >Combos</NavSubLink>
-                    <NavSubLink base="/items/supplies" url="/items/supplies?status=active" icon={Beef} >Insumos</NavSubLink>
-                    <NavSubLink base="/items/base-recipes" url="/items/base-recipes?status=active" icon={CookingPot} >Recetas base</NavSubLink>
+                    <ItemTypeLink base="/items/products" url="/items/products?status=active&page=1" icon={Salad} >Productos</ItemTypeLink>
+                    <ItemTypeLink base="/items/combos" url="/items/combos?status=active&page=1" icon={Layers3} >Combos</ItemTypeLink>
+                    <ItemTypeLink base="/items/supplies" url="/items/supplies?status=active&page=1" icon={Beef} >Insumos</ItemTypeLink>
+                    <ItemTypeLink base="/items/base-recipes" url="/items/base-recipes?status=active&page=1" icon={CookingPot} >Recetas base</ItemTypeLink>
                 </nav>
             </div>
             <div className="flex items-center gap-3">
@@ -35,8 +35,8 @@ export const ItemsPage = () => {
         <div className="flex items-center justify-between border rounded-md p-4">
             <div className="flex items-center gap-5">
                 <nav className="flex items-center gap-3 text-sm">
-                    <SubtypeFilter value={null} >Todo</SubtypeFilter>
-                    {getSubtypesByType(type!).map(subtype => <SubtypeFilter key={subtype} value={subtype} >{getItemSubtypeName(subtype)}</SubtypeFilter>)}
+                    <ItemSubtypeFilter value={null} >Todo</ItemSubtypeFilter>
+                    {getSubtypesByType(type!).map(subtype => <ItemSubtypeFilter key={subtype} value={subtype} >{getItemSubtypeName(subtype)}</ItemSubtypeFilter>)}
                 </nav>
             </div>
             <div className="flex items-center gap-3">

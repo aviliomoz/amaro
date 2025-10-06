@@ -4,8 +4,6 @@ import { useItem } from "../contexts/ItemContext"
 import { Form } from "./ui/Form"
 import { Box } from "./ui/Box"
 import { ItemEquivalenceOption } from "./ItemEquivalenceOption"
-import { ItemPresentationsTable } from "./tables/ItemPresentationsTable"
-import { ItemAreasTable } from "./tables/ItemAreasTable"
 import { ItemRecipeTable } from "./tables/ItemRecipeTable"
 import { useRestaurant } from "../contexts/RestaurantContext"
 import { ItemDerivativesTable } from "./ItemDerivativesTable"
@@ -127,18 +125,10 @@ export const ItemForm = () => {
                         <Form.Field title="Equivalencia" description="La equivalencia del ítem.">
                             <ItemEquivalenceOption />
                         </Form.Field>}
-                    {((item.type === "products" && item.subtype === "unprocessed") || item.type === "supplies") &&
-                        <Form.Field title="Presentaciones de compra" description="">
-                            <ItemPresentationsTable />
-                        </Form.Field>}
                     {item.type === "supplies" &&
                         <Form.Field title="Derivados" description="">
                             <ItemDerivativesTable />
                         </Form.Field>}
-                    {item.type !== "combos" && <Form.Field title="Áreas" description="">
-                        <ItemAreasTable />
-                    </Form.Field>}
-                    {(item.type === "products" || item.type === "base-recipes") && <Form.Separator />}
                     {((item.type === "products" && item.subtype === "transformed") || item.type === "base-recipes") &&
                         <Form.Field title="Receta" description="">
                             <ItemRecipeTable />

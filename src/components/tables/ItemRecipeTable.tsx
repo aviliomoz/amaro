@@ -59,10 +59,6 @@ export const ItemRecipeTable = () => {
             return toast.error("El ítem ya existe en la receta")
         }
 
-        if (recipe.length >= 20) {
-            return toast.error("No puedes agregar más de 20 ingredientes")
-        }
-
         setRecipe([...recipe, ingredient])
         setSearchResult([])
         setSearch("")

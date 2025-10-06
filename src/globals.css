@@ -8,13 +8,9 @@
 * {
   color: #1d1916;
   font-family: "Inter";
-}
-
-body {
-  position: relative;
-  max-width: 1500px;
-  margin: 0 auto;
-  padding: 0 40px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .custom-scroll {
@@ -37,7 +33,7 @@ body {
 
 .custom-scroll::-webkit-scrollbar-thumb {
   background: var(--sb-thumb-color);
-  border-radius: 3px;
+  /* border-radius: 3px; */
   cursor: grab;
 }
 

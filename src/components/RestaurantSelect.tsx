@@ -1,4 +1,4 @@
-import { ArrowLeft, ChevronDown, LoaderCircle } from "lucide-react";
+import { ArrowLeft, Box, ChevronsUpDown, LoaderCircle } from "lucide-react";
 import { useRestaurant } from "../contexts/RestaurantContext";
 import { useEffect, useRef, useState } from "react";
 import { axiosAPI } from "../libs/axios";
@@ -36,23 +36,25 @@ export const RestaurantSelect = () => {
   if (!restaurant) return <LoaderCircle className='size-4 animate-spin stroke-orange-500' />
 
   return (
-    <div className="flex items-center relative">
-      <span className="mr-4 font-extralight text-2xl text-stone-300">/</span>
+    <div className="flex items-center relative text-sm gap-2 font-medium">
+      <Box className="size-3.5 stroke-stone-500" />
+      <p className="truncate max-w-20 sm:max-w-96 flex items-center gap-2">{restaurant.name}</p>
+      <span className="border border-stone-300 rounded-full px-3 py-0.5 text-xs text-stone-500">Pro</span>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-3 mr-2 border rounded-md bg-stone-50 px-4 py-1.5 text-sm font-medium text-stone-900 hover:bg-stone-100"
+        className="flex items-center gap-3 rounded-md p-1 text-sm font-medium text-stone-900 hover:bg-stone-100 border border-transparent hover:border hover:border-stone-300"
       >
-        <p className="truncate max-w-20 sm:max-w-96 flex items-center gap-2 text-sm">{restaurant.name}</p>
+
         {/* <span className="text-[10px] font-bold tracking-wider text-orange-500">PRO</span> */}
-        <ChevronDown className="size-4 ml-1" />
+        <ChevronsUpDown className="size-3.5 stroke-stone-500" />
       </button>
-      {isOpen && <ul ref={dropdownRef} className="absolute bg-white border rounded-md p-3 top-full text-sm left-6 mt-2 z-50 w-52 flex flex-col gap-1 shadow-lg">
-        <h4 className="font-semibold">Tus restaurantes:</h4>
+      {isOpen && <ul ref={dropdownRef} className="absolute bg-white border rounded-md p-2 top-full text-sm left-6 mt-2 z-50 w-44 flex flex-col gap-0.5 shadow-lg">
+        <h4 className="font-medium border-b pb-2 mb-1">Tus restaurantes:</h4>
         {restaurants.map((res) => (
           <li key={res.id}>
             <a
               href={`/restaurants/${res.slug}/dashboard`}
-              className={`block px-3 py-1 rounded-md hover:bg-stone-100 ${res.id === restaurant.id ? "font-bold bg-stone-100" : ""}`}
+              className={`block px-2 py-0.5 rounded-md hover:bg-stone-100 truncate font-normal ${res.id === restaurant.id ? "font-semibold bg-stone-100" : ""}`}
               onClick={() => setIsOpen(false)}
             >
               {res.name}

@@ -5,7 +5,7 @@ type Props = {
     children: React.ReactNode
 }
 
-export const SubtypeFilter = ({ value, children }: Props) => {
+export const ItemSubtypeFilter = ({ value, children }: Props) => {
 
     const [subtype, setSubtype] = useFilter("subtype")
 

@@ -1,5 +1,4 @@
 import { Computer, LayoutGrid, LucideIcon, MonitorCheck } from "lucide-react";
-import { NavGroup } from "./NavGroup";
 import { useDevice } from "../hooks/useDevice";
 import { Link, useLocation } from "react-router-dom";
 
@@ -28,11 +27,9 @@ export const PosNavigation = () => {
 
     return (
         <nav className="flex flex-col gap-4">
-            <NavGroup title="MENU">
-                <PosNavLink url="/pos/registers" blocked={!["cashier"].includes(device?.role!)} icon={Computer}>Cajas</PosNavLink>
-                <PosNavLink url="/pos/halls" blocked={!["cashier", "waiter"].includes(device?.role!)} icon={LayoutGrid}>Salones</PosNavLink>
-                <PosNavLink url="/pos/orders" blocked={!["cashier", "waiter", "production"].includes(device?.role!)} icon={MonitorCheck}>Pedidos</PosNavLink>
-            </NavGroup>
+            <PosNavLink url="/pos/registers" blocked={!["cashier"].includes(device?.role!)} icon={Computer}>Cajas</PosNavLink>
+            <PosNavLink url="/pos/halls" blocked={!["cashier", "waiter"].includes(device?.role!)} icon={LayoutGrid}>Salones</PosNavLink>
+            <PosNavLink url="/pos/orders" blocked={!["cashier", "waiter", "production"].includes(device?.role!)} icon={MonitorCheck}>Pedidos</PosNavLink>
         </nav>
     );
 }

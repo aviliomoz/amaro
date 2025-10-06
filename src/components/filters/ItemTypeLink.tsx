@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom"
-import { RestaurantLink } from "./RestaurantLink"
+import { RestaurantLink } from "../RestaurantLink"
 import { LucideIcon } from "lucide-react"
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
     icon: LucideIcon
 }
 
-export const NavSubLink = ({ url, base = url, children, icon: Icon }: Props) => {
+export const ItemTypeLink = ({ url, base = url, children, icon: Icon }: Props) => {
 
     const { pathname } = useLocation()
 

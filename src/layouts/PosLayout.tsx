@@ -31,7 +31,7 @@ export const PosLayout = () => {
     if (!deviceCode || loading) return <LoadingScreen />
 
     if (deviceCode && !isLinked) return <main className="flex flex-col items-center pt-40 min-h-screen">
-        <LogoLink width="xl" />
+        <LogoLink />
         <p className="mt-6">Tu dispositivo no se encuentra vinculado a ningún restaurante.</p>
         <p>Utiliza el siguiente código para vincularlo:</p>
         <span className="text-5xl font-black mt-10 tracking-widest">{deviceCode}</span>
@@ -40,7 +40,7 @@ export const PosLayout = () => {
     return <>
         <header className="flex items-center justify-between h-16 fixed top-0 left-0 right-0 bg-white px-10 z-50">
             <div className="flex items-center gap-4">
-                <LogoLink width="xl" />
+                <LogoLink/>
                 <span className="font-extralight text-2xl text-stone-300">/</span>
                 <span className="font-medium">Punto de Venta</span>
                 <span className="font-extralight text-2xl text-stone-300">/</span>

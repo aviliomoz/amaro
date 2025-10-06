@@ -19,7 +19,7 @@ export const ItemPage = () => {
             <Page.Header>
                 <Page.Title>{`${title}:`}</Page.Title>
                 <div className="flex items-center gap-6">
-                    <GoBackButton url={`/restaurants/${restaurant?.slug}/items/${type}?status=active`}/>
+                    <GoBackButton url={`/restaurants/${restaurant?.slug}/items/${type}?status=active&page=1`}/>
                     <ItemSaveButton />
                 </div>
             </Page.Header>

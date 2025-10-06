@@ -21,7 +21,7 @@ import { PosHomePage } from "./pages/PosHomePage";
 
 function App() {
   return (
-    <div className="max-w-screen-2xl min-h-screen mx-auto relative px-4">
+    <div>
       <BrowserRouter>
         <Routes>
           <Route element={<AuthLayout />}>

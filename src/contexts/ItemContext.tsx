@@ -108,7 +108,7 @@ export const ItemContextProvider = ({ children }: { children: React.ReactNode })
                 toast.success(`Ítem actualizado`)
             }
 
-            navigate(-1)
+            navigate(`/restaurants/${restaurant?.slug}/items/${item.type}?status=active&page=1`)
         } catch (error) {
             toast.error((error as Error).message)
         } finally {

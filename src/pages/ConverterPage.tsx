@@ -107,7 +107,7 @@ export const ConverterPage = () => {
         </Page.Header>
         <Page.Content>
             <div className="flex gap-4">
-                <div className="flex flex-col gap-4 w-5/12 text-sm">
+                <div className="flex flex-col gap-4 w-4/12 text-sm">
                     <div className="flex flex-col gap-2 relative">
                         <DropdownSearch searchFunction={searchItems} onSelect={addProduct} />
                         {products.length > 0 && <Table>
@@ -138,7 +138,7 @@ export const ConverterPage = () => {
                         </Table>}
                     </div>
                 </div>
-                <div className="flex flex-col gap-4 w-7/12 text-sm">
+                <div className="flex flex-col gap-4 w-8/12 text-sm">
                     {ingredients.length === 0 ? <div className="flex justify-center items-center h-80 border border-dashed border-stone-200 shadow-sm rounded-md">
                         <p className="text-center w-80 text-stone-700">Ingresa productos a la lista para generar un reporte de consumo</p>
                     </div> : <div className="flex flex-col">

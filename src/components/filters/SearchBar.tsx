@@ -9,6 +9,7 @@ type Props = {
 export const SearchBar = ({ placeholder = "Buscar" }: Props) => {
   const { pathname } = useLocation()
   const [search, setSearch] = useFilter("search");
+  const [page, setPage] = useFilter("page");
   const [localSearch, setLocalSearch] = useState<string>(search as string || "");
 
   useEffect(() => {
@@ -18,6 +19,7 @@ export const SearchBar = ({ placeholder = "Buscar" }: Props) => {
   useEffect(() => {
     const debouncedSetSearch = setTimeout(() => {
       setSearch(localSearch)
+      page !== "1" && setPage("1")
     }, 400)
 
     return () => {
