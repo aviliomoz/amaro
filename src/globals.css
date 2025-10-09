@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+@font-face {
+  font-family: "Souvenir";
+  src: url("/fonts/Souvenir.ttf") format("truetype");
+}
 
 @tailwind base;
 @tailwind components;
@@ -44,7 +48,7 @@
 }
 
 .font-logo {
-  font-family: "Rubik", sans-serif;
+  font-family: "Souvenir", sans-serif;
   font-weight: 700;
   font-style: normal; 
 }
