@@ -13,7 +13,7 @@ export const UserPill = () => {
         <span className="bg-stone-900 text-white text-xs flex justify-center items-center size-6 rounded-full font-semibold font-logo">
           {user?.name.split("")[0]}
         </span>
-        <p className="hidden sm:block">{user?.name} {user?.lastname}</p>
+        <p className="hidden sm:block font-medium">{user?.name} {user?.lastname}</p>
         <ChevronDown className="size-4 hidden sm:block" />
       </button>
       {isOpen && <ul className="absolute right-0 top-full mt-2 border rounded-md p-2 shadow-sm bg-white min-w-max">

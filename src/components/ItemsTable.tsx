@@ -50,7 +50,7 @@ export const ItemsTable = () => {
                 setItemsNumber(totalItems)
 
                 if (totalItems < 20) {
-                    setPage("1")
+                    setPage("")
                 } else {
                     url += `&page=${page || 1}`
                 }

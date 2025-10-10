@@ -21,10 +21,10 @@ export const ItemsPage = () => {
             <div className="flex items-center gap-6">
                 <Page.Title>Ítems</Page.Title>
                 <nav className="flex items-center gap-3 text-sm">
-                    <ItemTypeLink base="/items/products" url="/items/products?status=active&page=1" icon={Salad} >Productos</ItemTypeLink>
-                    <ItemTypeLink base="/items/combos" url="/items/combos?status=active&page=1" icon={Layers3} >Combos</ItemTypeLink>
-                    <ItemTypeLink base="/items/supplies" url="/items/supplies?status=active&page=1" icon={Beef} >Insumos</ItemTypeLink>
-                    <ItemTypeLink base="/items/base-recipes" url="/items/base-recipes?status=active&page=1" icon={CookingPot} >Recetas base</ItemTypeLink>
+                    <ItemTypeLink base="/items/products" url="/items/products?status=active" icon={Salad} >Productos</ItemTypeLink>
+                    <ItemTypeLink base="/items/combos" url="/items/combos?status=active" icon={Layers3} >Combos</ItemTypeLink>
+                    <ItemTypeLink base="/items/supplies" url="/items/supplies?status=active" icon={Beef} >Insumos</ItemTypeLink>
+                    <ItemTypeLink base="/items/base-recipes" url="/items/base-recipes?status=active" icon={CookingPot} >Recetas base</ItemTypeLink>
                 </nav>
             </div>
             <div className="flex items-center gap-3">

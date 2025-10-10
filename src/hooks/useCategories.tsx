@@ -1,3 +1,4 @@
+import toast from "react-hot-toast"
 import { useEffect, useState } from "react"
 import { APIResponse, CategoryType } from "../utils/types"
 import { axiosAPI } from "../libs/axios"
@@ -17,7 +18,8 @@ export const useCategories = () => {
                 const {data: categories} = await axiosAPI.get<APIResponse<CategoryType[]>>(`/categories?restaurant_id=${restaurant?.id}&type=${type}`)
                 setCategories(categories.data)
             } catch (error) {
-                console.error("Error fetching categories:", error)
+                toast.error("Error cargando categorias")
+                console.error("Error cargando categorias:", error)
             } finally {
                 setLoading(false)
             }

@@ -6,12 +6,15 @@ export const Form = ({ children }: { children: React.ReactNode }) => {
     </form>
 }
 
-Form.Field = ({ children, title, description }: { children: React.ReactNode, title: string, description?: string }) => {
+Form.Field = ({ children, title, description, filters }: { children: React.ReactNode, title: string, description?: string, filters?: React.ReactNode[] }) => {
     return <div className="flex flex-col gap-1 w-full">
-        <label className="text-sm font-semibold flex items-center gap-2">
-            {title}
-            {description && <QuestionCircle />}
-        </label>
+        <div className="text-sm font-semibold flex justify-between gap-2">
+            <div className="flex items-center gap-2">
+                {title}
+                {description && <QuestionCircle description={description} />}
+            </div>
+            {filters && filters}
+        </div>
         {children}
     </div>
 }
@@ -31,7 +34,7 @@ Form.TextInput = ({ value, onChange, placeholder = "" }: { value: string, onChan
 Form.Checkbox = ({ value, onChange, label }: { value: boolean, onChange: (value: boolean) => void, label: string }) => {
     return <div className="flex items-center gap-2 text-sm">
         <input type="checkbox" checked={value} onChange={(e) => onChange(e.target.checked)} className="cursor-pointer" id="checkbox" />
-        <label className="font-semibold cursor-pointer" htmlFor="checkbox">{label}</label>
+        <label className="font-medium cursor-pointer" htmlFor="checkbox">{label}</label>
     </div>
 }
 

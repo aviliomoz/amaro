@@ -11,12 +11,14 @@ import { Loading } from "./ui/Loading"
 import { SuggestedPriceCalc } from "./SuggestedPriceCalc"
 import { useCategories } from "../hooks/useCategories"
 import { useEffect } from "react"
+import { useFilter } from "../hooks/useFilter"
 
 export const ItemForm = () => {
 
-    const { item, setItem, loading } = useItem()
+    const { item, setItem, loading, derivatives } = useItem()
     const { restaurant } = useRestaurant()
     const { categories, loading: loadingCategories } = useCategories()
+    const [showInactiveDerivatives, setShowInactiveDerivatives] = useFilter<string>("showInactiveDerivatives")
 
     useEffect(() => {
         if (categories.length > 0 && !item.category_id) {
@@ -36,7 +38,7 @@ export const ItemForm = () => {
 
                     <div className="flex gap-4">
                         <Form.Field title="Tipo" description="El tipo de ítem que estás creando.">
-                            <Form.Select value={item.subtype} onChange={(value) => setItem({ ...item, subtype: value as ItemSubtypeEnum })} options={getSubtypesByType(item.type).map(subtype => ({ label: getItemSubtypeName(subtype), value: subtype }))} />
+                            <Form.Select value={item.subtype} onChange={(value) => setItem({ ...item, subtype: value as ItemSubtypeEnum })} options={getSubtypesByType(item.type).map(subtype => ({ label: getItemSubtypeName(subtype) as string, value: subtype }))} />
                         </Form.Field>
                         <Form.Field title="Unidad de medida" description="La unidad de medida del ítem.">
                             <Form.Select value={item.um} onChange={(value) => setItem({ ...item, um: value as UMEnum })} options={[
@@ -49,10 +51,10 @@ export const ItemForm = () => {
                     </div>
 
                     <div className="flex gap-4">
-                        <Form.Field title="Categoría" description="La categoría a la que pertenece el ítem.">
+                        <Form.Field title="Categoría" description="">
                             {(loading || loadingCategories || !item.category_id) ? <Loading /> : <Form.Select value={item.category_id} onChange={(value) => setItem({ ...item, category_id: value })} options={categories.map(category => ({ label: category.name, value: category.id! }))} />}
                         </Form.Field>
-                        <Form.Field title="Estado" description="El estado del ítem.">
+                        <Form.Field title="Estado" description="">
                             <Form.Select value={item.status} onChange={(value) => setItem({ ...item, status: value as ItemStatusEnum })} options={[
                                 { label: "Activo", value: "active" },
                                 { label: "Inactivo", value: "inactive" }
@@ -79,7 +81,7 @@ export const ItemForm = () => {
                                 <Form.Field title="Precio de compra" description="">
                                     <Form.NumericInput value={item.purchase_price} onChange={(value) => setItem({ ...item, purchase_price: value as number })} symbol={"S/"} />
                                 </Form.Field>
-                                <Form.Field title="Costo" description="">
+                                <Form.Field title="Costo" description="Costo del ítem sin impuestos ni comisiones.">
                                     <div className="flex items-center gap-2">
                                         <Form.NumericInput disabled value={item.cost_price} onChange={(value) => setItem({ ...item, cost_price: value as number })} symbol={"S/"} />
                                         {item.subtype === "unprocessed" && item.sale_price > 0 && <span className="text-sm font-medium">{(item.cost_price / (item.sale_price / (1 + (restaurant?.commissions! / 100)) / (1 + (restaurant?.sales_tax! / 100)))).toLocaleString("es-PE", { style: "percent", maximumFractionDigits: 1 })}</span>}
@@ -126,7 +128,9 @@ export const ItemForm = () => {
                             <ItemEquivalenceOption />
                         </Form.Field>}
                     {item.type === "supplies" &&
-                        <Form.Field title="Derivados" description="">
+                        <Form.Field title="Derivados" description="Los derivados creados a partir de este insumo." filters={derivatives.length > 0 ? [
+                            <Form.Checkbox label="Mostrar inactivos" value={showInactiveDerivatives === "true"} onChange={(value) => setShowInactiveDerivatives(value.toString())} />
+                        ] : []}>
                             <ItemDerivativesTable />
                         </Form.Field>}
                     {((item.type === "products" && item.subtype === "transformed") || item.type === "base-recipes") &&

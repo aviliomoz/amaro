@@ -12,7 +12,7 @@ export const Navigation = () => {
 
       {restaurant ? <>
         <NavLink icon={LayoutDashboard} url="/dashboard" text="Resumen" />
-        <NavLink icon={Layers2} base="/items" url="/items/products?status=active&page=1" text="Items" />
+        <NavLink icon={Layers2} base="/items" url="/items/products?status=active" text="Items" />
         <NavLink icon={Wallet} url="/sales" text="Ventas" />
         <NavLink icon={BookUser} url="/customers" text="Clientes" />
 
