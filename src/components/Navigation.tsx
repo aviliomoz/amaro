@@ -1,10 +1,9 @@
-import { ArrowLeftRight, BookUser, ChartNoAxesCombined, ClipboardList, FileText, Layers2, LayoutDashboard, LayoutList, MessageSquareText, NotebookText, QrCode, Settings, ShoppingBag, Store, Truck, User, UserCircle, Users, Wallet } from "lucide-react";
+import { ArrowLeftRight, BookUser, ChartNoAxesCombined, ClipboardList, FileText, Layers2, LayoutDashboard, LayoutList, MessageSquareText, NotebookText, QrCode, Settings, ShoppingBag, Store, Truck, UserCircle, Users, Wallet } from "lucide-react";
 import { NavLink } from "./NavLink";
 import { useRestaurant } from "../contexts/RestaurantContext";
 import { NavSeparator } from "./ui/NavSeparator";
 import { useEffect, useState } from "react";
 import { Loading } from "./ui/Loading";
-import { useLocation } from "react-router-dom";
 
 export const Navigation = () => {
 
