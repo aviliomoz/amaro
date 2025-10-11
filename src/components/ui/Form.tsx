@@ -32,10 +32,10 @@ Form.TextInput = ({ value, onChange, placeholder = "" }: { value: string, onChan
 }
 
 Form.Checkbox = ({ value, onChange, label }: { value: boolean, onChange: (value: boolean) => void, label: string }) => {
-    return <div className="flex items-center gap-2 text-sm">
-        <input type="checkbox" checked={value} onChange={(e) => onChange(e.target.checked)} className="cursor-pointer" id="checkbox" />
-        <label className="font-medium cursor-pointer" htmlFor="checkbox">{label}</label>
-    </div>
+    return <label className="font-medium cursor-pointer flex items-center gap-2 text-sm">
+        <input type="checkbox" checked={value} onChange={(e) => onChange(e.target.checked)} className="cursor-pointer" />
+        {label}
+    </label>
 }
 
 Form.Select = ({ value, onChange, options }: { value: string, onChange: (value: string) => void, options: { label: string, value: string }[] }) => {

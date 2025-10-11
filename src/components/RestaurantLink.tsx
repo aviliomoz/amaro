@@ -5,5 +5,5 @@ export const RestaurantLink = ({ to, children, className, ...props }: LinkProps)
 
     const { restaurant } = useRestaurant()
 
-    return <Link to={`/restaurants/${restaurant?.slug}${to}`} className={className} {...props}>{children}</Link>
+    return <Link to={restaurant ? `/restaurants/${restaurant?.slug}${to}` : to} className={className} {...props}>{children}</Link>
 }

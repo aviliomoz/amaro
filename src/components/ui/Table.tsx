@@ -19,7 +19,7 @@ Table.Body = ({ children }: { children: React.ReactNode }) => {
 }
 
 Table.Row = ({ children, type = "default" }: { children: React.ReactNode, type?: "default" | "header" }) => {
-    return <tr className={`h-9 border-b ${type === "header" ? "bg-stone-100" : "last:border-none"}`}>
+    return <tr className={`h-8 border-b ${type === "header" ? "bg-stone-100" : "last:border-none"}`}>
         {children}
     </tr>
 }

@@ -1,16 +1,39 @@
-import { ArrowLeftRight, BookUser, ChartNoAxesCombined, ClipboardList, FileText, Layers2, LayoutDashboard, LayoutList, MessageSquareText, NotebookText, QrCode, Settings, ShoppingBag, Truck, Users, Wallet } from "lucide-react";
+import { ArrowLeftRight, BookUser, ChartNoAxesCombined, ClipboardList, FileText, Layers2, LayoutDashboard, LayoutList, MessageSquareText, NotebookText, QrCode, Settings, ShoppingBag, Store, Truck, User, UserCircle, Users, Wallet } from "lucide-react";
 import { NavLink } from "./NavLink";
 import { useRestaurant } from "../contexts/RestaurantContext";
 import { NavSeparator } from "./ui/NavSeparator";
+import { useEffect, useState } from "react";
+import { Loading } from "./ui/Loading";
+import { useLocation } from "react-router-dom";
 
 export const Navigation = () => {
 
   const { restaurant } = useRestaurant()
+  const [mode, setMode] = useState<"home" | "app" | "pos" | "server">("home")
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+
+    setLoading(true)
+
+    try {
+      if (restaurant) {
+        setMode("app")
+      } else {
+        setMode("home")
+      }
+    } finally {
+      setLoading(false)
+    }
+
+  }, [restaurant])
+
+  if (loading) return <Loading />
 
   return (
     <nav className="flex flex-col gap-0.5">
 
-      {restaurant ? <>
+      {mode === "app" && <>
         <NavLink icon={LayoutDashboard} url="/dashboard" text="Resumen" />
         <NavLink icon={Layers2} base="/items" url="/items/products?status=active" text="Items" />
         <NavLink icon={Wallet} url="/sales" text="Ventas" />
@@ -39,9 +62,11 @@ export const Navigation = () => {
 
         <NavLink icon={Users} url="/users" text="Usuarios" />
         <NavLink icon={Settings} url="/settings" text="Ajustes" />
-      </> : <>
-        <NavLink icon={Users} url="/users" text="Usuarios" />
-        <NavLink icon={Settings} url="/settings" text="Ajustes" />
+      </>}
+
+      {mode === "home" && <>
+        <NavLink icon={Store} url="/restaurants" text="Restaurantes" />
+        <NavLink icon={UserCircle} url="/user" text="Usuario" />
       </>}
     </nav>
   );

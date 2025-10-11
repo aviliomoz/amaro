@@ -1,5 +1,5 @@
 import toast from "react-hot-toast"
-import { Ellipsis, LoaderCircle } from "lucide-react"
+import { Ellipsis } from "lucide-react"
 import { getUm } from "../utils/um"
 import { Link, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
@@ -9,6 +9,7 @@ import { getItemSubtypeName } from "../utils/items"
 import { useRestaurant } from "../contexts/RestaurantContext"
 import { useFilter } from "../hooks/useFilter"
 import { Pagination } from "./Pagination"
+import { Loading } from "./ui/Loading"
 
 export const ItemsTable = () => {
     const { restaurant } = useRestaurant()
@@ -67,7 +68,7 @@ export const ItemsTable = () => {
         getItems()
     }, [type, restaurant, subtype, search, category_id, page, status])
 
-    if (loading) return <LoaderCircle className='size-4 animate-spin stroke-orange-500' />
+    if (loading) return <Loading />
 
     if (!items.length) return <div className="text-sm text-center p-4">No hay ítems para mostrar</div>
 
@@ -84,11 +85,11 @@ export const ItemsTable = () => {
             </thead>
             <tbody>
                 {items.map(item => <tr key={item.id} className="text-sm text-center hover:bg-stone-50 border-b last:border-b-0">
-                    <td className="text-left h-12 px-4"><Link to={`/restaurants/${restaurant?.slug}/items/${type}/${item.id}`}>{item.name}</Link></td>
+                    <td className="text-left h-10 px-4"><Link to={`/restaurants/${restaurant?.slug}/items/${type}/${item.id}`}>{item.name}</Link></td>
                     {type !== "combos" && <td>{getUm(item.um)}</td>}
                     <td>{getItemSubtypeName(item.subtype)}</td>
                     <td>{item.status === "active" ? "Activo" : item.status === "inactive" && "Inactivo"}</td>
-                    <td className="flex items-center justify-center pt-4"><Ellipsis onClick={(e) => {
+                    <td className="flex items-center justify-center pt-3"><Ellipsis onClick={(e) => {
                         e.preventDefault()
                         e.stopPropagation()
                     }} className="size-4 cursor-pointer stroke-stone-400 hover:stroke-stone-700" /></td>

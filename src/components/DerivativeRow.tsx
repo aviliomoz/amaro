@@ -38,13 +38,13 @@ export const DerivativeRow = ({ derivative }: Props) => {
             {
                 mode === "show" ? (
                     <div className="flex gap-2">
-                        <button type="button" onClick={(e) => { e.preventDefault(); setMode("edit") }}>Editar</button>
-                        <button type="button" onClick={(e) => { e.preventDefault(); toggleDerivativeStatus() }}>{derivative.status === "active" ? "Desactivar" : "Activar"}</button>
+                        <button className="border shadow-sm rounded-md px-3 py-1 text-xs font-medium" type="button" onClick={(e) => { e.preventDefault(); setMode("edit") }}>Editar</button>
+                        <button className="border shadow-sm rounded-md px-3 py-1 text-xs font-medium" type="button" onClick={(e) => { e.preventDefault(); toggleDerivativeStatus() }}>{derivative.status === "active" ? "Desactivar" : "Activar"}</button>
                     </div>
                 ) : (
                     <div className="flex gap-2">
-                        <button onClick={() => updateDerivativeName(name)}>Guardar</button>
-                        <button onClick={() => handleCancel()}>Cancelar</button>
+                        <button className="border shadow-sm rounded-md px-3 py-1 text-xs font-medium" onClick={() => updateDerivativeName(name)}>Guardar</button>
+                        <button className="border shadow-sm rounded-md px-3 py-1 text-xs font-medium" onClick={() => handleCancel()}>Cancelar</button>
                     </div>
                 )
             }

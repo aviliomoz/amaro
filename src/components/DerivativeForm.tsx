@@ -41,8 +41,8 @@ export const DerivativeForm = ({ setShowEditor }: Props) => {
     return <div className="flex gap-4 text-sm justify-between">
         <input className="border rounded-md px-3 py-1.5 w-full" type="text" placeholder="Nombre del derivado" value={derivative.name} onChange={(e) => setDerivative({ ...derivative, name: e.target.value })} />
         <div className="flex gap-2">
-            <button type="button" onClick={() => handleAddDerivative()}>Agregar</button>
-            <button type="button" onClick={() => setShowEditor(false)}>Cancelar</button>
+            <button className="border shadow-sm rounded-md px-3 text-xs font-medium" type="button" onClick={() => handleAddDerivative()}>Agregar</button>
+            <button className="border shadow-sm rounded-md px-3 text-xs font-medium" type="button" onClick={() => setShowEditor(false)}>Cancelar</button>
         </div>
     </div>
 }
