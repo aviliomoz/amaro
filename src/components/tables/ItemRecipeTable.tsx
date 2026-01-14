@@ -1,15 +1,12 @@
 import toast from "react-hot-toast"
 import { useEffect, useState } from "react"
-import { APIResponse, IngredientType } from "../../utils/types"
 import { LoaderCircle } from "lucide-react"
-import { getItemTypeTag } from "../../utils/items"
 import { axiosAPI } from "../../libs/axios"
 import { useRestaurant } from "../../contexts/RestaurantContext"
 import { useItem } from "../../contexts/ItemContext"
 import { IngredientRow } from "../IngredientRow"
 import { Form } from "../ui/Form"
-import { getIngredientCost } from "../../utils/cost"
-import { pluralizeUm } from "../../utils/um"
+import { Item, pluralizeUm, getIngredientCost, getItemTypeTag, APIResponse } from "@amaro-software/core"
 
 export const ItemRecipeTable = () => {
 
@@ -17,7 +14,7 @@ export const ItemRecipeTable = () => {
     const { recipe, setRecipe, item, loading, setItem } = useItem()
     const [showTable, setShowTable] = useState<boolean>(false)
     const [search, setSearch] = useState<string>("")
-    const [searchResult, setSearchResult] = useState<IngredientType[]>([])
+    const [searchResult, setSearchResult] = useState<Item[]>([])
     const [searching, setSearching] = useState<boolean>(false)
 
     useEffect(() => {
@@ -33,8 +30,8 @@ export const ItemRecipeTable = () => {
                 setSearching(true)
 
                 try {
-                    const { data: searchResult } = await axiosAPI.get<APIResponse<IngredientType[]>>(`/ingredients/search?search=${search}&restaurant_id=${restaurant?.id}`)
-                    setSearchResult(searchResult.data.filter(ingredient => ingredient.name !== item.name))
+                    const { data: searchResult } = await axiosAPI.get<APIResponse<Item[]>>(`/items?search=${search}&restaurant_id=${restaurant?.id}&status=active`)
+                    setSearchResult(searchResult.data)
                 } catch (error) {
                     toast.error("Error al buscar")
                     console.log(error)
@@ -53,16 +50,21 @@ export const ItemRecipeTable = () => {
 
     }, [search])
 
-    const addIngredient = async (ingredient: IngredientType) => {
+    const addIngredient = async (ingredient: Item) => {
 
-        if (recipe.some(i => i.id === ingredient.id)) {
-            return toast.error("El ítem ya existe en la receta")
-        }
-
-        setRecipe([...recipe, ingredient])
+        setRecipe([...recipe, {
+            id: ingredient.id,
+            name: ingredient.name,
+            um: ingredient.um,
+            amount: 1,
+            type: ingredient.type,
+            item_um: ingredient.um,
+            item_cost: ingredient.cost_price,
+            item_equivalence_um: ingredient.equivalence_um,
+            item_equivalence_amount: ingredient.equivalence_amount,
+        }])
         setSearchResult([])
         setSearch("")
-
     }
 
     useEffect(() => {
@@ -81,7 +83,7 @@ export const ItemRecipeTable = () => {
                 <div className="flex flex-col relative">
                     <input className="border rounded-md mb-4 w-full px-3 py-2 focus:outline-double focus:outline-stone-300 text-sm" type="text" placeholder="Buscar ingrediente" value={search} onChange={(e) => setSearch(e.target.value)} />
                     {searchResult.length > 0 && <ul className="absolute top-full -mt-2 bg-white border rounded-md shadow-md p-2">
-                        {searchResult.map(ingredient => <button onClick={() => addIngredient(ingredient)} key={ingredient.id} className="flex items-center gap-2 text-sm px-2 py-1 rounded-md hover:bg-stone-100 w-full">{getItemTypeTag(ingredient.type)} - {ingredient.name}</button>)}
+                        {searchResult.filter(item => item.type !== "combos" && item.subtype !== "transformed").map(ingredient => <button onClick={() => addIngredient(ingredient)} key={ingredient.id} className="flex items-center gap-2 text-sm px-2 py-1 rounded-md hover:bg-stone-100 w-full">{getItemTypeTag(ingredient.type)} - {ingredient.name}</button>)}
                     </ul>}
                     {(searching) && <LoaderCircle className="absolute top-3 right-3 size-4 stroke-stone-400 animate-spin" />}
                 </div>

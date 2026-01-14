@@ -2,20 +2,20 @@ import { ArrowLeft, Box, ChevronsUpDown, LoaderCircle } from "lucide-react";
 import { useRestaurant } from "../contexts/RestaurantContext";
 import { useEffect, useRef, useState } from "react";
 import { axiosAPI } from "../libs/axios";
-import { APIResponse, RestaurantType } from "../utils/types";
 import { useAuth } from "../contexts/AuthContext";
+import { Restaurant, APIResponse } from "@amaro-software/core";
 
 export const RestaurantSelect = () => {
 
   const { user } = useAuth()
   const { restaurant } = useRestaurant()
-  const [restaurants, setRestaurants] = useState<RestaurantType[]>([])
+  const [restaurants, setRestaurants] = useState<Restaurant[]>([])
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLUListElement | null>(null)
 
   useEffect(() => {
     const fetchRestaurants = async () => {
-      const { data: userRestaurants } = await axiosAPI.get<APIResponse<RestaurantType[]>>(`/restaurants?user_id=${user?.id}`)
+      const { data: userRestaurants } = await axiosAPI.get<APIResponse<Restaurant[]>>(`/restaurants?user_id=${user?.id}`)
       setRestaurants(userRestaurants.data)
     }
 

@@ -1,11 +1,11 @@
 import { createContext, useContext, useLayoutEffect, useState } from "react"
-import { APIResponse, UserType } from "../utils/types"
 import { axiosAPI } from "../libs/axios"
 import toast from "react-hot-toast"
+import { User, APIResponse } from "@amaro-software/core"
 
 type AuthContextType = {
     token?: string // accessToken
-    user?: UserType,
+    user?: User,
     loading: boolean,
     checking: boolean,
 
@@ -19,13 +19,13 @@ export const AuthContext = createContext<AuthContextType | null>(null)
 export const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
 
     const [token, setToken] = useState<string | undefined>(undefined)
-    const [user, setUser] = useState<UserType | undefined>(undefined)
+    const [user, setUser] = useState<User | undefined>(undefined)
     const [loading, setLoading] = useState<boolean>(false)
     const [checking, setChecking] = useState<boolean>(true)
 
     useLayoutEffect(() => {
         const checkAuth = async () => {
-            const { data } = await axiosAPI.get<APIResponse<{ user: UserType, accessToken: string }>>("/auth/check")
+            const { data } = await axiosAPI.get<APIResponse<{ user: User, accessToken: string }>>("/auth/check")
 
             if (data.ok) {
                 setToken(data.data.accessToken)
@@ -46,7 +46,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
         setLoading(true)
 
         try {
-            const { data } = await axiosAPI.post<APIResponse<{ user: UserType, accessToken: string }>>("/auth/login", {
+            const { data } = await axiosAPI.post<APIResponse<{ user: User, accessToken: string }>>("/auth/login", {
                 email,
                 password
             })

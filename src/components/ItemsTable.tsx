@@ -1,25 +1,23 @@
 import toast from "react-hot-toast"
 import { Ellipsis } from "lucide-react"
-import { getUm } from "../utils/um"
 import { Link, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
-import { APIResponse, ItemSubtypeEnum, ItemType, ItemTypeEnum } from "../utils/types"
 import { axiosAPI } from "../libs/axios"
-import { getItemSubtypeName } from "../utils/items"
 import { useRestaurant } from "../contexts/RestaurantContext"
 import { useFilter } from "../hooks/useFilter"
 import { Pagination } from "./Pagination"
 import { Loading } from "./ui/Loading"
+import { ItemType, ItemSubtype, Item, getUm, APIResponse, getItemSubtypeName } from "@amaro-software/core"
 
 export const ItemsTable = () => {
     const { restaurant } = useRestaurant()
-    const { type } = useParams<{ type: ItemTypeEnum }>()
-    const [items, setItems] = useState<ItemType[]>([])
+    const { type } = useParams<{ type: ItemType }>()
+    const [items, setItems] = useState<Item[]>([])
     const [itemsNumber, setItemsNumber] = useState<number>(0)
     const [loading, setLoading] = useState<boolean>(true)
 
     const [search] = useFilter<string>("search")
-    const [subtype] = useFilter<ItemSubtypeEnum>("subtype")
+    const [subtype] = useFilter<ItemSubtype>("subtype")
     const [category_id] = useFilter<string>("category_id")
     const [page, setPage] = useFilter<string>("page")
     const [status] = useFilter<"active" | "inactive">("status")
@@ -56,7 +54,7 @@ export const ItemsTable = () => {
                     url += `&page=${page || 1}`
                 }
 
-                const { data } = await axiosAPI.get<APIResponse<ItemType[]>>(url)
+                const { data } = await axiosAPI.get<APIResponse<Item[]>>(url)
                 setItems(data.data)
             } catch (error) {
                 toast.error((error as Error).message)
@@ -67,6 +65,10 @@ export const ItemsTable = () => {
 
         getItems()
     }, [type, restaurant, subtype, search, category_id, page, status])
+
+    useEffect(() => {
+        setPage("")
+    }, [category_id])
 
     if (loading) return <Loading />
 

@@ -3,10 +3,9 @@ import { Beef, CookingPot, Layers3, Plus, Salad } from "lucide-react"
 import { StatusFilter } from "../components/filters/StatusFilter"
 import { DownloadButton } from "../components/DownloadButton"
 import { CategoriesList } from "../components/CategoriesList"
-import { getItemSubtypeName, getItemTypeName, getSubtypesByType } from "../utils/items"
 import { ItemsTable } from "../components/ItemsTable"
 import { RestaurantLink } from "../components/RestaurantLink"
-import { ItemTypeEnum } from "../utils/types"
+import { ItemType, getItemSubtypeName, getItemTypeName, getSubtypesByType } from "@amaro-software/core"
 import { useParams } from "react-router-dom"
 import { Page } from "../components/ui/Page"
 import { ItemTypeLink } from "../components/filters/ItemTypeLink"
@@ -14,7 +13,7 @@ import { ItemSubtypeFilter } from "../components/filters/ItemSubtypeFilter"
 
 export const ItemsPage = () => {
 
-    const { type } = useParams<{ type: ItemTypeEnum }>()
+    const { type } = useParams<{ type: ItemType }>()
 
     return <Page title="Amaro - Gestión de ítems">
         <Page.Header>

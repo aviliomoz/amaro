@@ -3,8 +3,8 @@ import { Outlet, useParams } from "react-router-dom"
 import { useRestaurant } from "../contexts/RestaurantContext"
 import { useLayoutEffect, useState } from "react"
 import { axiosAPI } from "../libs/axios"
-import { APIResponse, RestaurantType } from "../utils/types"
 import { Loading } from "../components/ui/Loading"
+import { Restaurant, APIResponse } from "@amaro-software/core"
 
 export const RestaurantLayout = () => {
 
@@ -17,7 +17,7 @@ export const RestaurantLayout = () => {
             setLoading(true);
             try {
                 // Obtener el restaurante usando el slug
-                const { data: restaurant } = await axiosAPI.get<APIResponse<RestaurantType>>(`/restaurants/slug/${slug}`);
+                const { data: restaurant } = await axiosAPI.get<APIResponse<Restaurant>>(`/restaurants/slug/${slug}`);
                 setRestaurant(restaurant.data);
             } catch (error) {
                 toast.error((error as Error).message);

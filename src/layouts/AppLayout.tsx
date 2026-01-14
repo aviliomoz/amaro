@@ -7,6 +7,7 @@ import { LoadingScreen } from "../components/ui/LoadingScreen";
 import { RestaurantSelect } from "../components/RestaurantSelect";
 import { useRestaurant } from "../contexts/RestaurantContext";
 import { Slash } from "../components/ui/Slash";
+import { OptionsWidget } from "../components/OptionsWidget";
 
 export const AppLayout = () => {
   const { user, checking } = useAuth()
@@ -26,13 +27,14 @@ export const AppLayout = () => {
           </>}
         </div>
         <div className="flex items-center gap-2 sm:gap-3">
+          <OptionsWidget />
           <UserPill />
         </div>
       </header>
       <aside className={`group fixed top-12 z-10 h-[calc(100vh-48px)] w-14 bg-white overflow-y-scroll custom-scroll border-r p-2 hover:w-48 transition-all duration-200 ease-in-out shadow-md`}>
         <Navigation />
       </aside>
-      <main className={`w-full overflow-y-scroll custom-scroll flex flex-col pl-20 pr-4 pt-16 pb-4 min-h-screen`}>
+      <main className={`w-full overflow-y-scroll custom-scroll flex flex-col pl-20 pr-4 pt-16 pb-8 min-h-screen`}>
         <Outlet />
       </main>
 

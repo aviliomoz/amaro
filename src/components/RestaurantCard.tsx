@@ -1,9 +1,9 @@
 import { Ellipsis } from "lucide-react"
-import { RestaurantType } from "../utils/types"
+import { Restaurant } from "@amaro-software/core"
 import { Link } from "react-router-dom"
 
 type Props = {
-    restaurant: RestaurantType
+    restaurant: Restaurant
 }
 
 export const RestaurantCard = ({ restaurant }: Props) => {

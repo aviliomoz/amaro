@@ -1,27 +1,27 @@
+import toast from "react-hot-toast"
 import { useEffect, useState } from "react"
 import { Modal } from "../components/ui/Modal"
 import { Page } from "../components/ui/Page"
-import { APIResponse, CategoryType, ItemStatusEnum, ItemTypeEnum } from "../utils/types"
 import { useFilter } from "../hooks/useFilter"
 import { StatusFilter } from "../components/filters/StatusFilter"
 import { SearchBar } from "../components/filters/SearchBar"
 import { Plus } from "lucide-react"
 import { axiosAPI } from "../libs/axios"
 import { useRestaurant } from "../contexts/RestaurantContext"
-import toast from "react-hot-toast"
 import { CategoryCard } from "../components/CategoryCard"
 import { Loading } from "../components/ui/Loading"
-import { CategoriesForm } from "../components/CategoriesForm"
+// import { CategoriesForm } from "../components/CategoriesForm"
+import { Category, ItemStatus, ItemType, APIResponse } from "@amaro-software/core"
 
 export const CategoriesPage = () => {
 
     const { restaurant } = useRestaurant()
-    const [type, setType] = useFilter<ItemTypeEnum>("type")
-    const [status] = useFilter<ItemStatusEnum>("status")
+    const [type, setType] = useFilter<ItemType>("type")
+    const [status] = useFilter<ItemStatus>("status")
     const [search] = useFilter<string>("search")
     const [showModal, setShowModal] = useState<boolean>(false)
-    const [categories, setCategories] = useState<CategoryType[]>([])
-    const [filteredCategories, setFilteredCategories] = useState<CategoryType[]>([])
+    const [categories, setCategories] = useState<Category[]>([])
+    const [filteredCategories, setFilteredCategories] = useState<Category[]>([])
     const [loading, setLoading] = useState<boolean>(true)
 
     useEffect(() => {
@@ -29,7 +29,7 @@ export const CategoriesPage = () => {
             setLoading(true)
             try {
                 let url = `/categories?restaurant_id=${restaurant?.id}`
-                const { data: categories } = await axiosAPI.get<APIResponse<CategoryType[]>>(url)
+                const { data: categories } = await axiosAPI.get<APIResponse<Category[]>>(url)
                 setCategories(categories.data)
             } catch (error) {
                 toast.error("Error fetching categories: " + (error as Error).message)
@@ -69,7 +69,7 @@ export const CategoriesPage = () => {
                 <label className="font-semibold flex items-center gap-4 min-w-fit">Tipo de categoría:
                     <select
                         value={type}
-                        onChange={(e) => setType(e.target.value as ItemTypeEnum)}
+                        onChange={(e) => setType(e.target.value as ItemType)}
                         className="border rounded-md px-2 py-1.5 shadow-sm cursor-pointer text-sm focus:outline-none focus:ring-2 focus:ring-stone-100"
                     >
                         <option value="products">Productos</option>
@@ -102,7 +102,8 @@ export const CategoriesPage = () => {
             )}
             {showModal &&
                 <Modal close={() => setShowModal(false)}>
-                    <CategoriesForm />
+                    {/* <CategoriesForm /> */}
+                    <></>
                 </Modal>}
         </Page.Content>
     </Page>

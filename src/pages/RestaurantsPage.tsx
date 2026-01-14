@@ -2,20 +2,20 @@ import toast from "react-hot-toast"
 import { useLayoutEffect, useState } from "react"
 import { useAuth } from "../contexts/AuthContext"
 import { axiosAPI } from "../libs/axios"
-import { APIResponse, RestaurantType } from "../utils/types"
 import { RestaurantCard } from "../components/RestaurantCard"
 import { Page } from "../components/ui/Page"
+import { Restaurant, APIResponse } from "@amaro-software/core"
 
 export const RestaurantsPage = () => {
 
     const { user } = useAuth()
-    const [restaurants, setRestaurants] = useState<RestaurantType[]>([])
+    const [restaurants, setRestaurants] = useState<Restaurant[]>([])
     const [loading, setLoading] = useState<boolean>(true)
 
     useLayoutEffect(() => {
         const getRestaurants = async () => {
             try {
-                const { data } = await axiosAPI<APIResponse<RestaurantType[]>>(`/restaurants?user_id=${user?.id}`)
+                const { data } = await axiosAPI<APIResponse<Restaurant[]>>(`/restaurants?user_id=${user?.id}`)
                 setRestaurants(data.data)
             } catch (error) {
                 toast.error((error as Error).message)

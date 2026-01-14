@@ -1,6 +1,6 @@
 import { useAuth } from "../contexts/AuthContext"
 import { axiosAPI } from "../libs/axios"
-import { APIResponse } from "../utils/types"
+import { APIResponse } from "@amaro-software/core"
 
 type Method = "get" | "post" | "put" | "delete"
 

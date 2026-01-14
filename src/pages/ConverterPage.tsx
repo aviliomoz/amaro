@@ -1,36 +1,25 @@
 import toast from "react-hot-toast"
 import { useState } from "react"
 import { Page } from "../components/ui/Page"
-import { APIResponse, ItemType, UMEnum } from "../utils/types"
 import { axiosAPI } from "../libs/axios"
 import { useRestaurant } from "../contexts/RestaurantContext"
 import { Table } from "../components/ui/Table"
 import { Download, LoaderCircle, Trash } from "lucide-react"
-import { pluralizeUm } from "../utils/um"
 import { Form } from "../components/ui/Form"
 import { DropdownSearch } from "../components/ui/DropdownSearch"
-
-type Ingredient = {
-    id: string,
-    name: string,
-    um: UMEnum,
-    amount: number,
-    products: { name: string, amount: number }[]
-}
-
-type ConversionLevel = "superficial" | "deep"
+import { Item, ItemConversionLevelDto, IngredientConversionResult, ItemToConvertDto, APIResponse, pluralizeUm } from "@amaro-software/core"
 
 export const ConverterPage = () => {
 
     const { restaurant } = useRestaurant()
-    const [products, setProducts] = useState<{ item: ItemType, amount: number }[]>([])
-    const [ingredients, setIngredients] = useState<Ingredient[]>([])
+    const [products, setProducts] = useState<ItemToConvertDto[]>([])
+    const [ingredients, setIngredients] = useState<IngredientConversionResult[]>([])
     const [loading, setLoading] = useState<boolean>(false)
-    const [conversionLevel, setConversionLevel] = useState<ConversionLevel>("superficial")
+    const [conversionLevel, setConversionLevel] = useState<ItemConversionLevelDto>("superficial")
 
     const searchItems = async (search: string) => {
         try {
-            const { data: products } = await axiosAPI.get<APIResponse<ItemType[]>>(`/items/search?search=${search}&restaurant_id=${restaurant?.id!}&type=products`)
+            const { data: products } = await axiosAPI.get<APIResponse<Item[]>>(`/items?search=${search}&restaurant_id=${restaurant?.id!}&type=products&status=active`)
             return products.data
         } catch (error) {
             toast.error("Error al buscar productos")
@@ -38,18 +27,27 @@ export const ConverterPage = () => {
         }
     }
 
-    const addProduct = (item: ItemType) => {
-        const existingItem = products.find(p => p.item.id === item.id)
+    const addProduct = (item: Item) => {
+        const existingItem = products.find(product => product.id === item.id)
         if (existingItem) {
             toast.error("El producto ya está en la lista")
         } else {
-            setProducts([...products, { item, amount: 1 }])
-
+            setProducts([
+                ...products,
+                {
+                    id: item.id,
+                    type: item.type,
+                    subtype: item.subtype,
+                    name: item.name,
+                    um: item.um,
+                    amount: 1
+                }
+            ])
         }
     }
 
     const removeProduct = (id: string) => {
-        setProducts(products.filter(p => p.item.id !== id))
+        setProducts(products.filter(product => product.id !== id))
     }
 
     const generateConversion = async () => {
@@ -62,9 +60,9 @@ export const ConverterPage = () => {
 
         try {
 
-            let cleanConsumption: Ingredient[] = []
+            let cleanConsumption: IngredientConversionResult[] = []
 
-            const { data: consumption } = await axiosAPI.post<APIResponse<Ingredient[]>>(`/ingredients/convert?level=${conversionLevel}`, products)
+            const { data: consumption } = await axiosAPI.post<APIResponse<IngredientConversionResult[]>>(`/items/convert?level=${conversionLevel}`, products)
 
             consumption.data.forEach(ingredient => {
                 const existingIngredient = cleanConsumption.find(i => i.name === ingredient.name && i.um === ingredient.um)
@@ -94,11 +92,11 @@ export const ConverterPage = () => {
                 <div className="text-sm font-medium flex items-center gap-4">
                     <p>Nivel de conversión:</p>
                     <label className="flex items-center gap-2 cursor-pointer">
-                        <input type="radio" name="conversion-level" value="superficial" checked={conversionLevel === "superficial"} onChange={(e) => setConversionLevel(e.target.value as ConversionLevel)}/>
+                        <input type="radio" name="conversion-level" value="superficial" checked={conversionLevel === "superficial"} onChange={(e) => setConversionLevel(e.target.value as ItemConversionLevelDto)} />
                         Superficial
                     </label>
                     <label className="flex items-center gap-2 cursor-pointer">
-                        <input type="radio" name="conversion-level" value="deep" checked={conversionLevel === "deep"} onChange={(e) => setConversionLevel(e.target.value as ConversionLevel)}/>
+                        <input type="radio" name="conversion-level" value="deep" checked={conversionLevel === "deep"} onChange={(e) => setConversionLevel(e.target.value as ItemConversionLevelDto)} />
                         Profundo
                     </label>
                 </div>
@@ -119,18 +117,18 @@ export const ConverterPage = () => {
                                 </Table.Row>
                             </Table.Header>
                             <Table.Body>
-                                {products.map((p, index) => (
+                                {products.map((product, index) => (
                                     <Table.Row key={index}>
-                                        <Table.Cell><div className="w-64">{p.item.name}</div></Table.Cell>
+                                        <Table.Cell><div className="w-64">{product.name}</div></Table.Cell>
                                         <Table.Cell>
                                             <div className="w-20">
-                                                <Form.NumericInput value={p.amount} onChange={(n) => setProducts(products.map(pr =>
-                                                    p.item.id === pr.item.id ? { ...p, amount: n } : pr
+                                                <Form.NumericInput value={product.amount} onChange={(n) => setProducts(products.map(pr =>
+                                                    product.id === pr.id ? { ...product, amount: n } : pr
                                                 ))} />
                                             </div>
                                         </Table.Cell>
                                         <Table.Cell>
-                                            <div className="flex items-center justify-center"><Trash className="stroke-stone-300 size-4 hover:stroke-stone-500" onClick={() => removeProduct(p.item.id!)} /></div>
+                                            <div className="flex items-center justify-center"><Trash className="stroke-stone-300 size-4 hover:stroke-stone-500" onClick={() => removeProduct(product.id)} /></div>
                                         </Table.Cell>
                                     </Table.Row>
                                 ))}

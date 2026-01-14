@@ -1,5 +1,5 @@
 {
-  "name": "datagrill",
+  "name": "@amaro-software/pwa",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -10,10 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@amaro-software/core": "^1.0.0",
     "axios": "^1.7.2",
     "lucide-react": "^0.439.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
     "react-hot-toast": "^2.4.1",
     "react-router-dom": "^6.22.0",
     "zod": "^3.22.4"

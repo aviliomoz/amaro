@@ -1,24 +1,20 @@
-import { getItemSubtypeName, getSubtypesByType } from "../utils/items"
-import { UMEnum, ItemStatusEnum, ItemSubtypeEnum } from "../utils/types"
 import { useItem } from "../contexts/ItemContext"
 import { Form } from "./ui/Form"
 import { Box } from "./ui/Box"
 import { ItemEquivalenceOption } from "./ItemEquivalenceOption"
 import { ItemRecipeTable } from "./tables/ItemRecipeTable"
 import { useRestaurant } from "../contexts/RestaurantContext"
-import { ItemDerivativesTable } from "./ItemDerivativesTable"
 import { Loading } from "./ui/Loading"
 import { SuggestedPriceCalc } from "./SuggestedPriceCalc"
 import { useCategories } from "../hooks/useCategories"
 import { useEffect } from "react"
-import { useFilter } from "../hooks/useFilter"
+import { ItemSubtype, ItemStatus, ItemUm, getItemSubtypeName, getSubtypesByType } from "@amaro-software/core"
 
 export const ItemForm = () => {
 
-    const { item, setItem, loading, derivatives } = useItem()
+    const { item, setItem, loading } = useItem()
     const { restaurant } = useRestaurant()
     const { categories, loading: loadingCategories } = useCategories()
-    const [showInactiveDerivatives, setShowInactiveDerivatives] = useFilter<string>("showInactiveDerivatives")
 
     useEffect(() => {
         if (categories.length > 0 && !item.category_id) {
@@ -38,10 +34,10 @@ export const ItemForm = () => {
 
                     <div className="flex gap-4">
                         <Form.Field title="Tipo" description="El tipo de ítem que estás creando.">
-                            <Form.Select value={item.subtype} onChange={(value) => setItem({ ...item, subtype: value as ItemSubtypeEnum })} options={getSubtypesByType(item.type).map(subtype => ({ label: getItemSubtypeName(subtype) as string, value: subtype }))} />
+                            <Form.Select value={item.subtype} onChange={(value) => setItem({ ...item, subtype: value as ItemSubtype })} options={getSubtypesByType(item.type).map(subtype => ({ label: getItemSubtypeName(subtype) as string, value: subtype }))} />
                         </Form.Field>
                         <Form.Field title="Unidad de medida" description="La unidad de medida del ítem.">
-                            <Form.Select value={item.um} onChange={(value) => setItem({ ...item, um: value as UMEnum })} options={[
+                            <Form.Select value={item.um} onChange={(value) => setItem({ ...item, um: value as ItemUm })} options={[
                                 { label: "Unidad", value: "unit" },
                                 { label: "Kilogramo", value: "kilogram" },
                                 { label: "Litro", value: "liter" },
@@ -55,7 +51,7 @@ export const ItemForm = () => {
                             {(loading || loadingCategories || !item.category_id) ? <Loading /> : <Form.Select value={item.category_id} onChange={(value) => setItem({ ...item, category_id: value })} options={categories.map(category => ({ label: category.name, value: category.id! }))} />}
                         </Form.Field>
                         <Form.Field title="Estado" description="">
-                            <Form.Select value={item.status} onChange={(value) => setItem({ ...item, status: value as ItemStatusEnum })} options={[
+                            <Form.Select value={item.status} onChange={(value) => setItem({ ...item, status: value as ItemStatus })} options={[
                                 { label: "Activo", value: "active" },
                                 { label: "Inactivo", value: "inactive" }
                             ]} />
@@ -92,21 +88,6 @@ export const ItemForm = () => {
                         </>
                     }
 
-
-                    {item.type === "supplies" &&
-                        <>
-                            <Form.Separator />
-                            <div className="flex gap-4">
-                                <Form.Field title="Merma" description="La merma del ítem.">
-                                    <Form.NumericInput max={99.99} value={item.waste} onChange={(value) => setItem({ ...item, waste: value as number })} symbol={"%"} />
-                                </Form.Field>
-                                <Form.Field title="Costo sin merma" description="El costo del ítem sin merma.">
-                                    <Form.NumericInput disabled value={item.clean_price} onChange={(value) => setItem({ ...item, clean_price: value as number })} symbol={"S/"} />
-                                </Form.Field>
-                            </div>
-                        </>
-                    }
-
                     <Form.Separator />
 
                     <div className="flex gap-4">
@@ -126,12 +107,6 @@ export const ItemForm = () => {
                     {((item.type === "products" && item.subtype === "unprocessed") || item.type === "supplies") && item.um === "unit" &&
                         <Form.Field title="Equivalencia" description="La equivalencia del ítem.">
                             <ItemEquivalenceOption />
-                        </Form.Field>}
-                    {item.type === "supplies" &&
-                        <Form.Field title="Derivados" description="Los derivados creados a partir de este insumo." filters={derivatives.length > 0 ? [
-                            <Form.Checkbox label="Mostrar inactivos" value={showInactiveDerivatives === "true"} onChange={(value) => setShowInactiveDerivatives(value.toString())} />
-                        ] : []}>
-                            <ItemDerivativesTable />
                         </Form.Field>}
                     {((item.type === "products" && item.subtype === "transformed") || item.type === "base-recipes") &&
                         <Form.Field title="Receta" description="">

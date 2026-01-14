@@ -1,17 +1,17 @@
 import toast from "react-hot-toast"
 import { Ellipsis, LoaderCircle } from "lucide-react"
 import { useEffect, useState } from "react"
-import { APIResponse, CategoryType, ItemTypeEnum } from "../utils/types"
 import { axiosAPI } from "../libs/axios"
 import { useRestaurant } from "../contexts/RestaurantContext"
 import { useParams } from "react-router-dom"
 import { CategoriesListItem } from "./CategoriesListItem"
+import { ItemType, Category, APIResponse } from "@amaro-software/core"
 
 export const CategoriesList = () => {
 
-    const { type } = useParams<{ type: ItemTypeEnum }>()
+    const { type } = useParams<{ type: ItemType }>()
     const { restaurant } = useRestaurant()
-    const [categories, setCategories] = useState<CategoryType[]>([])
+    const [categories, setCategories] = useState<Category[]>([])
     const [loading, setLoading] = useState<boolean>(true)
 
     const getCategories = async () => {
@@ -19,7 +19,7 @@ export const CategoriesList = () => {
             setLoading(true)
 
             let url = `/categories?restaurant_id=${restaurant?.id}&type=${type}`
-            const { data } = await axiosAPI<APIResponse<CategoryType[]>>(url)
+            const { data } = await axiosAPI<APIResponse<Category[]>>(url)
             setCategories(data.data)
         } catch (error) {
             toast.error("Error al cargar las categorias")
@@ -35,7 +35,7 @@ export const CategoriesList = () => {
     return <div className="border rounded-md p-4 min-w-60 max-w-60 h-fit flex flex-col">
         <div className="flex justify-between items-center">
             <h3 className="text-sm font-semibold">Categorías</h3>
-            <Ellipsis onClick={() => {}} className="size-4 stroke-stone-400 hover:stroke-stone-600 cursor-pointer" />
+            <Ellipsis onClick={() => { }} className="size-4 stroke-stone-400 hover:stroke-stone-600 cursor-pointer" />
         </div>
         {loading ? <LoaderCircle className='mt-4 size-4 animate-spin stroke-orange-500' /> : <ul className="flex flex-col gap-0.5 mt-4">
             <CategoriesListItem category={null} >Todas</CategoriesListItem>

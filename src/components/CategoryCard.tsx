@@ -1,12 +1,12 @@
 import { Ellipsis, LoaderCircle } from "lucide-react"
-import { APIResponse, CategoryType, ItemType } from "../utils/types"
 import { useEffect, useState } from "react"
 import { axiosAPI } from "../libs/axios"
-import { CategoriesForm } from "./CategoriesForm"
+// import { CategoriesForm } from "./CategoriesForm"
 import { Modal } from "./ui/Modal"
+import { Category, Item, APIResponse } from "@amaro-software/core"
 
 type Props = {
-    category: CategoryType
+    category: Category
 }
 
 export const CategoryCard = ({ category }: Props) => {
@@ -19,7 +19,7 @@ export const CategoryCard = ({ category }: Props) => {
         const getItemNumber = async () => {
             setLoading(true)
             try {
-                const { data: items } = await axiosAPI.get<APIResponse<ItemType[]>>(`/items?category_id=${category.id}&restaurant_id=${category.restaurant_id}&type=${category.type}`)
+                const { data: items } = await axiosAPI.get<APIResponse<Item[]>>(`/items?category_id=${category.id}&restaurant_id=${category.restaurant_id}&type=${category.type}`)
                 setItemNumer(items.data.length)
             } catch (error) {
                 console.error("Error fetching item count:", error)
@@ -44,7 +44,8 @@ export const CategoryCard = ({ category }: Props) => {
             </span> : <LoaderCircle className="size-4 animate-spin stroke-stone-300" />}
         </div>
         {showModal && <Modal close={() => setShowModal(false)}>
-            <CategoriesForm category={category} />
+            {/* <CategoriesForm category={category} /> */}
+            <></>
         </Modal>}
     </article>
 }

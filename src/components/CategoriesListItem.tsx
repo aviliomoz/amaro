@@ -1,8 +1,8 @@
 import { useFilter } from "../hooks/useFilter"
-import { CategoryType } from "../utils/types"
+import { Category } from "@amaro-software/core"
 
 type Props = {
-    category: CategoryType | null,
+    category: Category | null,
     children: React.ReactNode
 }
 

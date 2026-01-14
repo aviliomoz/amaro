@@ -1,4 +1,4 @@
-import { ArrowLeftRight, BookUser, ChartNoAxesCombined, ClipboardList, FileText, Layers2, LayoutDashboard, LayoutList, MessageSquareText, NotebookText, QrCode, Settings, ShoppingBag, Store, Truck, UserCircle, Users, Wallet } from "lucide-react";
+import { ArrowLeftRight, BookUser, ChartNoAxesCombined, ClipboardList, FileText, Layers2, LayoutDashboard, LayoutList, MessageSquareText, NotebookText, Settings, ShoppingBag, Store, Truck, UserCircle, Users, Wallet, Warehouse } from "lucide-react";
 import { NavLink } from "./NavLink";
 import { useRestaurant } from "../contexts/RestaurantContext";
 import { NavSeparator } from "./ui/NavSeparator";
@@ -43,14 +43,14 @@ export const Navigation = () => {
         <NavLink icon={ShoppingBag} url="/purchases" text="Compras" />
         <NavLink icon={NotebookText} url="/requirements" text="Requerimientos" />
         <NavLink icon={LayoutList} url="/productions" text="Producciones" />
-        <NavLink icon={ClipboardList} url="/inventories" text="Inventarios" />
+        <NavLink icon={Warehouse} url="/warehouses" text="Almacenes" />
         <NavLink icon={Truck} url="/suppliers" text="Proveedores" />
 
         <NavSeparator />
 
         <NavLink icon={ArrowLeftRight} url="/converter" text="Conversor" />
         <NavLink icon={MessageSquareText} url="/surveys" text="Encuentas" />
-        <NavLink icon={QrCode} url="/menus" text="Cartas" />
+        <NavLink icon={ClipboardList} url="/menus" text="Cartas" />
 
         <NavSeparator />
 

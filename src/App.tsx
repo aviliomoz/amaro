@@ -4,7 +4,6 @@ import { Toaster } from "react-hot-toast";
 // Layouts
 import { AppLayout } from "./layouts/AppLayout";
 import { AuthLayout } from "./layouts/AuthLayout";
-import { PosLayout } from "./layouts/PosLayout";
 import { RestaurantLayout } from "./layouts/RestaurantLayout";
 
 // Pages 
@@ -15,9 +14,7 @@ import { ItemPage } from "./pages/ItemPage";
 import { ConverterPage } from "./pages/ConverterPage";
 import { SettingsPage } from "./pages/SettingsPage";
 import { CategoriesPage } from "./pages/CategoriesPage";
-import { LocalSalesPage } from "./pages/LocalSalesPage";
 import { AuthPage } from "./pages/AuthPage";
-import { PosHomePage } from "./pages/PosHomePage";
 
 function App() {
   return (
@@ -45,7 +42,7 @@ function App() {
               <Route path="reports" element={<InDevelopment />} />
               <Route path="purchases" element={<InDevelopment />} />
               <Route path="suppliers" element={<InDevelopment />} />
-              <Route path="inventories" element={<InDevelopment />} />
+              <Route path="warehouses" element={<InDevelopment />} />
               <Route path="requirements" element={<InDevelopment />} />
               <Route path="productions" element={<InDevelopment />} />
               <Route path="settings" element={<SettingsPage />} />
@@ -53,13 +50,6 @@ function App() {
               <Route path="users" element={<InDevelopment />} />
             </Route>
           </Route>
-
-          <Route path="/pos" element={<PosLayout />} >
-            <Route path="registers" element={<PosHomePage />} />
-            <Route path="halls" element={<LocalSalesPage />} />
-            <Route path="orders" element={<PosHomePage />} />
-          </Route>
-
         </Routes>
       </BrowserRouter>
       <Toaster position="bottom-right" />

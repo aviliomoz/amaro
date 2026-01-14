@@ -1,15 +1,15 @@
 import { createContext, useContext, useState } from "react";
-import { RestaurantType } from "../utils/types";
+import { Restaurant } from "@amaro-software/core";
 
 type RestaurantContextType = {
-    restaurant: RestaurantType | undefined;
-    setRestaurant: (restaurant: RestaurantType) => void;
+    restaurant: Restaurant | undefined;
+    setRestaurant: (restaurant: Restaurant) => void;
 };
 
 export const RestaurantContext = createContext<RestaurantContextType | null>(null);
 
 export const RestaurantContextProvider = ({ children }: { children: React.ReactNode }) => {
-    const [restaurant, setRestaurant] = useState<RestaurantType>();
+    const [restaurant, setRestaurant] = useState<Restaurant>();
 
     return <RestaurantContext.Provider value={{ restaurant, setRestaurant }}>{children}</RestaurantContext.Provider>;
 };
