@@ -102,6 +102,18 @@ export const ItemContextProvider = ({ children }: { children: React.ReactNode })
         }
     }, [recipe])
 
+    useEffect(() => {
+        // Cada vez que cambie el precio de compra o si es gravable, recalcular el costo
+        if ((item.type === "products" && item.subtype === "unprocessed") || item.type === "supplies") {
+            let cost = item.purchase_price
+            if (item.taxable) {
+                const taxRate = restaurant?.sales_tax! / 100
+                cost = cost / (1 + taxRate)
+            }
+            setItem({ ...item, cost_price: cost })
+        }
+    }, [item.taxable, item.purchase_price])
+
     return (
         <ItemContext.Provider value={{ item, setItem, saveItem, recipe, setRecipe, loading, saving }}>
             {children}

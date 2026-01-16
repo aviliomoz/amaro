@@ -75,7 +75,7 @@ export const ItemForm = () => {
                         <>
                             <div className="flex gap-4">
                                 <Form.Field title="Precio de compra" description="">
-                                    <Form.NumericInput value={item.purchase_price} onChange={(value) => setItem({ ...item, purchase_price: value as number })} symbol={"S/"} />
+                                    <Form.NumericInput value={item.purchase_price} onChange={(value) => setItem({ ...item, purchase_price: value })} symbol={"S/"} />
                                 </Form.Field>
                                 <Form.Field title="Costo" description="Costo del ítem sin impuestos ni comisiones.">
                                     <div className="flex items-center gap-2">
