@@ -7,7 +7,7 @@ import { Table } from "../components/ui/Table"
 import { Download, LoaderCircle, Trash } from "lucide-react"
 import { Form } from "../components/ui/Form"
 import { DropdownSearch } from "../components/ui/DropdownSearch"
-import { Item, ItemConversionLevelDto, IngredientConversionResult, ItemToConvertDto, APIResponse, pluralizeUm } from "@amaro-software/core"
+import { Item, ItemConversionLevelDto, IngredientConversionResult, ItemToConvertDto, APIResponse, pluralizeUm, getItemTypeTag } from "@amaro-software/core"
 
 export const ConverterPage = () => {
 
@@ -19,7 +19,7 @@ export const ConverterPage = () => {
 
     const searchItems = async (search: string) => {
         try {
-            const { data: products } = await axiosAPI.get<APIResponse<Item[]>>(`/items?search=${search}&restaurant_id=${restaurant?.id!}&type=products&status=active`)
+            const { data: products } = await axiosAPI.get<APIResponse<Item[]>>(`/items?search=${search}&restaurant_id=${restaurant?.id!}&types=products,base-recipes&status=active`)
             return products.data
         } catch (error) {
             toast.error("Error al buscar productos")
@@ -85,6 +85,41 @@ export const ConverterPage = () => {
         }
     }
 
+    const downloadExcel = async () => {
+
+        console.log("Downloading excel with level:", conversionLevel);
+        const response = await axiosAPI.post(
+            `/items/convert/download?level=${conversionLevel}`,
+            products,
+            {
+                responseType: "arraybuffer",
+            }
+        )
+
+        console.log("Response received for excel download:", response);
+
+        const blob = new Blob(
+            [response.data],
+            {
+                type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            }
+        )
+
+        console.log("Blob created for excel file:", blob);
+
+        const url = window.URL.createObjectURL(blob)
+
+        const link = document.createElement("a")
+        link.href = url
+        link.download = `Reporte de Consumo ${new Date().toLocaleString()}.xlsx`
+
+        document.body.appendChild(link)
+        link.click()
+
+        document.body.removeChild(link)
+        window.URL.revokeObjectURL(url)
+    }
+
     return <Page title="Amaro - Conversor de consumo">
         <Page.Header>
             <Page.Title>Conversor de consumo</Page.Title>
@@ -119,7 +154,7 @@ export const ConverterPage = () => {
                             <Table.Body>
                                 {products.map((product, index) => (
                                     <Table.Row key={index}>
-                                        <Table.Cell><div className="w-64">{product.name}</div></Table.Cell>
+                                        <Table.Cell><div className="w-64 flex min-h-10 items-center"><span className={`text-[9px] tracking-widest ${product.type === "base-recipes" ? "bg-green-300" : "bg-stone-300"} font-semibold px-1.5 rounded-md text-center mr-2`}>{getItemTypeTag(product.type)}</span>{product.name}</div></Table.Cell>
                                         <Table.Cell>
                                             <div className="w-20">
                                                 <Form.NumericInput value={product.amount} onChange={(n) => setProducts(products.map(pr =>
@@ -142,7 +177,7 @@ export const ConverterPage = () => {
                     </div> : <div className="flex flex-col">
                         <div className="mb-2 flex items-center justify-between h-8">
                             <h3 className="font-semibold mb-3 text-base mt-2">Reporte de consumo:</h3>
-                            <button className="flex items-center rounded-md bg-white px-3 gap-2 border py-1 text-sm font-medium text-stone-900 hover:bg-stone-50 transition-all ease-in-out" >
+                            <button onClick={() => downloadExcel()} className="flex items-center rounded-md bg-white px-3 gap-2 border py-1 text-sm font-medium text-stone-900 hover:bg-stone-50 transition-all ease-in-out" >
                                 <Download className="size-4" />
                                 <span>Descargar</span>
                             </button>

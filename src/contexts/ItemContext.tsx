@@ -75,10 +75,10 @@ export const ItemContextProvider = ({ children }: { children: React.ReactNode })
     }, [id])
 
     const saveItem = async () => {
+        const saveMode = id === "new" ? "create" : "update"
         setSaving(true)
         try {
-            console.log("Saving item...", item, recipe)
-            if (id === "new") {
+            if (saveMode === "create") {
                 const { data: savedItem } = await axiosAPI.post<APIResponse<Item>>(`/items`, { ...item, name: item.name.trim() })
                 await axiosAPI.put(`/items/ingredients/${savedItem.data.id}`, recipe)
                 toast.success(`Ítem creado`)
@@ -93,6 +93,11 @@ export const ItemContextProvider = ({ children }: { children: React.ReactNode })
             toast.error((error as Error).message)
         } finally {
             setSaving(false)
+
+            if (saveMode === "update" && ((item.type === "products" && (item.subtype === "unprocessed")) || item.type === "base-recipes" || item.type === "supplies")) {
+                await axiosAPI.get(`/items/costs/${id}`)
+                toast.success(`El costo de los items que utilizan ${item.name} como ingrediente ha sido actualizado`)
+            }
         }
     }
 

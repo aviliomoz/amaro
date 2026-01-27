@@ -28,10 +28,10 @@ export const ItemsTable = () => {
 
             try {
 
-                let url = `/items?restaurant_id=${restaurant?.id}&type=${type}`
+                let url = `/items?restaurant_id=${restaurant?.id}&types=${type}`
 
                 if (subtype) {
-                    url += `&subtype=${subtype}`
+                    url += `&subtypes=${subtype}`
                 }
                 if (search) {
                     url += `&search=${search}`
