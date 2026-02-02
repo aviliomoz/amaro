@@ -8,7 +8,7 @@ import { Loading } from "./ui/Loading"
 import { SuggestedPriceCalc } from "./SuggestedPriceCalc"
 import { useCategories } from "../hooks/useCategories"
 import { useEffect } from "react"
-import { ItemSubtype, ItemStatus, ItemUm, getItemSubtypeName, getSubtypesByType } from "@amaro-software/core"
+import { ItemSubtype, ItemStatus, ItemUm, getItemSubtypeName, getSubtypesByType, ItemDischargeType } from "@amaro-software/core"
 
 export const ItemForm = () => {
 
@@ -65,8 +65,8 @@ export const ItemForm = () => {
                             <Form.Field title="Precio de venta" description="">
                                 <Form.NumericInput value={item.sale_price} onChange={(value) => setItem({ ...item, sale_price: value as number })} symbol={"S/"} />
                             </Form.Field>
-                            <Form.Field title="Valor venta" description="Valor del producto sin impuestos ni comisiones.">
-                                <Form.NumericInput disabled value={item.sale_price / (1 + (restaurant?.commissions! / 100)) / (1 + (restaurant?.sales_tax! / 100))} onChange={(value) => setItem({ ...item, sale_price: value as number })} symbol={"S/"} />
+                            <Form.Field title="Valor venta" description="Valor del producto sin impuestos.">
+                                <Form.NumericInput disabled value={item.sale_price / (1 + (restaurant?.sales_tax! / 100))} onChange={(value) => setItem({ ...item, sale_price: value as number })} symbol={"S/"} />
                             </Form.Field>
                         </div>
                     }
@@ -77,10 +77,10 @@ export const ItemForm = () => {
                                 <Form.Field title="Precio de compra" description="">
                                     <Form.NumericInput value={item.purchase_price} onChange={(value) => setItem({ ...item, purchase_price: value })} symbol={"S/"} />
                                 </Form.Field>
-                                <Form.Field title="Costo" description="Costo del ítem sin impuestos ni comisiones.">
+                                <Form.Field title="Costo" description="Costo del ítem sin impuestos.">
                                     <div className="flex items-center gap-2">
                                         <Form.NumericInput disabled value={item.cost_price} onChange={(value) => setItem({ ...item, cost_price: value as number })} symbol={"S/"} />
-                                        {item.subtype === "unprocessed" && item.sale_price > 0 && <span className="text-sm font-medium">{(item.cost_price / (item.sale_price / (1 + (restaurant?.commissions! / 100)) / (1 + (restaurant?.sales_tax! / 100)))).toLocaleString("es-PE", { style: "percent", maximumFractionDigits: 1 })}</span>}
+                                        {item.subtype === "unprocessed" && item.sale_price > 0 && <span className="text-sm font-medium">{(item.cost_price / (item.sale_price / (1 + (restaurant?.sales_tax! / 100)))).toLocaleString("es-PE", { style: "percent", maximumFractionDigits: 1 })}</span>}
                                     </div>
                                 </Form.Field>
                             </div>
@@ -108,6 +108,12 @@ export const ItemForm = () => {
                         <Form.Field title="Equivalencia" description="La equivalencia del ítem.">
                             <ItemEquivalenceOption />
                         </Form.Field>}
+                    {(item.type === "products" && item.subtype === "transformed") || item.type === "base-recipes" && <Form.Field title="Tipos de descargo" description="El tipo de descargo que tendrá el ítem al ser vendido o utilizado.">
+                        <Form.Select value={item.discharge_type} onChange={(v) => setItem({...item, discharge_type: v as ItemDischargeType})} options={[
+                            { label: "Se prepara con anticipación y se tiene en stock", value: "unit" },
+                            { label: "Se prepara en el momento de la venta", value: "recipe" }
+                        ]}/>
+                    </Form.Field>}
                     {((item.type === "products" && item.subtype === "transformed") || item.type === "base-recipes") &&
                         <Form.Field title="Receta" description="">
                             <ItemRecipeTable />

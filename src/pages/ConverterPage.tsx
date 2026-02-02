@@ -86,8 +86,6 @@ export const ConverterPage = () => {
     }
 
     const downloadExcel = async () => {
-
-        console.log("Downloading excel with level:", conversionLevel);
         const response = await axiosAPI.post(
             `/items/convert/download?level=${conversionLevel}`,
             products,
@@ -96,16 +94,12 @@ export const ConverterPage = () => {
             }
         )
 
-        console.log("Response received for excel download:", response);
-
         const blob = new Blob(
             [response.data],
             {
                 type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             }
         )
-
-        console.log("Blob created for excel file:", blob);
 
         const url = window.URL.createObjectURL(blob)
 
